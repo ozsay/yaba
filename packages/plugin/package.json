@@ -1,0 +1,10 @@
+{
+  "name": "@yaba/plugin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "lodash.values": "^4.3.0",
+    "node-ipc": "9.1.1"
+  }
+}

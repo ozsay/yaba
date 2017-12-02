@@ -1,0 +1,20 @@
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import promiseMiddleware from 'redux-promise-middleware';
+import thunk from 'redux-thunk';
+
+import statsReducer from './reducers/stats';
+
+const reducer = combineReducers({
+    stats: statsReducer,
+});
+
+const MIDDLEWARES = [
+    promiseMiddleware(),
+    thunk,
+];
+
+const middleware = applyMiddleware(...MIDDLEWARES);
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+export default createStore(reducer, {}, composeEnhancers(middleware));
