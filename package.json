@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "clean": "lerna clean",
     "build:demo": "lerna run --scope @yaba/demo build",
     "start:main": "lerna run --scope @yaba/application start-main",
     "start:renderer": "lerna run --scope @yaba/application start-renderer"
@@ -11,7 +12,7 @@
     "packages/*"
   ],
   "devDependencies": {
-    "eslint": "4.11.0",
+    "eslint": "4.12.1",
     "eslint-config-airbnb": "16.1.0",
     "eslint-plugin-import": "2.8.0",
     "eslint-plugin-jsx-a11y": "6.0.2",
