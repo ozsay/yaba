@@ -1,8 +1,5 @@
-import stats from '../../../../../stats.json';
-
 export const ACTION_TYPE = 'INIT_APP';
 
-export default function () {
-    // return { type: ACTION_TYPE };
+export default function (stats) {
     return { type: ACTION_TYPE, payload: stats };
 }

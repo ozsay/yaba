@@ -47,20 +47,20 @@ function getRoute(tab) {
     return tab.path || tab.link;
 }
 
-function mapStateToProps(state, { location }) {
+function mapStateToProps({ stats }, { location }) {
     const tabs = TABS.map(tab => Object.assign(tab, { path: getRoute(tab), pathRegexp: pathToRegexp(getRoute(tab)) }));
 
     const currentTab = tabs.findIndex(tab => tab.pathRegexp.test(location.pathname));
     let currentModule;
     let reasonParams;
 
-    if (location.search) {
+    if (stats && location.search) {
         const params = qs.parse(location.search.substring(1));
 
         if (params.moduleId) {
             const moduleId = Number.parseInt(params.moduleId, 10);
 
-            currentModule = state.stats.modules.find(module => module.id === moduleId);
+            currentModule = stats.modules.find(module => module.id === moduleId);
 
             if (params.markerPos && params.reasonType) {
                 const [line, column] = params.markerPos.split(':');
@@ -74,9 +74,9 @@ function mapStateToProps(state, { location }) {
     }
 
     return {
-        hasStats: state.stats !== null,
+        hasStats: stats !== null,
         tabs,
-        modules: state.stats && state.stats.modules,
+        modules: stats && stats.modules,
         currentTab,
         currentModule,
         reasonParams,

@@ -12,12 +12,14 @@ import store from './store';
 
 import Main from './scenes/Main';
 
-// if (process.env.NODE_ENV !== 'production') {
-//     const { whyDidYouUpdate } = require('why-did-you-update');
-//     whyDidYouUpdate(React);
-// }
+if (process.env.NODE_ENV !== 'production') {
+    // const { whyDidYouUpdate } = require('why-did-you-update');
+    // whyDidYouUpdate(React);
+    store.dispatch(initApp(require('@yaba/demo/stats.json')));
+} else {
+    store.dispatch(initApp());
+}
 
-store.dispatch(initApp());
 store.dispatch(statsListener());
 
 function App() {
