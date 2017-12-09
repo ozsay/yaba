@@ -19,7 +19,7 @@ export default function General(props) {
                 <TitleAndDescription title="Webpack version" description={version} />
             </Grid>
             <Grid item>
-                <TitleAndDescription title="Build time" description={`${time}ms`} />
+                <TitleAndDescription title="Build time" description={!time ? '' : `${time}ms`} />
             </Grid>
             <Grid item>
                 <TitleAndDescription title="Hash" description={hash} />

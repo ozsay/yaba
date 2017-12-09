@@ -25,8 +25,8 @@ function getPkgJson(moduleDir, cb) {
 }
 
 class YabaPlugin {
-    constructor({ statsPath = 'stats.json' } = {}) {
-        this.statsPath = statsPath;
+    constructor({ file = false } = {}) {
+        this.file = file;
     }
 
     apply(compiler) {
@@ -35,7 +35,7 @@ class YabaPlugin {
                 const yabaApplication = ipc.of.yaba_application;
 
                 yabaApplication.on('connect', () => {
-                    const { context } = currCompiler.options;
+                    const { context, output: { path: outputPath } } = currCompiler.options;
                     const stats = currCompiler.getStats().toJson();
 
                     const packages = {};
@@ -60,9 +60,15 @@ class YabaPlugin {
 
                         stats.packages = values(packages);
 
-                        fs.writeFileSync(this.statsPath, JSON.stringify(stats));
+                        const finalStats = JSON.stringify(stats);
 
-                        yabaApplication.emit('message', JSON.stringify(stats));
+                        const statsPath = this.file === true ? path.resolve(outputPath, 'stats.json') : this.file;
+
+                        if (statsPath) {
+                            fs.writeFileSync(statsPath, finalStats);
+                        }
+
+                        yabaApplication.emit('message', finalStats);
                     });
                 });
 

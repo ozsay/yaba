@@ -1,11 +1,12 @@
 const path = require('path');
+const tmp = require('tmp');
 
 const YabaPlugin = require('@yaba/plugin');
 
-module.exports = {
+module.exports = ({ tmpFolder = true } = {}) => ({
     entry: `./app/index.js`,
     output: {
-        path: path.resolve('dist'),
+        path: tmpFolder ? tmp.dirSync({ unsafeCleanup: true }).name : path.resolve('dist'),
         filename: 'bundle.js',
     },
     module: {
@@ -22,4 +23,4 @@ module.exports = {
     plugins: [
         new YabaPlugin(),
     ],
-};
+});

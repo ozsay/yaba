@@ -6,6 +6,8 @@ import { Route, Switch, Link, Redirect } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Toolbar from 'material-ui/Toolbar';
+import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
+import Button from 'material-ui/Button';
 
 import TabContainer from './TabContainer';
 import StatsImporter from '../containers/StatsImporter';
@@ -22,8 +24,14 @@ class Main extends React.Component {
         super(props);
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleStatsUpdateConfirm = this.handleStatsUpdateConfirm.bind(this);
+        this.handleStatsUpdateReject = this.handleStatsUpdateReject.bind(this);
 
         this.state = { value: this.getCurrentTab() };
+
+        props.startListening(() => new Promise((resolve, reject) => {
+            this.setState(Object.assign({}, this.state, { confirm: resolve, reject }));
+        }));
     }
 
     componentWillReceiveProps(props) {
@@ -40,11 +48,21 @@ class Main extends React.Component {
         this.setState(Object.assign({}, this.state, { value }));
     }
 
+    handleStatsUpdateConfirm() {
+        this.state.confirm();
+        this.setState(Object.assign({}, this.state, { confirm: null }));
+    }
+
+    handleStatsUpdateReject() {
+        this.state.reject();
+        this.setState(Object.assign({}, this.state, { confirm: null }));
+    }
+
     render() {
         const {
             hasStats, tabs, currentModule, reasonParams,
         } = this.props;
-        const { value } = this.state;
+        const { value, confirm } = this.state;
 
         return (
             <div>
@@ -53,13 +71,32 @@ class Main extends React.Component {
                         <StatsImporter />
                         <Tabs value={value} onChange={this.handleChange} style={{ marginLeft: 30 }}>
                             {tabs.map(tab => (
-                                <Tab key={tab.name} label={tab.name} component={Link} to={tab.link} disabled={!hasStats} />
+                                <Tab
+                                    key={tab.name}
+                                    label={tab.label || tab.name}
+                                    component={Link}
+                                    to={tab.link}
+                                    disabled={!hasStats}
+                                />
                             ))}
                         </Tabs>
                     </Toolbar>
                 </AppBar>
+                {confirm &&
+                <Dialog open>
+                    <DialogTitle>Confirm stats update?</DialogTitle>
+                    <DialogContent>Approve</DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleStatsUpdateReject} color="primary">
+                            Cancel
+                        </Button>
+                        <Button onClick={this.handleStatsUpdateConfirm} color="primary">
+                            Ok
+                        </Button>
+                    </DialogActions>
+                </Dialog>}
+                {currentModule && <Module module={currentModule} reasonParams={reasonParams} />}
                 <Switch>
-                    {currentModule && <Module module={currentModule} reasonParams={reasonParams} />}
                     <Route path="/" exact component={DefaultComponent} />
                     {hasStats && tabs.map(tab => (
                         <Route
@@ -80,6 +117,7 @@ Main.propTypes = {
     tabs: PropTypes.array, // eslint-disable-line
     currentModule: PropTypes.object, // eslint-disable-line
     reasonParams: PropTypes.object, // eslint-disable-line
+    startListening: PropTypes.func.isRequired,
 };
 
 Main.defaultProps = {

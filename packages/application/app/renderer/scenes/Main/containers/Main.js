@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 import pathToRegexp from 'path-to-regexp';
 import qs from 'qs';
 
+import statsListener from '../../../actions/statsListener';
+
 import MainComponent from '../components/Main';
 
 import Modules from '../../Modules';
@@ -11,43 +13,53 @@ import Errors from '../../Errors';
 import Warnings from '../../Warnings';
 import Assets from '../../Assets';
 
-const TABS = [
-    {
-        name: 'General',
-        link: '/general',
-        path: '/general:moduleId?',
-        children: General,
-    },
-    {
-        name: 'Modules',
-        link: '/modules',
-        path: '/modules:moduleId?',
-        children: Modules,
-    },
-    {
-        name: 'Assets',
-        link: '/assets',
-        children: Assets,
-    },
-    // { name: 'Chunks', link: '/chunks' },
-    {
-        name: 'Warnings',
-        link: '/warnings',
-        children: Warnings,
-    },
-    {
-        name: 'Errors',
-        link: '/errors',
-        children: Errors,
-    },
-    // { name: 'Hints', link: '/hints' },
-];
-
 function getRoute(tab) {
     return tab.path || tab.link;
 }
 
+function getLabel(stats, key, label) {
+    const size = stats && stats[key] && stats[key].length;
+
+    return `${label}${size !== undefined ? ` [${size}]` : ''}`;
+}
+
 function mapStateToProps({ stats }, { location }) {
+    const TABS = [
+        {
+            name: 'General',
+            link: '/general',
+            path: '/general:moduleId?',
+            children: General,
+        },
+        {
+            name: 'Modules',
+            link: '/modules',
+            label: getLabel(stats, 'modules', 'Modules'),
+            path: '/modules:moduleId?',
+            children: Modules,
+        },
+        {
+            name: 'Assets',
+            link: '/assets',
+            label: getLabel(stats, 'assets', 'Assets'),
+            children: Assets,
+        },
+        // { name: 'Chunks', link: '/chunks' },
+        {
+            name: 'Warnings',
+            link: '/warnings',
+            label: getLabel(stats, 'warnings', 'Warnings'),
+            children: Warnings,
+        },
+        {
+            name: 'Errors',
+            link: '/errors',
+            label: getLabel(stats, 'errors', 'Errors'),
+            children: Errors,
+        },
+        // { name: 'Hints', link: '/hints' },
+    ];
+
     const tabs = TABS.map(tab => Object.assign(tab, { path: getRoute(tab), pathRegexp: pathToRegexp(getRoute(tab)) }));
 
     const currentTab = tabs.findIndex(tab => tab.pathRegexp.test(location.pathname));
@@ -76,11 +88,18 @@ function mapStateToProps({ stats }, { location }) {
     return {
         hasStats: stats !== null,
         tabs,
-        modules: stats && stats.modules,
         currentTab,
         currentModule,
         reasonParams,
     };
 }
 
-export default withRouter(connect(mapStateToProps)(MainComponent));
+function mapDispatchToProps(dispatch) {
+    return {
+        startListening: (listener) => {
+            dispatch(statsListener(listener));
+        },
+    };
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainComponent));

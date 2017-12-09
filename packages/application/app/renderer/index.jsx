@@ -6,7 +6,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import initApp from './actions/initApp';
-import statsListener from './actions/statsListener';
 
 import store from './store';
 
@@ -19,8 +18,6 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
     store.dispatch(initApp());
 }
-
-store.dispatch(statsListener());
 
 function App() {
     return (

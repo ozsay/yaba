@@ -7,7 +7,7 @@
     "qs": "6.5.1"
   },
   "scripts": {
-    "build": "webpack --profile"
+    "build": "webpack --progress --profile --json > /dev/null"
   },
   "devDependencies": {
     "@yaba/plugin": "1.0.0",
@@ -15,6 +15,7 @@
     "babel-eslint": "8.0.3",
     "babel-loader": "7.1.2",
     "babel-preset-env": "1.6.1",
+    "tmp": "^0.0.33",
     "webpack": "3.10.0"
   }
 }
