@@ -13,6 +13,8 @@ export default function General(props) {
         version, hash, errors = [], warnings = [], modules = [], assets = [], chunks = [], mainModule, time,
     } = props.stats;
 
+    const { addSecondaryTab } = props;
+
     return (
         <Grid container justify="center" spacing={16}>
             <Grid item>
@@ -49,7 +51,7 @@ export default function General(props) {
                 <TitleAndDescription
                     title="Main module"
                     description={mainModule.name}
-                    action={<Button component={Link} to={`?moduleId=${mainModule.id}`}>Learn More</Button>}
+                    action={<Button onClick={() => addSecondaryTab(mainModule)}>Learn More</Button>}
                 />
             </Grid>
             <Grid item>
@@ -71,6 +73,7 @@ export default function General(props) {
 
 General.propTypes = {
     stats: PropTypes.object, // eslint-disable-line
+    addSecondaryTab: PropTypes.func.isRequired,
 };
 
 General.defaultProps = {

@@ -13,6 +13,12 @@ import TabContainer from './TabContainer';
 import StatsImporter from '../containers/StatsImporter';
 import Module from '../../../components/Module';
 
+function getLabel(stats, { name, statsKey }) {
+    const size = stats && stats[statsKey] && stats[statsKey].length;
+
+    return `${name}${size !== undefined && size !== null ? ` [${size}]` : ''}`;
+}
+
 function DefaultComponent() {
     return (
         <TabContainer><div>Please upload a stats file</div></TabContainer>
@@ -60,7 +66,7 @@ class Main extends React.Component {
 
     render() {
         const {
-            hasStats, tabs, currentModule, reasonParams,
+            stats, mainTabs, currentModule, reasonParams, secondaryTabs,
         } = this.props;
         const { value, confirm } = this.state;
 
@@ -70,13 +76,13 @@ class Main extends React.Component {
                     <Toolbar>
                         <StatsImporter />
                         <Tabs value={value} onChange={this.handleChange} style={{ marginLeft: 30 }}>
-                            {tabs.map(tab => (
+                            {mainTabs.map(tab => (
                                 <Tab
                                     key={tab.name}
-                                    label={tab.label || tab.name}
+                                    label={getLabel(stats, tab)}
                                     component={Link}
                                     to={tab.link}
-                                    disabled={!hasStats}
+                                    disabled={stats === null}
                                 />
                             ))}
                         </Tabs>
@@ -98,9 +104,24 @@ class Main extends React.Component {
                     </DialogActions>
                 </Dialog>}
                 {currentModule && <Module module={currentModule} reasonParams={reasonParams} />}
+                { secondaryTabs.length > 0 &&
+                    <Tabs
+                        value={false}
+                        indicatorColor="primary"
+                        textColor="primary"
+                        scrollable
+                        scrollButtons="auto"
+                    >
+                        {
+                            secondaryTabs.map(element => (
+                                <Tab key={element.id} label={element.name} />
+                            ))
+                        }
+                    </Tabs>
+                }
                 <Switch>
                     <Route path="/" exact component={DefaultComponent} />
-                    {hasStats && tabs.map(tab => (
+                    {stats && mainTabs.map(tab => (
                         <Route
                             key={tab.name}
                             path={tab.path}
@@ -115,16 +136,17 @@ class Main extends React.Component {
 
 Main.propTypes = {
     location: PropTypes.object.isRequired, // eslint-disable-line
-    hasStats: PropTypes.bool,
-    tabs: PropTypes.array, // eslint-disable-line
+    stats: PropTypes.object, // eslint-disable-line
+    mainTabs: PropTypes.array.isRequired, // eslint-disable-line
+    secondaryTabs: PropTypes.array, // eslint-disable-line
     currentModule: PropTypes.object, // eslint-disable-line
     reasonParams: PropTypes.object, // eslint-disable-line
     startListening: PropTypes.func.isRequired,
 };
 
 Main.defaultProps = {
-    hasStats: false,
-    tabs: [],
+    stats: null,
+    secondaryTabs: [],
 };
 
 export default Main;
