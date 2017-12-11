@@ -12,6 +12,7 @@
     "@yaba/demo": "1.0.0",
     "codemirror": "5.32.0",
     "electron": "1.7.9",
+    "localforage": "^1.5.5",
     "material-ui": "1.0.0-beta.23",
     "material-ui-icons": "1.0.0-beta.17",
     "node-ipc": "9.1.1",

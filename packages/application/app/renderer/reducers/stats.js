@@ -1,4 +1,4 @@
-import { INIT_APP, IMPORT_STATS_FULFILLED, UPDATE_STATS } from '../actions/types';
+import { IMPORT_STATS_FULFILLED, UPDATE_STATS, LOAD_STATS_FULFILLED } from '../actions/types';
 
 class Reason {
     constructor(reason) {
@@ -184,7 +184,7 @@ function buildStats(stats) {
 }
 
 export default function (state = null, { type, payload }) {
-    if ((type === INIT_APP && payload) || type === IMPORT_STATS_FULFILLED || type === UPDATE_STATS) {
+    if ((type === LOAD_STATS_FULFILLED && payload) || type === IMPORT_STATS_FULFILLED || type === UPDATE_STATS) {
         return buildStats(payload);
     }
 
