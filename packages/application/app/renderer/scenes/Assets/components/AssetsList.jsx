@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import mime from 'mime-types';
 
-import List, { ListItem, ListItemText } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
+import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 
 export default class Assets extends React.Component {
     constructor(props) {
@@ -10,21 +11,28 @@ export default class Assets extends React.Component {
     }
 
     render() {
+        const { assets } = this.props;
+
         return (
             <div>
-                <List>
-                    {
-                        this.props.assets
-                            .map(asset => (
-                                <div key={asset.name}>
-                                    <ListItem button>
-                                        <ListItemText primary={asset.name} />
-                                    </ListItem>
-                                    <Divider light />
-                                </div>
-                            ))
-                    }
-                </List>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>File Name</TableCell>
+                            <TableCell>MIME Type</TableCell>
+                            <TableCell numeric>Size</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {assets.map(asset => (
+                            <TableRow key={asset.name} hover>
+                                <TableCell><Link to={`/assets?name=${asset.name}`}>{asset.name}</Link></TableCell>
+                                <TableCell>{mime.lookup(asset.name)}</TableCell>
+                                <TableCell numeric>{asset.size}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
             </div>
         );
     }

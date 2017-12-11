@@ -6,7 +6,7 @@ export const ACTION_TYPE = 'INIT_APP';
 
 export default function () {
     return (dispatch) => {
-        localforage.getItem('default')
+        return localforage.getItem('default')
             .then((key) => {
                 if (key) {
                     return dispatch(loadStats(key));

@@ -16,8 +16,6 @@ if (process.env.NODE_ENV !== 'production') {
     // whyDidYouUpdate(React);
 }
 
-store.dispatch(initApp());
-
 function App() {
     return (
         <Provider store={store}>
@@ -28,4 +26,7 @@ function App() {
     );
 }
 
-render(<App />, document.querySelector('#app'));
+store.dispatch(initApp())
+    .then(() => {
+        render(<App />, document.querySelector('#app'));
+    });
