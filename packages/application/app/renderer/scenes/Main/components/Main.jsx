@@ -84,8 +84,10 @@ class Main extends React.Component {
                 </AppBar>
                 {confirm &&
                 <Dialog open>
-                    <DialogTitle>Confirm stats update?</DialogTitle>
-                    <DialogContent>Approve</DialogContent>
+                    <DialogTitle>Confirm stats update</DialogTitle>
+                    <DialogContent>Stats have been updated through the yaba plugin.
+                                   Do you wish to apply changes?
+                    </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleStatsUpdateReject} color="primary">
                             Cancel

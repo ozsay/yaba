@@ -20,7 +20,7 @@ function getRoute(tab) {
 function getLabel(stats, key, label) {
     const size = stats && stats[key] && stats[key].length;
 
-    return `${label}${size !== undefined ? ` [${size}]` : ''}`;
+    return `${label}${size !== null ? ` [${size}]` : ''}`;
 }
 
 function mapStateToProps({ stats }, { location }) {
