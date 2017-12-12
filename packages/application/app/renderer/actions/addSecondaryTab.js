@@ -6,6 +6,6 @@ export default function (element) {
     return (dispatch, getState) => {
         dispatch({ type: ACTION_TYPE, payload: element });
 
-        dispatch(gotoTab(getState().secondaryTabs.length));
+        dispatch(gotoTab(getState().tabs.secondaryTabs.length - 1));
     };
 }

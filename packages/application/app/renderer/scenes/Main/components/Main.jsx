@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Route, Switch, Link, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
@@ -11,7 +11,6 @@ import Button from 'material-ui/Button';
 
 import TabContainer from './TabContainer';
 import StatsImporter from '../containers/StatsImporter';
-import Module from '../../../components/Module';
 
 function getLabel(stats, { name, statsKey }) {
     const size = stats && stats[statsKey] && stats[statsKey].length;
@@ -25,33 +24,38 @@ function DefaultComponent() {
     );
 }
 
+function calcIndex(index) {
+    return index !== -1 ? index : false;
+}
+
 class Main extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleChange = this.handleChange.bind(this);
+        this.handleMainChange = this.handleMainChange.bind(this);
+        this.handleSecondaryChange = this.handleSecondaryChange.bind(this);
         this.handleStatsUpdateConfirm = this.handleStatsUpdateConfirm.bind(this);
         this.handleStatsUpdateReject = this.handleStatsUpdateReject.bind(this);
 
-        this.state = { value: this.getCurrentTab() };
+        this.state = {};
 
         props.startListening(() => new Promise((resolve, reject) => {
             this.setState(Object.assign({}, this.state, { confirm: resolve, reject }));
         }));
     }
 
-    componentWillReceiveProps(props) {
-        const currentTab = this.getCurrentTab(props);
+    changeTab(index, isSecondary = true) {
+        const { gotoTab } = this.props;
 
-        this.setState({ value: currentTab });
+        gotoTab(index, isSecondary);
     }
 
-    getCurrentTab({ currentTab } = this.props) {
-        return currentTab !== -1 ? currentTab : false;
+    handleMainChange(event, value) {
+        this.changeTab(value, false);
     }
 
-    handleChange(event, value) {
-        this.setState(Object.assign({}, this.state, { value }));
+    handleSecondaryChange(event, value) {
+        this.changeTab(value, true);
     }
 
     handleStatsUpdateConfirm() {
@@ -66,22 +70,27 @@ class Main extends React.Component {
 
     render() {
         const {
-            stats, mainTabs, currentModule, reasonParams, secondaryTabs,
+            stats,
+            mainTabs,
+            secondaryTabs,
+            currentTab: { isSecondary, index } = { isSecondary: false, index: -1 },
         } = this.props;
-        const { value, confirm } = this.state;
+        const { confirm } = this.state;
 
         return (
             <div>
                 <AppBar position="static">
                     <Toolbar>
                         <StatsImporter />
-                        <Tabs value={value} onChange={this.handleChange} style={{ marginLeft: 30 }}>
+                        <Tabs
+                            value={!isSecondary && calcIndex(index)}
+                            onChange={this.handleMainChange}
+                            style={{ marginLeft: 30 }}
+                        >
                             {mainTabs.map(tab => (
                                 <Tab
                                     key={tab.name}
                                     label={getLabel(stats, tab)}
-                                    component={Link}
-                                    to={tab.link}
                                     disabled={stats === null}
                                 />
                             ))}
@@ -103,25 +112,32 @@ class Main extends React.Component {
                         </Button>
                     </DialogActions>
                 </Dialog>}
-                {currentModule && <Module module={currentModule} reasonParams={reasonParams} />}
                 { secondaryTabs.length > 0 &&
                     <Tabs
-                        value={false}
+                        value={isSecondary && calcIndex(index)}
+                        onChange={this.handleSecondaryChange}
                         indicatorColor="primary"
                         textColor="primary"
                         scrollable
                         scrollButtons="auto"
                     >
                         {
-                            secondaryTabs.map(element => (
-                                <Tab key={element.id} label={element.name} />
+                            secondaryTabs.map(tab => (
+                                <Tab
+                                    key={tab.link}
+                                    label={
+                                        <div>
+                                            <div>MODULE</div>
+                                            <div style={{ textTransform: 'none' }}>{tab.name}</div>
+                                        </div>}
+                                />
                             ))
                         }
                     </Tabs>
                 }
                 <Switch>
                     <Route path="/" exact component={DefaultComponent} />
-                    {stats && mainTabs.map(tab => (
+                    {stats && mainTabs.concat(secondaryTabs).map(tab => (
                         <Route
                             key={tab.name}
                             path={tab.path}
@@ -139,9 +155,9 @@ Main.propTypes = {
     stats: PropTypes.object, // eslint-disable-line
     mainTabs: PropTypes.array.isRequired, // eslint-disable-line
     secondaryTabs: PropTypes.array, // eslint-disable-line
-    currentModule: PropTypes.object, // eslint-disable-line
-    reasonParams: PropTypes.object, // eslint-disable-line
+    currentTab: PropTypes.object, // eslint-disable-line
     startListening: PropTypes.func.isRequired,
+    gotoTab: PropTypes.func.isRequired,
 };
 
 Main.defaultProps = {

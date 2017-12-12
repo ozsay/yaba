@@ -2,8 +2,10 @@ import 'typeface-roboto/index.css';
 
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
+
+import history from './utils/history';
 
 import initApp from './actions/initApp';
 
@@ -19,7 +21,7 @@ if (process.env.NODE_ENV !== 'production') {
 function App() {
     return (
         <Provider store={store}>
-            <Router>
+            <Router history={history}>
                 <Main />
             </Router>
         </Provider>

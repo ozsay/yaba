@@ -8,21 +8,15 @@ import CodeMirror from 'react-codemirror';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/theme/monokai.css';
 
-import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List';
-import Dialog, {
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-} from 'material-ui/Dialog';
 import Typography from 'material-ui/Typography';
 import { GridList, GridListTile } from 'material-ui/GridList';
 import NavigateNext from 'material-ui-icons/NavigateNext';
 import Switch from 'material-ui/Switch';
 import { FormControlLabel } from 'material-ui/Form';
 
-import ModulesTable from './ModulesTable';
+import ModulesTable from '../../../components/ModulesTable';
 
 const cjsMarkerStyle = 'background-color: red';
 const es6MarkerStyle = 'background-color: blue';
@@ -91,10 +85,8 @@ class Module extends React.Component {
         const { showChildren, showReasons } = this.state;
 
         return (
-            <Dialog open fullScreen>
-                <DialogTitle>{module.name}</DialogTitle>
-                <DialogContent>
-                    { module.issuer &&
+            <div>
+                { module.issuer &&
                     <div>
                         <Typography type="body2">Issuer</Typography>
                         <Typography type="body1">
@@ -102,8 +94,8 @@ class Module extends React.Component {
                         </Typography>
                         <br />
                     </div>
-                    }
-                    { module.children.length > 0 &&
+                }
+                { module.children.length > 0 &&
                     <div>
                         <FormControlLabel
                             control={
@@ -121,8 +113,8 @@ class Module extends React.Component {
                         }
                         <br />
                     </div>
-                    }
-                    { module.reasons.length > 0 &&
+                }
+                { module.reasons.length > 0 &&
                     <div>
                         <FormControlLabel
                             control={
@@ -159,24 +151,18 @@ class Module extends React.Component {
                         }
                         <br />
                     </div>
-                    }
-                    <Typography type="body2">Source code</Typography>
-                    <CodeMirror
-                        ref={this.onLoadEditor}
-                        options={{
-                            readOnly: true,
-                            lineNumbers: true,
-                            theme: 'monokai',
-                            mode: 'javascript',
-                        }}
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button color="primary" onClick={this.close}>
-                        Close
-                    </Button>
-                </DialogActions>
-            </Dialog>
+                }
+                <Typography type="body2">Source code</Typography>
+                <CodeMirror
+                    ref={this.onLoadEditor}
+                    options={{
+                        readOnly: true,
+                        lineNumbers: true,
+                        theme: 'monokai',
+                        mode: 'javascript',
+                    }}
+                />
+            </div>
         );
     }
 }
