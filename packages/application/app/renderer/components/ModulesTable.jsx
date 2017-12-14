@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 
-export default function ModulesTable({ modules }) {
+import addSecondaryTabAction from '../actions/addSecondaryTab';
+
+function ModulesTable({ modules, addSecondaryTab }) {
     return (
         <Table>
             <TableHead>
@@ -19,10 +21,10 @@ export default function ModulesTable({ modules }) {
             <TableBody>
                 {modules.map(module => (
                     <TableRow key={module.id} hover>
-                        <TableCell><Link to={`/modules?moduleId=${module.id}`}>{module.id}</Link></TableCell>
+                        <TableCell><a href="#" onClick={() => addSecondaryTab(module)}>{module.id}</a></TableCell>
                         <TableCell>{module.name}</TableCell>
                         <TableCell>{module.issuer &&
-                            <Link to={`/modules?moduleId=${module.issuer.id}`}>{module.issuer.name}</Link>}
+                            <a href="#" onClick={() => addSecondaryTab(module.issuer)}>{module.issuer.name}</a>}
                         </TableCell>
                         <TableCell numeric>{module.size}</TableCell>
                         <TableCell numeric>{module.children.length}</TableCell>
@@ -33,8 +35,15 @@ export default function ModulesTable({ modules }) {
     );
 }
 
+const mapDispaptchToProps = {
+    addSecondaryTab: addSecondaryTabAction,
+};
+
+export default connect(() => ({}), mapDispaptchToProps)(ModulesTable);
+
 ModulesTable.propTypes = {
     modules: PropTypes.arrayOf(PropTypes.object),
+    addSecondaryTab: PropTypes.func.isRequired,
 };
 
 ModulesTable.defaultProps = { modules: [] };

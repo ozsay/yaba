@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Link } from 'react-router-dom';
-
 import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 
@@ -13,7 +11,7 @@ export default function General(props) {
         version, hash, errors = [], warnings = [], modules = [], assets = [], chunks = [], mainModule, time,
     } = props.stats;
 
-    const { addSecondaryTab } = props;
+    const { addSecondaryTab, gotoTab } = props;
 
     return (
         <Grid container justify="center" spacing={16}>
@@ -30,21 +28,21 @@ export default function General(props) {
                 <TitleAndDescription
                     title="Errors count"
                     description={errors.length}
-                    action={errors.length > 0 && <Button component={Link} to="/errors">Learn More</Button>}
+                    action={errors.length > 0 && <Button onClick={() => gotoTab(4, false)}>Learn More</Button>}
                 />
             </Grid>
             <Grid item>
                 <TitleAndDescription
                     title="Warnings count"
                     description={warnings.length}
-                    action={warnings.length > 0 && <Button component={Link} to="/warnings">Learn More</Button>}
+                    action={warnings.length > 0 && <Button onClick={() => gotoTab(3, false)}>Learn More</Button>}
                 />
             </Grid>
             <Grid item>
                 <TitleAndDescription
                     title="Modules count"
                     description={modules.length}
-                    action={modules.length > 0 && <Button component={Link} to="/modules">Learn More</Button>}
+                    action={modules.length > 0 && <Button onClick={() => gotoTab(1, false)}>Learn More</Button>}
                 />
             </Grid>
             <Grid item>
@@ -58,7 +56,7 @@ export default function General(props) {
                 <TitleAndDescription
                     title="Assets count"
                     description={assets.length}
-                    action={assets.length > 0 && <Button component={Link} to="/assets">Learn More</Button>}
+                    action={assets.length > 0 && <Button onClick={() => gotoTab(2, false)}>Learn More</Button>}
                 />
             </Grid>
             <Grid item>
@@ -74,6 +72,7 @@ export default function General(props) {
 General.propTypes = {
     stats: PropTypes.object, // eslint-disable-line
     addSecondaryTab: PropTypes.func.isRequired,
+    gotoTab: PropTypes.func.isRequired,
 };
 
 General.defaultProps = {
