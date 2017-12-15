@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Input from 'material-ui/Input';
-
 import ModulesTable from '../../../components/ModulesTable';
 
 export default class Modules extends React.Component {
@@ -30,10 +28,6 @@ export default class Modules extends React.Component {
 
         return (
             <div>
-                <Input
-                    placeholder="Filter modules"
-                    onChange={this.filter}
-                />
                 <ModulesTable modules={filteredModules} />
             </div>
         );

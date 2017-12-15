@@ -1,10 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Button from 'material-ui/Button';
-import Grid from 'material-ui/Grid';
+import { Card, Button } from 'antd';
 
-import TitleAndDescription from '../../../components/TitleAndDescription';
+const gridStyle = {
+    width: '20%',
+    height: '150px',
+    textAlign: 'center',
+};
+
+function Content({ title, description, action }) {
+    return (
+        <Card.Grid style={gridStyle}>
+            <div>
+                <h3>{title}</h3>
+                <h4>{description}</h4>
+                { action }
+            </div>
+        </Card.Grid>
+    );
+}
+
+Content.propTypes = {
+    title: PropTypes.string.isRequired,
+    description: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    action: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]).isRequired,
+};
+
+Content.defaultProps = {
+    action: false, // eslint-disable-line
+};
+
 
 export default function General(props) {
     const {
@@ -14,58 +40,46 @@ export default function General(props) {
     const { addSecondaryTab, gotoTab } = props;
 
     return (
-        <Grid container justify="center" spacing={16}>
-            <Grid item>
-                <TitleAndDescription title="Webpack version" description={version} />
-            </Grid>
-            <Grid item>
-                <TitleAndDescription title="Build time" description={!time ? '' : `${time}ms`} />
-            </Grid>
-            <Grid item>
-                <TitleAndDescription title="Hash" description={hash} />
-            </Grid>
-            <Grid item>
-                <TitleAndDescription
-                    title="Errors count"
-                    description={errors.length}
-                    action={errors.length > 0 && <Button onClick={() => gotoTab(4, false)}>Learn More</Button>}
-                />
-            </Grid>
-            <Grid item>
-                <TitleAndDescription
-                    title="Warnings count"
-                    description={warnings.length}
-                    action={warnings.length > 0 && <Button onClick={() => gotoTab(3, false)}>Learn More</Button>}
-                />
-            </Grid>
-            <Grid item>
-                <TitleAndDescription
-                    title="Modules count"
-                    description={modules.length}
-                    action={modules.length > 0 && <Button onClick={() => gotoTab(1, false)}>Learn More</Button>}
-                />
-            </Grid>
-            <Grid item>
-                <TitleAndDescription
-                    title="Main module"
-                    description={mainModule.name}
-                    action={<Button onClick={() => addSecondaryTab(mainModule)}>Learn More</Button>}
-                />
-            </Grid>
-            <Grid item>
-                <TitleAndDescription
-                    title="Assets count"
-                    description={assets.length}
-                    action={assets.length > 0 && <Button onClick={() => gotoTab(2, false)}>Learn More</Button>}
-                />
-            </Grid>
-            <Grid item>
-                <TitleAndDescription
-                    title="Chunks count"
-                    description={chunks.length}
-                />
-            </Grid>
-        </Grid>
+        <Card title="General properties of the bundle">
+            <Content title="Webpack version" description={version} />
+            <Content title="Build time" description={!time ? '' : `${time}ms`} />
+            <Content title="Hash" description={hash} />
+            <Content
+                title="Errors count"
+                description={errors.length}
+                action={errors.length > 0 && <Button onClick={() => gotoTab(4, false)}>Learn More</Button>}
+            />
+
+            <Content
+                title="Warnings count"
+                description={warnings.length}
+                action={warnings.length > 0 && <Button onClick={() => gotoTab(3, false)}>Learn More</Button>}
+            />
+
+            <Content
+                title="Modules count"
+                description={modules.length}
+                action={modules.length > 0 && <Button onClick={() => gotoTab(1, false)}>Learn More</Button>}
+            />
+
+            <Content
+                title="Main module"
+                description={mainModule.name}
+                action={<Button onClick={() => addSecondaryTab(mainModule)}>Learn More</Button>}
+            />
+
+            <Content
+                title="Assets count"
+                description={assets.length}
+                action={assets.length > 0 && <Button onClick={() => gotoTab(2, false)}>Learn More</Button>}
+            />
+
+            <Content
+                title="Chunks count"
+                description={chunks.length}
+            />
+
+        </Card>
     );
 }
 

@@ -3,19 +3,26 @@ import PropTypes from 'prop-types';
 
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import AppBar from 'material-ui/AppBar';
-import Tabs, { Tab } from 'material-ui/Tabs';
-import Toolbar from 'material-ui/Toolbar';
-import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
-import Button from 'material-ui/Button';
+import { Layout, Menu, Modal, Badge } from 'antd';
 
 import TabContainer from './TabContainer';
 import StatsImporter from '../containers/StatsImporter';
 
-function getLabel(stats, { name, statsKey }) {
+const { confirm } = Modal;
+const { Header, Content, Sider } = Layout;
+
+const headerHeight = '42px';
+
+const addStatsButtonStyle = {
+    float: 'left',
+    marginTop: '5px',
+    marginRight: '24px',
+};
+
+function getSize(stats, { statsKey }) {
     const size = stats && stats[statsKey] && stats[statsKey].length;
 
-    return `${name}${size !== undefined && size !== null ? ` [${size}]` : ''}`;
+    return size || 0;
 }
 
 function DefaultComponent() {
@@ -24,18 +31,12 @@ function DefaultComponent() {
     );
 }
 
-function calcIndex(index) {
-    return index !== -1 ? index : false;
-}
-
 class Main extends React.Component {
     constructor(props) {
         super(props);
 
         this.handleMainChange = this.handleMainChange.bind(this);
         this.handleSecondaryChange = this.handleSecondaryChange.bind(this);
-        this.handleStatsUpdateConfirm = this.handleStatsUpdateConfirm.bind(this);
-        this.handleStatsUpdateReject = this.handleStatsUpdateReject.bind(this);
 
         this.state = {};
 
@@ -44,28 +45,42 @@ class Main extends React.Component {
         }));
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.confirm && !prevState.confirm) {
+            this.showStatsUpdateConfirm();
+        }
+    }
+
     changeTab(index, isSecondary = true) {
         const { gotoTab } = this.props;
 
         gotoTab(index, isSecondary);
     }
 
-    handleMainChange(event, value) {
-        this.changeTab(value, false);
+    handleMainChange({ key }) {
+        const { mainTabs } = this.props;
+
+        this.changeTab(mainTabs.findIndex(tab => tab.name === key), false);
     }
 
     handleSecondaryChange(event, value) {
         this.changeTab(value, true);
     }
 
-    handleStatsUpdateConfirm() {
-        this.state.confirm();
-        this.setState(Object.assign({}, this.state, { confirm: null }));
-    }
-
-    handleStatsUpdateReject() {
-        this.state.reject();
-        this.setState(Object.assign({}, this.state, { confirm: null }));
+    showStatsUpdateConfirm() {
+        const self = this;
+        confirm({
+            title: 'Confirm stats update',
+            content: 'Stats have been updated through the yaba plugin. Do you wish to apply changes?',
+            onOk() {
+                self.state.confirm();
+                self.setState(Object.assign({}, self.state, { confirm: null }));
+            },
+            onCancel() {
+                self.state.reject();
+                self.setState(Object.assign({}, self.state, { confirm: null }));
+            },
+        });
     }
 
     render() {
@@ -73,79 +88,62 @@ class Main extends React.Component {
             stats,
             mainTabs,
             secondaryTabs,
-            currentTab: { isSecondary, index } = { isSecondary: false, index: -1 },
+            currentTab: { index } = { isSecondary: false, index: -1 },
         } = this.props;
-        const { confirm } = this.state;
 
         return (
-            <div>
-                <AppBar position="static">
-                    <Toolbar>
-                        <StatsImporter />
-                        <Tabs
-                            value={!isSecondary && calcIndex(index)}
-                            onChange={this.handleMainChange}
-                            style={{ marginLeft: 30 }}
-                        >
-                            {mainTabs.map(tab => (
-                                <Tab
-                                    key={tab.name}
-                                    label={getLabel(stats, tab)}
-                                    disabled={stats === null}
-                                />
-                            ))}
-                        </Tabs>
-                    </Toolbar>
-                </AppBar>
-                {confirm &&
-                <Dialog open>
-                    <DialogTitle>Confirm stats update</DialogTitle>
-                    <DialogContent>Stats have been updated through the yaba plugin.
-                                   Do you wish to apply changes?
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleStatsUpdateReject} color="primary">
-                            Cancel
-                        </Button>
-                        <Button onClick={this.handleStatsUpdateConfirm} color="primary">
-                            Ok
-                        </Button>
-                    </DialogActions>
-                </Dialog>}
-                { secondaryTabs.length > 0 &&
-                    <Tabs
-                        value={isSecondary && calcIndex(index)}
-                        onChange={this.handleSecondaryChange}
-                        indicatorColor="primary"
-                        textColor="primary"
-                        scrollable
-                        scrollButtons="auto"
+            <Layout style={{ height: '100vh' }}>
+                <Header style={{ height: headerHeight }}>
+                    <StatsImporter style={addStatsButtonStyle} />
+                    <Menu
+                        theme="dark"
+                        mode="horizontal"
+                        selectedKeys={[index !== -1 ? mainTabs[index].name : null]}
+                        style={{ lineHeight: headerHeight }}
+                        onSelect={this.handleMainChange}
                     >
-                        {
-                            secondaryTabs.map(tab => (
-                                <Tab
-                                    key={tab.link}
-                                    label={
-                                        <div>
-                                            <div>MODULE</div>
-                                            <div style={{ textTransform: 'none' }}>{tab.name}</div>
-                                        </div>}
-                                />
-                            ))
-                        }
-                    </Tabs>
-                }
-                <Switch>
-                    <Route path="/" exact component={DefaultComponent} />
-                    {stats && mainTabs.concat(secondaryTabs).map(tab => (
-                        <Route
-                            key={tab.name}
-                            path={tab.path}
-                            render={() => <TabContainer comp={tab.children}>{Comp => <Comp />}</TabContainer>}
-                        />))}
-                    <Redirect to="/" />
-                </Switch>
-            </div>
+                        {mainTabs.map(tab => (
+                            <Menu.Item key={tab.name} disabled={stats === null}>
+                                {tab.name}
+                                { getSize(stats, tab) > 0 &&
+                                    <Badge count={getSize(stats, tab)} style={{ backgroundColor: '#52c41a' }} offset={[0, 5]} />
+                                }
+                            </Menu.Item>
+                        ))}
+                    </Menu>
+                </Header>
+                <Layout>
+                    <Sider width={200} style={{ background: '#f1f1f1', borderRight: '1px #cacaca solid' }}>
+                        <Menu
+                            mode="inline"
+                            defaultSelectedKeys={['1']}
+                            style={{ height: '100%', borderRight: 0, background: 'transparent' }}
+                        >
+                            <Menu.Item key="1">option1</Menu.Item>
+                            <Menu.Item key="2">option2</Menu.Item>
+                            <Menu.Item key="3">option3</Menu.Item>
+                            <Menu.Item key="4">option4</Menu.Item>
+                        </Menu>
+                    </Sider>
+                    <Layout>
+                        <Content style={{
+                            background: '#fff', padding: 24, margin: 0, minHeight: 280,
+                        }}
+                        >
+                            <Switch>
+                                <Route path="/" exact component={DefaultComponent} />
+                                {stats && mainTabs.concat(secondaryTabs).map(tab => (
+                                    <Route
+                                        key={tab.name}
+                                        path={tab.path}
+                                        render={() => <TabContainer comp={tab.children}>{Comp => <Comp />}</TabContainer>}
+                                    />))}
+                                <Redirect to="/" />
+                            </Switch>
+                        </Content>
+                    </Layout>
+                </Layout>
+            </Layout>
         );
     }
 }

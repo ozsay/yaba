@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Button from 'material-ui/Button';
+import { Button } from 'antd';
 
 const inputFileStyle = {
     display: 'none',
@@ -30,9 +30,11 @@ export default class StatsImporter extends React.Component {
     }
 
     render() {
+        const { style } = this.props;
+
         return (
-            <Button raised onClick={this.getFile}>
-                    Upload
+            <Button onClick={this.getFile} style={style}>
+                    Add Stats
                 <input type="file" ref={(input) => { this.fileInput = input; }} style={inputFileStyle} />
             </Button>
         );
@@ -41,4 +43,7 @@ export default class StatsImporter extends React.Component {
 
 StatsImporter.propTypes = {
     importStats: PropTypes.func.isRequired,
+    style: PropTypes.object,
 };
+
+StatsImporter.defaultProps = { style: {} };

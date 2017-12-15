@@ -1,15 +1,10 @@
 const path = require('path');
 
-const flatten = require('lodash.flatten');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const APP_DIR = path.resolve('./app/renderer');
 const BUILD_DIR = path.resolve('./dist');
 const MODULES_DIRS = [path.resolve('./node_modules'), path.resolve('../../node_modules')];
-
-const MODULES_CSS = ['codemirror/lib/codemirror.css', 'codemirror/theme/monokai.css', 'typeface-roboto/index.css'];
-
-const ALL_CSS_OPTIONS = flatten(MODULES_DIRS.map(dir => MODULES_CSS.map(css => `${dir}/${css}`)));
 
 module.exports = {
     devtool: 'cheap-module-source-map',
@@ -43,7 +38,7 @@ module.exports = {
                 },
             },
             {
-                test: ALL_CSS_OPTIONS,
+                test: /.*\.css/,
                 use: [
                     'style-loader',
                     'css-loader',

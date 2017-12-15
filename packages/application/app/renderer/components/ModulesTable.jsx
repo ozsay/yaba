@@ -2,37 +2,47 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
+import { Table } from 'antd';
 
 import addSecondaryTabAction from '../actions/addSecondaryTab';
 
 function ModulesTable({ modules, addSecondaryTab }) {
+    const dataSource = modules.map(module => ({
+        key: module.id,
+        id: module.id,
+        name: module.name,
+        issuer: module.issuer && module.issuer.name,
+        size: module.size,
+        _children: module.children.length,
+    }));
+
+    const columns = [{
+        title: 'Id',
+        dataIndex: 'id',
+        key: 'id',
+        render: (text, obj) => <a onClick={() => addSecondaryTab(obj)}>{text}</a>,
+    }, {
+        title: 'Path',
+        dataIndex: 'name',
+    }, {
+        title: 'Issuer',
+        dataIndex: 'issuer',
+        render: (text, obj) => <a onClick={() => addSecondaryTab(obj.issuer)}>{text}</a>,
+    }, {
+        title: 'Size',
+        dataIndex: 'size',
+    }, {
+        title: 'Children',
+        dataIndex: '_children',
+    }];
+
     return (
-        <Table>
-            <TableHead>
-                <TableRow>
-                    <TableCell>Id</TableCell>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Issuer</TableCell>
-                    <TableCell numeric>Size</TableCell>
-                    <TableCell numeric>Children</TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {modules.map(module => (
-                    <TableRow key={module.id} hover>
-                        <TableCell><a href="#" onClick={() => addSecondaryTab(module)}>{module.id}</a></TableCell>
-                        <TableCell>{module.name}</TableCell>
-                        <TableCell>{module.issuer &&
-                            <a href="#" onClick={() => addSecondaryTab(module.issuer)}>{module.issuer.name}</a>}
-                        </TableCell>
-                        <TableCell numeric>{module.size}</TableCell>
-                        <TableCell numeric>{module.children.length}</TableCell>
-                    </TableRow>
-                ))}
-            </TableBody>
-        </Table>
-    );
+        <Table
+            dataSource={dataSource}
+            columns={columns}
+            size="small"
+            pagination={false}
+        />);
 }
 
 const mapDispaptchToProps = {
