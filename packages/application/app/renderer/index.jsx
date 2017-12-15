@@ -2,10 +2,7 @@ import 'antd/dist/antd.css';
 
 import React from 'react';
 import { render } from 'react-dom';
-import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-
-import history from './utils/history';
 
 import initApp from './actions/initApp';
 
@@ -21,9 +18,7 @@ if (process.env.NODE_ENV !== 'production') {
 function App() {
     return (
         <Provider store={store}>
-            <Router history={history}>
-                <Main />
-            </Router>
+            <Main />
         </Provider>
     );
 }

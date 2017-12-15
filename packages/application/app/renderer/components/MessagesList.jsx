@@ -1,24 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import List, { ListItem, ListItemText } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
+import { Divider } from 'antd';
 
 export default function MessagesList(props) {
     return (
-        <List>
+        <div>
             {
                 props.messages
                     .map((message, i) => (
                         <div key={i}>
-                            <ListItem>
-                                <ListItemText primary={message} style={{ whiteSpace: 'pre' }} />
-                            </ListItem>
-                            <Divider light />
+                            <p style={{ whiteSpace: 'pre' }}>{message}</p>
+                            <Divider />
                         </div>
                     ))
             }
-        </List>
+        </div>
     );
 }
 

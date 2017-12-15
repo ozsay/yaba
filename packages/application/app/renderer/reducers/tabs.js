@@ -1,5 +1,5 @@
+import { LOAD_STATS_FULFILLED } from '../actions/types';
 import { ACTION_TYPE as GOTO_TAB } from '../actions/gotoTab';
-import { ACTION_TYPE as ADD_SECONDARY_TAB } from '../actions/addSecondaryTab';
 
 import General from '../scenes/General';
 import Errors from '../scenes/Errors';
@@ -11,24 +11,17 @@ import Module from '../scenes/Modules/containers/Module';
 
 class Tab {
     constructor({
-        isSecondary, index, name, element, link, path, children, statsKey,
+        index, name, element, link, path, component, statsKey, type, children,
     }) {
-        this.isSecondary = isSecondary;
+        this.type = type;
         this.index = index;
         this.name = name;
         this.element = element;
         this.link = link;
         this.path = path || link;
-        this._children = children;
+        this.component = component;
+        this.children = children;
         this.statsKey = statsKey;
-    }
-
-    get children() {
-        if (this._children) {
-            return this._children;
-        }
-
-        return Module;
     }
 }
 
@@ -36,61 +29,77 @@ const TABS = [
     {
         name: 'General',
         link: '/general',
-        path: '/general:moduleId?',
-        children: General,
+        path: '/general',
+        component: General,
     },
     {
         name: 'Modules',
         link: '/modules',
         path: '/modules',
         statsKey: 'modules',
-        children: Modules,
+        component: Modules,
     },
     {
         name: 'Assets',
         link: '/assets',
         statsKey: 'assets',
-        children: Assets,
+        component: Assets,
     },
     // { name: 'Chunks', link: '/chunks' },
     {
         name: 'Warnings',
         link: '/warnings',
         statsKey: 'warnings',
-        children: Warnings,
+        component: Warnings,
     },
     {
         name: 'Errors',
         link: '/errors',
         statsKey: 'errors',
-        children: Errors,
+        component: Errors,
     },
     // { name: 'Hints', link: '/hints' },
-].map((tab, index) => new Tab({ isSecondary: false, index, ...tab }));
+];
 
-function createSecondaryTab(element, index) {
-    return new Tab({
-        isSecondary: true,
+function createChildrenTabs(arr, type) {
+    if (!arr) return [];
+
+    return arr.map((element, index) => new Tab({
         index,
-        name: element.name,
-        path: '/module:id?',
-        link: `module?id=${element.id}`,
         element,
-    });
+        component: Module,
+        name: element.name,
+        link: `${type}?id=${index}`,
+        path: `${type}:id`,
+        type,
+    }));
 }
 
-export default function (state = { mainTabs: TABS, secondaryTabs: [] }, { type, payload }) {
-    if (type === GOTO_TAB) {
-        const { index, isSecondary } = payload;
-
-        return Object.assign({}, state, { currentTab: (isSecondary ? state.secondaryTabs : state.mainTabs)[index] });
+export default function (
+    state = { mainTabs: TABS.map((tab, index) => new Tab({ type: 'main', index, ...tab })) },
+    { type, payload },
+) {
+    if (type === LOAD_STATS_FULFILLED) {
+        return {
+            mainTabs: TABS.map((tab, index) => new Tab({
+                type: 'main', index, ...tab, children: createChildrenTabs(payload[tab.statsKey], tab.statsKey),
+            })),
+        };
     }
 
-    if (type === ADD_SECONDARY_TAB) {
-        return Object.assign(
-            {}, state,
-            { secondaryTabs: state.secondaryTabs.concat([createSecondaryTab(payload, state.secondaryTabs.length)]) },
-        );
+    if (type === GOTO_TAB) {
+        const { index, type: tabType } = payload;
+
+        if (tabType !== 'main') {
+            const mainTab = state.mainTabs.find(mt => mt.statsKey === tabType);
+            const tab = mainTab.children.find(child => child.index === index);
+
+            return Object.assign({}, state, {
+                currentTab: tab,
+            });
+        }
+
+        return Object.assign({}, state, { currentTab: state.mainTabs[index] });
     }
 
     return state;

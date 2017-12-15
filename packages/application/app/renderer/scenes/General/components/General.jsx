@@ -37,7 +37,7 @@ export default function General(props) {
         version, hash, errors = [], warnings = [], modules = [], assets = [], chunks = [], mainModule, time,
     } = props.stats;
 
-    const { addSecondaryTab, gotoTab } = props;
+    const { gotoTab } = props;
 
     return (
         <Card title="General properties of the bundle">
@@ -47,31 +47,31 @@ export default function General(props) {
             <Content
                 title="Errors count"
                 description={errors.length}
-                action={errors.length > 0 && <Button onClick={() => gotoTab(4, false)}>Learn More</Button>}
+                action={errors.length > 0 && <Button onClick={() => gotoTab(4)}>Learn More</Button>}
             />
 
             <Content
                 title="Warnings count"
                 description={warnings.length}
-                action={warnings.length > 0 && <Button onClick={() => gotoTab(3, false)}>Learn More</Button>}
+                action={warnings.length > 0 && <Button onClick={() => gotoTab(3)}>Learn More</Button>}
             />
 
             <Content
                 title="Modules count"
                 description={modules.length}
-                action={modules.length > 0 && <Button onClick={() => gotoTab(1, false)}>Learn More</Button>}
+                action={modules.length > 0 && <Button onClick={() => gotoTab(1)}>Learn More</Button>}
             />
 
             <Content
                 title="Main module"
                 description={mainModule.name}
-                action={<Button onClick={() => addSecondaryTab(mainModule)}>Learn More</Button>}
+                action={<Button onClick={() => gotoTab(mainModule.id, 'modules')}>Learn More</Button>}
             />
 
             <Content
                 title="Assets count"
                 description={assets.length}
-                action={assets.length > 0 && <Button onClick={() => gotoTab(2, false)}>Learn More</Button>}
+                action={assets.length > 0 && <Button onClick={() => gotoTab(2)}>Learn More</Button>}
             />
 
             <Content
@@ -85,7 +85,6 @@ export default function General(props) {
 
 General.propTypes = {
     stats: PropTypes.object, // eslint-disable-line
-    addSecondaryTab: PropTypes.func.isRequired,
     gotoTab: PropTypes.func.isRequired,
 };
 

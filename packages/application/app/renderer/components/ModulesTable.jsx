@@ -4,14 +4,19 @@ import { connect } from 'react-redux';
 
 import { Table } from 'antd';
 
-import addSecondaryTabAction from '../actions/addSecondaryTab';
+import gotoTabAction from '../actions/gotoTab';
 
-function ModulesTable({ modules, addSecondaryTab }) {
+function ModulesTable({ modules, gotoTab }) {
+    function goToModule(id) {
+        gotoTab(parseInt(id, 10), 'modules');
+    }
+
     const dataSource = modules.map(module => ({
         key: module.id,
         id: module.id,
         name: module.name,
         issuer: module.issuer && module.issuer.name,
+        issuerId: module.issuer && module.issuer.id,
         size: module.size,
         _children: module.children.length,
     }));
@@ -20,14 +25,14 @@ function ModulesTable({ modules, addSecondaryTab }) {
         title: 'Id',
         dataIndex: 'id',
         key: 'id',
-        render: (text, obj) => <a onClick={() => addSecondaryTab(obj)}>{text}</a>,
+        render: (text, obj) => <a onClick={() => goToModule(obj.id)}>{text}</a>,
     }, {
         title: 'Path',
         dataIndex: 'name',
     }, {
         title: 'Issuer',
         dataIndex: 'issuer',
-        render: (text, obj) => <a onClick={() => addSecondaryTab(obj.issuer)}>{text}</a>,
+        render: (text, obj) => <a onClick={() => goToModule(obj.issuerId)}>{text}</a>,
     }, {
         title: 'Size',
         dataIndex: 'size',
@@ -46,14 +51,14 @@ function ModulesTable({ modules, addSecondaryTab }) {
 }
 
 const mapDispaptchToProps = {
-    addSecondaryTab: addSecondaryTabAction,
+    gotoTab: gotoTabAction,
 };
 
 export default connect(() => ({}), mapDispaptchToProps)(ModulesTable);
 
 ModulesTable.propTypes = {
     modules: PropTypes.arrayOf(PropTypes.object),
-    addSecondaryTab: PropTypes.func.isRequired,
+    gotoTab: PropTypes.func.isRequired,
 };
 
 ModulesTable.defaultProps = { modules: [] };

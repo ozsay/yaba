@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Route, Switch, Redirect } from 'react-router-dom';
-
-import { Layout, Menu, Modal, Badge } from 'antd';
+import { Layout, Menu, Modal, Badge, Input } from 'antd';
 
 import TabContainer from './TabContainer';
 import StatsImporter from '../containers/StatsImporter';
 
 const { confirm } = Modal;
 const { Header, Content, Sider } = Layout;
+const { Search } = Input;
 
 const headerHeight = '42px';
 
@@ -17,6 +16,12 @@ const addStatsButtonStyle = {
     float: 'left',
     marginTop: '5px',
     marginRight: '24px',
+};
+
+const searchStyle = {
+    padding: '5px 0',
+    width: '375px',
+    marginLeft: '12px',
 };
 
 function getSize(stats, { statsKey }) {
@@ -29,6 +34,10 @@ function DefaultComponent() {
     return (
         <TabContainer><div>Please upload a stats file</div></TabContainer>
     );
+}
+
+function allTabs(mainTabs) {
+    return mainTabs.reduce((acc, mainTab) => acc.concat([mainTab, ...mainTab.children]), []);
 }
 
 class Main extends React.Component {
@@ -51,20 +60,20 @@ class Main extends React.Component {
         }
     }
 
-    changeTab(index, isSecondary = true) {
+    changeTab(index, type = 'main') {
         const { gotoTab } = this.props;
 
-        gotoTab(index, isSecondary);
+        gotoTab(index, type);
     }
 
     handleMainChange({ key }) {
         const { mainTabs } = this.props;
 
-        this.changeTab(mainTabs.findIndex(tab => tab.name === key), false);
+        this.changeTab(mainTabs.findIndex(tab => tab.name === key));
     }
 
     handleSecondaryChange(event, value) {
-        this.changeTab(value, true);
+        this.changeTab(value, 'modules');
     }
 
     showStatsUpdateConfirm() {
@@ -87,9 +96,15 @@ class Main extends React.Component {
         const {
             stats,
             mainTabs,
-            secondaryTabs,
-            currentTab: { index } = { isSecondary: false, index: -1 },
+            currentTab: {
+                index, type, children, component, statsKey,
+            } = { type: 'main', index: -1 },
         } = this.props;
+
+        const mainIndex = type === 'main' ? index !== -1 ?
+            mainTabs[index].name : null : mainTabs.find(mainTab => mainTab.statsKey === type).name;
+
+        allTabs(mainTabs);
 
         return (
             <Layout style={{ height: '100vh' }}>
@@ -98,7 +113,7 @@ class Main extends React.Component {
                     <Menu
                         theme="dark"
                         mode="horizontal"
-                        selectedKeys={[index !== -1 ? mainTabs[index].name : null]}
+                        selectedKeys={[mainIndex]}
                         style={{ lineHeight: headerHeight }}
                         onSelect={this.handleMainChange}
                     >
@@ -113,33 +128,35 @@ class Main extends React.Component {
                     </Menu>
                 </Header>
                 <Layout>
-                    <Sider width={200} style={{ background: '#f1f1f1', borderRight: '1px #cacaca solid' }}>
-                        <Menu
-                            mode="inline"
-                            defaultSelectedKeys={['1']}
-                            style={{ height: '100%', borderRight: 0, background: 'transparent' }}
-                        >
-                            <Menu.Item key="1">option1</Menu.Item>
-                            <Menu.Item key="2">option2</Menu.Item>
-                            <Menu.Item key="3">option3</Menu.Item>
-                            <Menu.Item key="4">option4</Menu.Item>
-                        </Menu>
-                    </Sider>
-                    <Layout>
+                    { children && children.length > 0 &&
+                        <Sider width={400} style={{ background: '#f1f1f1', borderRight: '1px #cacaca solid' }}>
+                            <Search
+                                style={searchStyle}
+                                placeholder={`search ${statsKey}`}
+                                onChange={value => console.log(value)}
+                            />
+                            <Menu
+                                mode="inline"
+                                defaultSelectedKeys={['1']}
+                                style={{ borderRight: 0, background: 'transparent' }}
+                            >
+                                { children && children.map(child => (
+                                    <Menu.Item key={child.name}>{child.name}</Menu.Item>
+                                ))
+                                }
+                            </Menu>
+                        </Sider>
+                    }
+                    <Layout style={{ background: '#fff' }}>
                         <Content style={{
                             background: '#fff', padding: 24, margin: 0, minHeight: 280,
                         }}
                         >
-                            <Switch>
-                                <Route path="/" exact component={DefaultComponent} />
-                                {stats && mainTabs.concat(secondaryTabs).map(tab => (
-                                    <Route
-                                        key={tab.name}
-                                        path={tab.path}
-                                        render={() => <TabContainer comp={tab.children}>{Comp => <Comp />}</TabContainer>}
-                                    />))}
-                                <Redirect to="/" />
-                            </Switch>
+                            {
+                                index === -1 ?
+                                    <DefaultComponent /> :
+                                    <TabContainer comp={component}>{Comp => <Comp />}</TabContainer>
+                            }
                         </Content>
                     </Layout>
                 </Layout>
@@ -149,10 +166,8 @@ class Main extends React.Component {
 }
 
 Main.propTypes = {
-    location: PropTypes.object.isRequired, // eslint-disable-line
     stats: PropTypes.object, // eslint-disable-line
     mainTabs: PropTypes.array.isRequired, // eslint-disable-line
-    secondaryTabs: PropTypes.array, // eslint-disable-line
     currentTab: PropTypes.object, // eslint-disable-line
     startListening: PropTypes.func.isRequired,
     gotoTab: PropTypes.func.isRequired,
@@ -160,7 +175,6 @@ Main.propTypes = {
 
 Main.defaultProps = {
     stats: null,
-    secondaryTabs: [],
 };
 
 export default Main;

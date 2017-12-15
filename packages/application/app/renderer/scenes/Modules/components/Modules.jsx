@@ -35,6 +35,5 @@ export default class Modules extends React.Component {
 }
 
 Modules.propTypes = {
-    match: PropTypes.object.isRequired, // eslint-disable-line
     modules: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

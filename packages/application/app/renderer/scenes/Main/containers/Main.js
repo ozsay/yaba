@@ -1,12 +1,11 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import statsListener from '../../../actions/statsListener';
 import gotoTab from '../../../actions/gotoTab';
 
 import MainComponent from '../components/Main';
 
-function mapStateToProps({ stats, tabs: { mainTabs, secondaryTabs, currentTab } }, { location }) {
+function mapStateToProps({ stats, tabs: { mainTabs, secondaryTabs, currentTab } }) {
     // if (stats && location.search) {
     //     const params = qs.parse(location.search.substring(1));
     //
@@ -39,4 +38,4 @@ const mapDispatchToProps = {
     startListening: statsListener,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainComponent));
+export default connect(mapStateToProps, mapDispatchToProps)(MainComponent);

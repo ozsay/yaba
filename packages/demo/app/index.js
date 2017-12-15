@@ -1,4 +1,7 @@
 import 'qs';
+import 'lodash';
+
+import {AAA, BBB, C, D, E} from './file';
 
 console.log('a');
-console.log('b');
+console.log(BBB, C, D, E, ASSS);

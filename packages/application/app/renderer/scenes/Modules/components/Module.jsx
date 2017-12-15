@@ -2,7 +2,7 @@ import 'codemirror/lib/codemirror.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import CodeMirror from 'react-codemirror';
 
 import 'codemirror/mode/javascript/javascript';
@@ -21,12 +21,11 @@ import ModulesTable from '../../../components/ModulesTable';
 const cjsMarkerStyle = 'background-color: red';
 const es6MarkerStyle = 'background-color: blue';
 
-class Module extends React.Component {
+export default class Module extends React.Component {
     constructor(props) {
         super(props);
 
         this.onLoadEditor = this.onLoadEditor.bind(this);
-        this.close = this.close.bind(this);
 
         this.state = { showChildren: true, showReasons: true };
     }
@@ -43,14 +42,6 @@ class Module extends React.Component {
 
     onLoadEditor(editor) {
         this.editor = editor;
-    }
-
-    close() {
-        if (window.history.state) {
-            this.props.history.goBack();
-        } else {
-            this.props.history.push('/');
-        }
     }
 
     handleShowHide(control, value) {
@@ -90,7 +81,7 @@ class Module extends React.Component {
                     <div>
                         <Typography type="body2">Issuer</Typography>
                         <Typography type="body1">
-                            <Link to={`/modules?moduleId=${module.issuer.id}`}>{module.issuer.name}</Link>
+                            {/*<Link to={`/modules?moduleId=${module.issuer.id}`}>{module.issuer.name}</Link>*/}
                         </Typography>
                         <br />
                     </div>
@@ -167,12 +158,9 @@ class Module extends React.Component {
     }
 }
 
-export default withRouter(Module);
-
 Module.propTypes = {
     module: PropTypes.object, // eslint-disable-line
     reasonParams: PropTypes.object, // eslint-disable-line
-    history: PropTypes.object.isRequired, // eslint-disable-line
 };
 
 Module.defaultProps = { module: null, reasonParams: null };
