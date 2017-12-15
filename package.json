@@ -4,8 +4,8 @@
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
     "build:demo": "lerna run --scope @yaba/demo build",
-    "start:main": "lerna run --scope @yaba/application start-main",
-    "start:renderer": "lerna run --scope @yaba/application start-renderer"
+    "start:main": "lerna run --stream --scope @yaba/application start-main",
+    "start:renderer": "lerna run --stream --scope @yaba/application start-renderer"
   },
   "license": "MIT",
   "workspaces": [

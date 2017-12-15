@@ -2,24 +2,29 @@ import 'codemirror/lib/codemirror.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Link } from 'react-router-dom';
 import CodeMirror from 'react-codemirror';
 
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/theme/monokai.css';
 
-import IconButton from 'material-ui/IconButton';
-import { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List';
-import Typography from 'material-ui/Typography';
-import { GridList, GridListTile } from 'material-ui/GridList';
-import NavigateNext from 'material-ui-icons/NavigateNext';
-import Switch from 'material-ui/Switch';
-import { FormControlLabel } from 'material-ui/Form';
+import { Switch, Badge, Card, Button } from 'antd';
 
 import ModulesTable from '../../../components/ModulesTable';
 
 const cjsMarkerStyle = 'background-color: red';
 const es6MarkerStyle = 'background-color: blue';
+
+const reasonStyle = {
+    width: '33%',
+    height: '75px',
+    textAlign: 'left',
+    padding: '15px',
+};
+
+const reasonButtonStyle = {
+    float: 'right',
+    marginTop: '6px',
+};
 
 export default class Module extends React.Component {
     constructor(props) {
@@ -72,31 +77,32 @@ export default class Module extends React.Component {
     }
 
     render() {
-        const { module } = this.props;
+        const { module, gotoTab } = this.props;
         const { showChildren, showReasons } = this.state;
 
         return (
             <div>
+                <h2>{module.name}</h2>
+                <br />
                 { module.issuer &&
                     <div>
-                        <Typography type="body2">Issuer</Typography>
-                        <Typography type="body1">
-                            {/*<Link to={`/modules?moduleId=${module.issuer.id}`}>{module.issuer.name}</Link>*/}
-                        </Typography>
+                        <h3>Issuer</h3>
+                        <h4><a onClick={() => gotoTab(module.issuer.id, 'modules')}>{module.issuer.name}</a></h4>
                         <br />
                     </div>
                 }
                 { module.children.length > 0 &&
                     <div>
-                        <FormControlLabel
-                            control={
-                                <Switch
-                                    checked={showChildren}
-                                    onChange={event => this.handleShowHide('showChildren', event.target.checked)}
-                                />
-                            }
-                            label={`Children [${module.children.length}]`}
-                        />
+                        <div>
+                            <Switch
+                                checked={showChildren}
+                                onChange={value => this.handleShowHide('showChildren', value)}
+                            />
+                            <h3 style={{ display: 'inline-block', marginLeft: '5px' }}>
+                                Children
+                                <Badge count={module.children.length} style={{ backgroundColor: '#52c41a' }} offset={[0, 5]} />
+                            </h3>
+                        </div>
                         { showChildren &&
                             <div style={{ maxHeight: 250, overflow: 'auto' }} >
                                 <ModulesTable modules={module.children} />
@@ -107,43 +113,34 @@ export default class Module extends React.Component {
                 }
                 { module.reasons.length > 0 &&
                     <div>
-                        <FormControlLabel
-                            control={
-                                <Switch
-                                    checked={showReasons}
-                                    onChange={event => this.handleShowHide('showReasons', event.target.checked)}
-                                />
-                            }
-                            label={`Reasons [${module.reasons.length}]`}
-                        />
+                        <div>
+                            <Switch
+                                checked={showReasons}
+                                onChange={value => this.handleShowHide('showReasons', value)}
+                            />
+                            <h3 style={{ display: 'inline-block', marginLeft: '5px' }}>
+                                Reasons
+                                <Badge count={module.reasons.length} style={{ backgroundColor: '#52c41a' }} offset={[0, 5]} />
+                            </h3>
+                        </div>
                         { showReasons &&
-                            <GridList cellHeight={68} cols={3} style={{ maxHeight: 250 }}>
-                                {module.reasons.map(reason => (
-                                    <GridListTile key={`${reason.module.id}_${reason.reasonText()}`}>
-                                        <ListItem component="div">
-                                            <ListItemText
-                                                primary={reason.module.name}
-                                                secondary={`${reason.type} at ${
-                                                    reason.reasonText()} as '${reason.userRequest}'`}
-                                            />
-                                            <ListItemSecondaryAction>
-                                                <IconButton
-                                                    component={Link}
-                                                    to={`?moduleId=${reason.module.id}&markerPos=${
-                                                        reason.reasonText()}&reasonType=${reason.type}`}
-                                                >
-                                                    <NavigateNext />
-                                                </IconButton>
-                                            </ListItemSecondaryAction>
-                                        </ListItem>
-                                    </GridListTile>
-                                ))}
-                            </GridList>
+                        <Card bordered={false} bodyStyle={{ padding: 0 }}>
+                            { module.reasons.map(reason => (
+                                <Card.Grid style={reasonStyle} key={`${reason.module.id}_${reason.reasonText()}`}>
+                                    <Button style={reasonButtonStyle} shape="circle" icon="arrow-right" />
+                                    <h4>{reason.module.name}</h4>
+                                    <h5 style={{ color: 'rgba(0, 0, 0, 0.54)' }}>
+                                        {`${reason.type} at ${reason.reasonText()} as '${reason.userRequest}'`}
+                                    </h5>
+                                </Card.Grid>
+                            ))
+                            }
+                        </Card>
                         }
                         <br />
                     </div>
                 }
-                <Typography type="body2">Source code</Typography>
+                <h3>Source code</h3>
                 <CodeMirror
                     ref={this.onLoadEditor}
                     options={{
@@ -160,6 +157,7 @@ export default class Module extends React.Component {
 
 Module.propTypes = {
     module: PropTypes.object, // eslint-disable-line
+    gotoTab: PropTypes.func.isRequired,
     reasonParams: PropTypes.object, // eslint-disable-line
 };
 

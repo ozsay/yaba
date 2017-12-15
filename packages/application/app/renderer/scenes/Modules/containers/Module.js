@@ -2,8 +2,16 @@ import { connect } from 'react-redux';
 
 import ModuleComponent from '../components/Module';
 
-function mapStateToProps({ tabs: { currentTab: { element: module } } }) {
+import gotoTab from '../../../actions/gotoTab';
+
+function mapStateToProps({ stats, tabs: { currentTab: { elementId } } }) {
+    const module = stats.modules.find(mod => mod.id === elementId);
+
     return { module };
 }
 
-export default connect(mapStateToProps)(ModuleComponent);
+const mapDispatchToProps = {
+    gotoTab,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModuleComponent);

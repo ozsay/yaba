@@ -11,12 +11,12 @@ import Module from '../scenes/Modules/containers/Module';
 
 class Tab {
     constructor({
-        index, name, element, link, path, component, statsKey, type, children,
+        index, name, elementId, link, path, component, statsKey, type, children,
     }) {
         this.type = type;
         this.index = index;
         this.name = name;
-        this.element = element;
+        this.elementId = elementId;
         this.link = link;
         this.path = path || link;
         this.component = component;
@@ -66,7 +66,7 @@ function createChildrenTabs(arr, type) {
 
     return arr.map((element, index) => new Tab({
         index,
-        element,
+        elementId: element.id,
         component: Module,
         name: element.name,
         link: `${type}?id=${index}`,

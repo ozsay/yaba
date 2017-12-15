@@ -36,10 +36,6 @@ function DefaultComponent() {
     );
 }
 
-function allTabs(mainTabs) {
-    return mainTabs.reduce((acc, mainTab) => acc.concat([mainTab, ...mainTab.children]), []);
-}
-
 class Main extends React.Component {
     constructor(props) {
         super(props);
@@ -104,8 +100,6 @@ class Main extends React.Component {
         const mainIndex = type === 'main' ? index !== -1 ?
             mainTabs[index].name : null : mainTabs.find(mainTab => mainTab.statsKey === type).name;
 
-        allTabs(mainTabs);
-
         return (
             <Layout style={{ height: '100vh' }}>
                 <Header style={{ height: headerHeight }}>
@@ -128,7 +122,7 @@ class Main extends React.Component {
                     </Menu>
                 </Header>
                 <Layout>
-                    { children && children.length > 0 &&
+                    {
                         <Sider width={400} style={{ background: '#f1f1f1', borderRight: '1px #cacaca solid' }}>
                             <Search
                                 style={searchStyle}
@@ -140,10 +134,10 @@ class Main extends React.Component {
                                 defaultSelectedKeys={['1']}
                                 style={{ borderRight: 0, background: 'transparent' }}
                             >
-                                { children && children.map(child => (
-                                    <Menu.Item key={child.name}>{child.name}</Menu.Item>
-                                ))
-                                }
+                                {/*{ children && children.map(child => (*/}
+                                    {/*<Menu.Item key={child.name}>{child.name}</Menu.Item>*/}
+                                {/*))*/}
+                                {/*}*/}
                             </Menu>
                         </Sider>
                     }
