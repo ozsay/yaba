@@ -10,9 +10,10 @@ import SizeCardGrid from '../../../components/SizeCardGrid';
 import CodeViewer from '../../../components/CodeViewer';
 
 const MIME_TYPES_PREVIEWERS = {
-    js: 'editor',
-    html: 'editor',
-    css: 'editor',
+    'application/javascript': 'editor',
+    'text/html': 'editor',
+    'text/css': 'editor',
+    'image/png': 'image',
 };
 
 function largeuint8ArrToString(uint8arr) {
@@ -26,6 +27,19 @@ function largeuint8ArrToString(uint8arr) {
         f.readAsText(bb);
     });
 }
+
+function largeuint8ArrToBase64(uint8arr) {
+    return new Promise((resolve) => {
+        const bb = new Blob([uint8arr]);
+        const f = new FileReader();
+        f.onload = (e) => {
+            resolve(e.target.result);
+        };
+
+        f.readAsDataURL(bb);
+    });
+}
+
 
 export default class Asset extends React.Component {
     constructor(props) {
@@ -47,6 +61,13 @@ export default class Asset extends React.Component {
                     return largeuint8ArrToString(payload);
                 } else if (asset.mimeType === 'text/css') {
                     return largeuint8ArrToString(payload);
+                } else if (asset.mimeType === 'image/png') {
+                    // String.fromCharCode.apply(null, payload);
+                    // const base64 = btoa(String.fromCharCode.apply(null, payload));
+                    // return `data:image/png;base64,${base64}`;
+
+                    return largeuint8ArrToBase64(payload)
+                        .then(res => `data:image/png;base64,${res.substr(13)}`);
                 }
 
                 return payload;
@@ -85,19 +106,24 @@ export default class Asset extends React.Component {
                                 title="Deflate size"
                                 calcFunc={() => this.calcSize(assetData, AVAILABLE_SIZES.DEFLATE)}
                             />
-                            {/*<SizeCardGrid*/}
-                                {/*data={assetData}*/}
-                                {/*title="Brotli size"*/}
-                                {/*calcFunc={() => this.calcSize(assetData, AVAILABLE_SIZES.BROTLI)}*/}
-                            {/*/>*/}
+                            {/* <SizeCardGrid */}
+                            {/* data={assetData} */}
+                            {/* title="Brotli size" */}
+                            {/* calcFunc={() => this.calcSize(assetData, AVAILABLE_SIZES.BROTLI)} */}
+                            {/* /> */}
                         </Card>
                     }
                 </Section>
-                <Section title="Preview" collapse={false}>
-                    { assetData &&
+                { assetData && MIME_TYPES_PREVIEWERS[asset.mimeType] === 'editor' &&
+                    <Section title="Preview" collapse={false}>
                         <CodeViewer source={assetData} mime={asset.mimeType} />
-                    }
-                </Section>
+                    </Section>
+                }
+                { assetData && MIME_TYPES_PREVIEWERS[asset.mimeType] === 'image' &&
+                    <Section title="Preview" collapse={false}>
+                        <img style={{ maxHeight: 400 }} src={assetData} />
+                    </Section>
+                }
             </div>
         );
     }

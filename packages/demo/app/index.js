@@ -4,6 +4,8 @@ import 'lodash';
 import './inline.css';
 import './standalone.css';
 
+import './image.png';
+
 import {AAA, BBB, C, D, E} from './file';
 
 console.log('a');
