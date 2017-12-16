@@ -1,5 +1,7 @@
 const { remote } = window.require('electron');
 
+const sizer = remote.require('./sizer');
+
 export const ACTION_TYPE = 'CALC_SIZE';
 
 export const AVAILABLE_SIZES = {
@@ -8,36 +10,22 @@ export const AVAILABLE_SIZES = {
     BROTLI: 'brotli',
 };
 
-function brotli(data, opts, cb) {
-    setTimeout(() => {
-        const compress = remote.require('brotli/compress');
-
-        const callback = cb || opts;
-
-        callback(compress(data, opts));
-    });
-}
-
-export default function (data, sizer = AVAILABLE_SIZES.GZIP) {
+export default function (data, sizeAlg = AVAILABLE_SIZES.GZIP) {
     return {
         type: ACTION_TYPE,
         payload: new Promise((resolve) => {
-            if (sizer === AVAILABLE_SIZES.GZIP) {
-                const zlib = remote.require('zlib');
-
-                zlib.gzip(data, (err, val) => {
-                    resolve(val.length);
+            if (sizeAlg === AVAILABLE_SIZES.GZIP) {
+                sizer.gzip(data, (err, val) => {
+                    resolve(val);
                 });
-            } else if (sizer === AVAILABLE_SIZES.DEFLATE) {
-                const zlib = remote.require('zlib');
-
-                zlib.deflate(data, (err, val) => {
-                    resolve(val.length);
+            } else if (sizeAlg === AVAILABLE_SIZES.DEFLATE) {
+                sizer.deflate(data, (err, val) => {
+                    resolve(val);
                 });
-            } else if (sizer === AVAILABLE_SIZES.BROTLI) {
-                brotli(data, (compressed) => {
-                    resolve(compressed.length);
-                });
+            } else if (sizeAlg === AVAILABLE_SIZES.BROTLI) {
+                // sizer.brotli(data, (err, val) => {
+                //     resolve(val);
+                // });
             }
         }),
     };

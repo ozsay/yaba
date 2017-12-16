@@ -25,7 +25,7 @@ export default class Assets extends React.Component {
             key: 'name',
             render: (text, obj) => <a onClick={() => gotoTab(obj.id, 'assets')}>{text}</a>,
         }, {
-            title: 'Mime',
+            title: 'Mime type',
             dataIndex: 'mime',
         }, {
             title: 'Size',

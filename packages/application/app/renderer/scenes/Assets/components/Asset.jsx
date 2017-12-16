@@ -87,6 +87,7 @@ export default class Asset extends React.Component {
             <div>
                 <h2>{asset.name}</h2>
                 <br />
+                <Section title="Mime type" collapse={false} body={asset.mimeType} />
                 <Section title="Sizes" collapse={false}>
                     { assetData &&
                         <Card bordered={false} bodyStyle={{ padding: 0 }}>
@@ -101,11 +102,11 @@ export default class Asset extends React.Component {
                                 title="Deflate size"
                                 calcFunc={() => this.calcSize(assetData, AVAILABLE_SIZES.DEFLATE)}
                             />
-                            {/* <SizeCardGrid */}
-                            {/* data={assetData} */}
-                            {/* title="Brotli size" */}
-                            {/* calcFunc={() => this.calcSize(assetData, AVAILABLE_SIZES.BROTLI)} */}
-                            {/* /> */}
+                            <SizeCardGrid
+                                data={assetData}
+                                title="Brotli size"
+                                calcFunc={() => this.calcSize(assetData, AVAILABLE_SIZES.BROTLI)}
+                            />
                         </Card>
                     }
                 </Section>

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "app/main/index.js",
   "scripts": {
+    "prepare": "electron-rebuild -w iltorb",
     "start-main": "PORT=8000 electron .",
     "start-renderer": "webpack-dev-server",
     "build": "webpack"
@@ -11,11 +12,11 @@
   "dependencies": {
     "@yaba/demo": "1.0.0",
     "antd": "^3.0.1",
-    "brotli": "^1.3.2",
     "codemirror": "5.32.0",
     "date-fns": "^1.29.0",
     "electron": "1.7.9",
     "history": "^4.7.2",
+    "iltorb": "^2.0.3",
     "localforage": "^1.5.5",
     "lodash": "^4.17.4",
     "mime-types": "^2.1.17",
@@ -44,6 +45,7 @@
     "css-loader": "0.28.7",
     "devtron": "1.4.0",
     "electron-devtools-installer": "2.2.1",
+    "electron-rebuild": "^1.6.0",
     "file-loader": "1.1.5",
     "html-webpack-plugin": "2.30.1",
     "lodash.flatten": "^4.4.0",
