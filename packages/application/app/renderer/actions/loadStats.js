@@ -6,7 +6,7 @@ export const ACTION_TYPE = 'LOAD_STATS';
 
 export default function (key) {
     return dispatch => dispatch({ type: ACTION_TYPE, payload: localforage.getItem(key) })
-        .then(({ value: stats }) => {
+        .then(({ value: { stats } }) => {
             if (stats) {
                 return dispatch(updateStats(stats));
             }

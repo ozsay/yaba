@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import mime from 'mime-types';
 
 import { Table } from 'antd';
 
@@ -16,7 +15,7 @@ export default class Assets extends React.Component {
             id: asset.id,
             key: asset.name,
             name: asset.name,
-            mime: mime.lookup(asset.name),
+            mime: asset.mimeType,
             size: asset.size,
         }));
 

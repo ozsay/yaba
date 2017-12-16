@@ -7,9 +7,10 @@ import CodeMirror from 'react-codemirror';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/theme/monokai.css';
 
-import { Switch, Badge, Card, Button } from 'antd';
+import { Card, Button } from 'antd';
 
 import ModulesTable from '../../../components/ModulesTable';
+import Section from '../../../components/Section';
 
 const cjsMarkerStyle = 'background-color: red';
 const es6MarkerStyle = 'background-color: blue';
@@ -31,8 +32,6 @@ export default class Module extends React.Component {
         super(props);
 
         this.onLoadEditor = this.onLoadEditor.bind(this);
-
-        this.state = { showChildren: true, showReasons: true };
     }
 
     componentDidMount() {
@@ -47,10 +46,6 @@ export default class Module extends React.Component {
 
     onLoadEditor(editor) {
         this.editor = editor;
-    }
-
-    handleShowHide(control, value) {
-        this.setState(Object.assign({}, this.state, { [control]: value }));
     }
 
     renderEditor() {
@@ -78,78 +73,50 @@ export default class Module extends React.Component {
 
     render() {
         const { module, gotoTab } = this.props;
-        const { showChildren, showReasons } = this.state;
 
         return (
             <div>
                 <h2>{module.name}</h2>
                 <br />
                 { module.issuer &&
-                    <div>
-                        <h3>Issuer</h3>
+                    <Section title="Iuuser" collapse={false}>
                         <h4><a onClick={() => gotoTab(module.issuer.id, 'modules')}>{module.issuer.name}</a></h4>
-                        <br />
-                    </div>
+                    </Section>
                 }
                 { module.children.length > 0 &&
-                    <div>
-                        <div>
-                            <Switch
-                                checked={showChildren}
-                                onChange={value => this.handleShowHide('showChildren', value)}
-                            />
-                            <h3 style={{ display: 'inline-block', marginLeft: '5px' }}>
-                                Children
-                                <Badge count={module.children.length} style={{ backgroundColor: '#52c41a' }} offset={[0, 5]} />
-                            </h3>
-                        </div>
-                        { showChildren &&
-                            <div style={{ maxHeight: 250, overflow: 'auto' }} >
-                                <ModulesTable modules={module.children} />
-                            </div>
-                        }
-                        <br />
+                <Section title="Children" badge={module.children.length}>
+                    <div style={{ maxHeight: 250, overflow: 'auto' }} >
+                        <ModulesTable modules={module.children} />
                     </div>
+                </Section>
                 }
                 { module.reasons.length > 0 &&
-                    <div>
-                        <div>
-                            <Switch
-                                checked={showReasons}
-                                onChange={value => this.handleShowHide('showReasons', value)}
-                            />
-                            <h3 style={{ display: 'inline-block', marginLeft: '5px' }}>
-                                Reasons
-                                <Badge count={module.reasons.length} style={{ backgroundColor: '#52c41a' }} offset={[0, 5]} />
-                            </h3>
-                        </div>
-                        { showReasons &&
-                        <Card bordered={false} bodyStyle={{ padding: 0 }}>
-                            { module.reasons.map(reason => (
-                                <Card.Grid style={reasonStyle} key={`${reason.module.id}_${reason.reasonText()}`}>
-                                    <Button style={reasonButtonStyle} shape="circle" icon="arrow-right" />
-                                    <h4>{reason.module.name}</h4>
-                                    <h5 style={{ color: 'rgba(0, 0, 0, 0.54)' }}>
-                                        {`${reason.type} at ${reason.reasonText()} as '${reason.userRequest}'`}
-                                    </h5>
-                                </Card.Grid>
-                            ))
-                            }
-                        </Card>
+                <Section title="Reasons" badge={module.reasons.length}>
+                    <Card bordered={false} bodyStyle={{ padding: 0 }}>
+                        { module.reasons.map(reason => (
+                            <Card.Grid style={reasonStyle} key={`${reason.module.id}_${reason.reasonText()}`}>
+                                <Button style={reasonButtonStyle} shape="circle" icon="arrow-right" />
+                                <h4>{reason.module.name}</h4>
+                                <h5 style={{ color: 'rgba(0, 0, 0, 0.54)' }}>
+                                    {`${reason.type} at ${reason.reasonText()} as '${reason.userRequest}'`}
+                                </h5>
+                            </Card.Grid>
+                        ))
                         }
-                        <br />
-                    </div>
+                    </Card>
+                </Section>
                 }
-                <h3>Source code</h3>
-                <CodeMirror
-                    ref={this.onLoadEditor}
-                    options={{
-                        readOnly: true,
-                        lineNumbers: true,
-                        theme: 'monokai',
-                        mode: 'javascript',
-                    }}
-                />
+                <Section title="Source code" collapse={false} newLine={false}>
+                    <CodeMirror
+                        ref={this.onLoadEditor}
+                        options={{
+                            readOnly: true,
+                            lineNumbers: true,
+                            theme: 'monokai',
+                            mode: 'javascript',
+                        }}
+                    />
+                </Section>
             </div>
         );
     }

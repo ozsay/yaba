@@ -1,3 +1,5 @@
+import mime from 'mime-types';
+
 class Reason {
     constructor(reason) {
         this._raw = reason;
@@ -117,6 +119,7 @@ class Asset {
         this.id = index;
         this.name = asset.name;
         this.size = asset.size;
+        this.mimeType = mime.lookup(asset.name);
     }
 }
 
