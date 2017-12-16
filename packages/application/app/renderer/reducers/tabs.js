@@ -7,10 +7,12 @@ import Warnings from '../scenes/Warnings';
 import Modules from '../scenes/Modules';
 import Assets from '../scenes/Assets';
 import Packages from '../scenes/Packages/containers/Packages';
+import Chunks from '../scenes/Chunks/containers/Chunks';
 
 import Module from '../scenes/Modules/containers/Module';
 import Asset from '../scenes/Assets/containers/Asset';
 import Package from '../scenes/Packages/containers/Package';
+import Chunk from '../scenes/Chunks/containers/Chunk';
 
 class Tab {
     constructor({
@@ -51,7 +53,14 @@ const TABS = [
         component: Assets,
         childComponent: Asset,
     },
-    // { name: 'Chunks', link: '/chunks' },
+    {
+        name: 'Chunks',
+        link: '/chunks',
+        path: '/chunks',
+        statsKey: 'chunks',
+        component: Chunks,
+        childComponent: Chunk,
+    },
     {
         name: 'Packages',
         link: '/packages',

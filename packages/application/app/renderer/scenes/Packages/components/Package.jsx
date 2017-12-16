@@ -104,6 +104,9 @@ export default class Package extends React.Component {
                     <h4><a onClick={() => shell.openExternal(_package.homepage)}>{_package.homepage}</a></h4>
                 </Section>
                 }
+                <Section title="Path" collapse={false}>
+                    <h4><a onClick={() => shell.openItem(_package.dir)}>{_package.dir}</a></h4>
+                </Section>
                 <Section title="Sizes" collapse={false}>
                     <Card bordered={false} bodyStyle={{ padding: 0 }}>
                         <SizeCardGrid title="Exclusive size" data={_package} calcFunc={() => _package.size} />

@@ -93,12 +93,11 @@ class Main extends React.Component {
             stats,
             mainTabs,
             currentTab: {
-                index, type, children, component, statsKey,
+                index, type, component, statsKey,
             } = { type: 'main', index: -1 },
         } = this.props;
 
-        const mainIndex = type === 'main' ? index !== -1 ?
-            mainTabs[index].name : null : mainTabs.find(mainTab => mainTab.statsKey === type).name;
+        const mainIndex = type === 'main' && index !== -1 ? mainTabs[index].name : null;
 
         return (
             <Layout style={{ height: '100vh' }}>

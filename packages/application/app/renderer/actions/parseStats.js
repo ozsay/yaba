@@ -18,7 +18,7 @@ class Reason {
         } else if (reason.type === 'harmony import') {
             this.type = 'es6';
         } else if (reason.type === 'single entry') {
-            this.type = 'se';
+            this.type = 'entry';
         } else {
             throw new Error(reason.type);
         }
@@ -33,6 +33,10 @@ class Reason {
     }
 
     reasonText() {
+        if (this.type === 'entry') {
+            return this.line;
+        }
+
         return `${this.line}:[${this.start}-${this.end}]`;
     }
 }
@@ -47,6 +51,7 @@ class Module {
         this.source = module.source;
         this.errors = module.errors;
         this.warnings = module.warnings;
+        this.assets = [];
     }
 
     setIssuer(modules) {
@@ -67,6 +72,17 @@ class Module {
         modules.forEach((module) => {
             if (module._raw.issuerId === this.id) {
                 this.children.push(module);
+            }
+        });
+    }
+
+    setChunks(chunks) {
+        this.chunks = [];
+
+        chunks.forEach((chunk) => {
+            if (this._raw.chunks.find(c2 => chunk.id === c2) !== undefined) {
+                this.chunks.push(chunk);
+                chunk.modules.push(this);
             }
         });
     }
@@ -112,7 +128,36 @@ class Module {
 
 class Chunk {
     constructor(chunk) {
-        this.isEntry = chunk.isEntry;
+        this._raw = chunk;
+
+        this.id = chunk.id;
+        this.hash = chunk.hash;
+        this.size = chunk.size;
+        this.name = chunk.names[0];
+        this.isEntry = chunk.entry;
+        this.modules = [];
+    }
+
+    setAssets(assets) {
+        this.assets = [];
+
+        this._raw.files.forEach((asset) => {
+            const a = assets.find(a2 => a2.name === asset);
+
+            if (a) {
+                this.assets.push(a);
+
+                this.modules.forEach((module) => {
+                    module.assets.push(a);
+                });
+
+                a.chunks.push(this);
+            }
+        });
+    }
+
+    doneInit() {
+        delete this._raw;
     }
 }
 
@@ -122,6 +167,7 @@ class Asset {
         this.name = asset.name;
         this.size = asset.size;
         this.mimeType = mime.lookup(asset.name);
+        this.chunks = [];
     }
 }
 
@@ -197,6 +243,10 @@ class Stats {
         this.modules.forEach((module) => {
             module.doneInit();
         });
+
+        this.chunks.forEach((chunk) => {
+            chunk.doneInit();
+        });
     }
 }
 
@@ -206,27 +256,32 @@ function buildStats(stats) {
             const parsedStats = new Stats(stats);
 
             parsedStats.setModules(stats.modules);
+            parsedStats.setChunks(stats.chunks);
+            parsedStats.setAssets(stats.assets);
+            parsedStats.setPackages(stats.packages);
 
             parsedStats.modules.forEach((module) => {
                 module.setIssuer(parsedStats.modules);
                 module.setReasons(parsedStats.modules);
                 module.setChildren(parsedStats.modules);
+                module.setChunks(parsedStats.chunks);
 
                 if (!module.issuer) {
                     parsedStats.setMain(module);
                 }
             });
 
-            parsedStats.setChunks(stats.chunks);
-            parsedStats.setAssets(stats.assets);
-            parsedStats.setPackages(stats.packages);
-
             parsedStats.packages.forEach((pac) => {
                 pac.setModules(parsedStats.modules);
             });
 
+            parsedStats.chunks.forEach((chunk) => {
+                chunk.setAssets(parsedStats.assets);
+            });
+
             parsedStats.doneInit();
 
+            console.log(stats);
             console.log(parsedStats);
 
             resolve(parsedStats);
