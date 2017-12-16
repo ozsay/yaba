@@ -2,8 +2,8 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 
-import statsReducer from './reducers/stats';
-import tabsReducer from './reducers/tabs';
+import statsReducer from '../reducers/stats';
+import tabsReducer from '../reducers/tabs';
 
 const reducer = combineReducers({
     stats: statsReducer,

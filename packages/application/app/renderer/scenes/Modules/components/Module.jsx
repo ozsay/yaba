@@ -7,39 +7,21 @@ import CodeMirror from 'react-codemirror';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/theme/monokai.css';
 
-import { Card, Button } from 'antd';
+import { Card } from 'antd';
 
 import ModulesTable from '../../../components/ModulesTable';
 import Section from '../../../components/Section';
 import SizeCardGrid from '../../../components/SizeCardGrid';
+import Reason from '../../../components/Reason';
 
 const cjsMarkerStyle = 'background-color: red';
 const es6MarkerStyle = 'background-color: blue';
-
-const reasonStyle = {
-    width: '33%',
-    height: '75px',
-    textAlign: 'left',
-    padding: '15px',
-};
-
-const reasonModuleStyle = {
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-};
-
-const reasonButtonStyle = {
-    float: 'right',
-    marginTop: '6px',
-};
 
 export default class Module extends React.Component {
     constructor(props) {
         super(props);
 
         this.onLoadEditor = this.onLoadEditor.bind(this);
-        this.gotoReason = this.gotoReason.bind(this);
     }
 
     componentDidMount() {
@@ -54,11 +36,6 @@ export default class Module extends React.Component {
 
     onLoadEditor(editor) {
         this.editor = editor;
-    }
-
-    gotoReason(reason) {
-        const { gotoTab } = this.props;
-        gotoTab(reason.module.id, 'modules', reason);
     }
 
     renderEditor() {
@@ -96,6 +73,9 @@ export default class Module extends React.Component {
                         <h4><a onClick={() => gotoTab(module.issuer.id, 'modules')}>{module.issuer.name}</a></h4>
                     </Section>
                 }
+                <Section title="Part of package" collapse={false}>
+                    <h4><a onClick={() => gotoTab(module.package.id, 'packages')}>{module.package.name}</a></h4>
+                </Section>
                 <Section title="Sizes" collapse={false}>
                     <Card bordered={false} bodyStyle={{ padding: 0 }}>
                         <SizeCardGrid title="Exclusive size" data={module} calcFunc={() => module.size} />
@@ -112,23 +92,16 @@ export default class Module extends React.Component {
                 }
                 { module.reasons.length > 0 &&
                 <Section title="Reasons" badge={module.reasons.length}>
-                    <Card bordered={false} bodyStyle={{ padding: 0 }}>
-                        { module.reasons.map(reason => (
-                            <Card.Grid style={reasonStyle} key={`${reason.module.id}_${reason.reasonText()}`}>
-                                <Button
-                                    style={reasonButtonStyle}
-                                    shape="circle"
-                                    icon="arrow-right"
-                                    onClick={() => this.gotoReason(reason)}
+                    <div style={{ maxHeight: 500, overflow: 'auto', paddingBottom: 10 }} >
+                        <Card bordered={false} bodyStyle={{ padding: 0 }}>
+                            { module.reasons.map(reason => (
+                                <Reason
+                                    key={`${reason.module.id}_${reason.reasonText()}`}
+                                    reason={reason}
                                 />
-                                <h4 style={reasonModuleStyle}>{reason.module.name}</h4>
-                                <h5 style={{ color: 'rgba(0, 0, 0, 0.54)' }}>
-                                    {`${reason.type} at ${reason.reasonText()} as '${reason.userRequest}'`}
-                                </h5>
-                            </Card.Grid>
-                        ))
-                        }
-                    </Card>
+                            ))}
+                        </Card>
+                    </div>
                 </Section>
                 }
                 <Section title="Source code" collapse={false} newLine={false}>

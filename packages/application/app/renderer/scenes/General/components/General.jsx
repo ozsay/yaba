@@ -47,13 +47,13 @@ export default function General(props) {
             <Content
                 title="Errors count"
                 description={errors.length}
-                action={errors.length > 0 && <Button onClick={() => gotoTab(4)}>Learn More</Button>}
+                action={errors.length > 0 && <Button onClick={() => gotoTab(5)}>Learn More</Button>}
             />
 
             <Content
                 title="Warnings count"
                 description={warnings.length}
-                action={warnings.length > 0 && <Button onClick={() => gotoTab(3)}>Learn More</Button>}
+                action={warnings.length > 0 && <Button onClick={() => gotoTab(4)}>Learn More</Button>}
             />
 
             <Content

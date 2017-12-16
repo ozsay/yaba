@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import initApp from './actions/initApp';
 import gotoTab from './actions/gotoTab';
 
-import store from './store';
+import store from './utils/store';
 
 import Main from './scenes/Main';
 
@@ -29,5 +29,5 @@ store.dispatch(initApp())
         render(<App />, document.querySelector('#app'));
     })
     .then(() => {
-        store.dispatch(gotoTab(0, 'modules'));
+        store.dispatch(gotoTab(0, 'packages'));
     });

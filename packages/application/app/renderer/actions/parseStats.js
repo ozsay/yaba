@@ -123,6 +123,39 @@ class Asset {
     }
 }
 
+class Package {
+    constructor({ dir, pkgJson }, index) {
+        this.id = index;
+        this.dir = dir;
+        this.name = pkgJson.name;
+        this.version = pkgJson.version;
+        this.license = pkgJson.license;
+        this.homepage = pkgJson.homepage;
+        this.description = pkgJson.description;
+        this.pkgJson = pkgJson;
+    }
+
+    setModules(modules) {
+        this.modules = [];
+        modules.forEach((mod) => {
+            if (mod._raw.partOf === this.dir) {
+                mod.package = this;
+                this.modules.push(mod);
+            }
+        });
+    }
+
+    get size() {
+        let size = 0;
+
+        this.modules.forEach((mod) => {
+            size += mod.size;
+        });
+
+        return size;
+    }
+}
+
 class Stats {
     constructor(stats) {
         this._raw = stats;
@@ -145,6 +178,10 @@ class Stats {
 
     setAssets(assets) {
         this.assets = assets.map((asset, i) => new Asset(asset, i));
+    }
+
+    setPackages(packages) {
+        this.packages = packages.map((_package, i) => new Package(_package, i));
     }
 
     setMain(module) {
@@ -179,10 +216,15 @@ function buildStats(stats) {
 
             parsedStats.setChunks(stats.chunks);
             parsedStats.setAssets(stats.assets);
+            parsedStats.setPackages(stats.packages);
+
+            parsedStats.packages.forEach((pac) => {
+                pac.setModules(parsedStats.modules);
+            });
 
             parsedStats.doneInit();
 
-            console.log(stats);
+            console.log(parsedStats);
 
             resolve(parsedStats);
         } catch (e) {
