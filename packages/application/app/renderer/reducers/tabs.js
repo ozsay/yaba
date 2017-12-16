@@ -1,4 +1,4 @@
-import { LOAD_STATS_FULFILLED } from '../actions/types';
+import { LOAD_STATS_FULFILLED, UPDATE_STATS } from '../actions/types';
 import { ACTION_TYPE as GOTO_TAB } from '../actions/gotoTab';
 
 import General from '../scenes/General';
@@ -8,6 +8,7 @@ import Modules from '../scenes/Modules';
 import Assets from '../scenes/Assets';
 
 import Module from '../scenes/Modules/containers/Module';
+import Asset from '../scenes/Assets/containers/Asset';
 
 class Tab {
     constructor({
@@ -38,12 +39,15 @@ const TABS = [
         path: '/modules',
         statsKey: 'modules',
         component: Modules,
+        childComponent: Module,
     },
     {
         name: 'Assets',
         link: '/assets',
+        path: '/assets',
         statsKey: 'assets',
         component: Assets,
+        childComponent: Asset,
     },
     // { name: 'Chunks', link: '/chunks' },
     {
@@ -61,13 +65,13 @@ const TABS = [
     // { name: 'Hints', link: '/hints' },
 ];
 
-function createChildrenTabs(arr, type) {
+function createChildrenTabs(arr, { type, childComponent }) {
     if (!arr) return [];
 
     return arr.map((element, index) => new Tab({
         index,
         elementId: element.id,
-        component: Module,
+        component: childComponent,
         name: element.name,
         link: `${type}?id=${index}`,
         path: `${type}:id`,
@@ -79,16 +83,17 @@ export default function (
     state = { mainTabs: TABS.map((tab, index) => new Tab({ type: 'main', index, ...tab })) },
     { type, payload },
 ) {
-    if (type === LOAD_STATS_FULFILLED) {
+    if (type === UPDATE_STATS) {
         return {
             mainTabs: TABS.map((tab, index) => new Tab({
-                type: 'main', index, ...tab, children: createChildrenTabs(payload[tab.statsKey], tab.statsKey),
+                type: 'main', index, ...tab, children: createChildrenTabs(payload[tab.statsKey], tab),
             })),
         };
     }
 
     if (type === GOTO_TAB) {
         const { index, type: tabType } = payload;
+
 
         if (tabType !== 'main') {
             const mainTab = state.mainTabs.find(mt => mt.statsKey === tabType);

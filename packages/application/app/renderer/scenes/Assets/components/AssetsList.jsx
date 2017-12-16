@@ -10,9 +10,10 @@ export default class Assets extends React.Component {
     }
 
     render() {
-        const { assets } = this.props;
+        const { assets, gotoTab } = this.props;
 
         const dataSource = assets.map(asset => ({
+            id: asset.id,
             key: asset.name,
             name: asset.name,
             mime: mime.lookup(asset.name),
@@ -23,6 +24,7 @@ export default class Assets extends React.Component {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+            render: (text, obj) => <a onClick={() => gotoTab(obj.id, 'assets')}>{text}</a>,
         }, {
             title: 'Mime',
             dataIndex: 'mime',
@@ -42,4 +44,5 @@ export default class Assets extends React.Component {
 
 Assets.propTypes = {
     assets: PropTypes.arrayOf(PropTypes.object).isRequired,
+    gotoTab: PropTypes.func.isRequired,
 };

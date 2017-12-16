@@ -5,6 +5,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
 import initApp from './actions/initApp';
+import gotoTab from './actions/gotoTab';
 
 import store from './store';
 
@@ -26,4 +27,7 @@ function App() {
 store.dispatch(initApp())
     .then(() => {
         render(<App />, document.querySelector('#app'));
+    })
+    .then(() => {
+        store.dispatch(gotoTab(0, 'assets'));
     });
