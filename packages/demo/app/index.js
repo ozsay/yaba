@@ -1,5 +1,5 @@
 import 'qs';
-// import 'lodash';
+import 'lodash';
 
 import './inline.css';
 import './standalone.css';

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import PackageComponent from '../components/Package';
-import getPackagePopularity from '../../../actions/getPackagePopularity';
+import getPackageData from '../../../actions/getPackageData';
 
 function mapStateToProps({ stats, tabs: { currentTab: { elementId } } }) {
     const _package = stats.packages.find(__package => __package.id === elementId);
@@ -10,7 +10,7 @@ function mapStateToProps({ stats, tabs: { currentTab: { elementId } } }) {
 }
 
 const mapDispatchToProps = {
-    getPackagePopularity,
+    getPackageData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PackageComponent);

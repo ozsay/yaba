@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
+import semver from 'semver';
 
 import { Card, Spin } from 'antd';
 
@@ -45,7 +47,7 @@ function DownloadIndicator({ title, number, busy }) {
         <Card.Grid style={downloadCardStyle}>
             <h4>{title}</h4>
             { busy && <Spin size="small" /> }
-            { !busy && <h5>{number}</h5> }
+            { !busy && <h5>{number.toLocaleString()}</h5> }
         </Card.Grid>
     );
 }
@@ -61,6 +63,21 @@ DownloadIndicator.defaultProps = {
     busy: true,
 };
 
+function VersionIndicator({ title, version, time }) {
+    return (
+        <Card.Grid style={downloadCardStyle}>
+            <h4>{title}</h4>
+            <h5>{`${version}${` published ${distanceInWordsToNow(time, { addSuffix: true })}`}`}</h5>
+        </Card.Grid>
+    );
+}
+
+VersionIndicator.propTypes = {
+    title: PropTypes.string.isRequired,
+    version: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+};
+
 export default class Package extends React.Component {
     constructor(props) {
         super(props);
@@ -71,15 +88,30 @@ export default class Package extends React.Component {
     }
 
     componentDidMount() {
-        const { package: _package, getPackagePopularity } = this.props;
+        const { package: _package, getPackageData } = this.props;
 
-        getPackagePopularity(_package.name)
+        getPackageData(_package.name)
             .then(({ value: res }) => {
+                const versions = Object.keys(res[3].versions);
+
+                const patch = semver.maxSatisfying(
+                    versions,
+                    `${semver.major(_package.version)}.${semver.minor(_package.version)}.X`,
+                );
+                const minor = semver.maxSatisfying(versions, `${semver.major(_package.version)}.X.X`);
+                const major = semver.maxSatisfying(versions, `X.X.X`);
+
                 this.setState({
                     downloads: {
                         day: res[0].downloads,
                         week: res[1].downloads,
                         month: res[2].downloads,
+                    },
+                    versionTime: res[3].time[_package.version],
+                    maxVersions: {
+                        patch: { ver: patch, time: res[3].time[patch] },
+                        minor: { ver: minor, time: res[3].time[minor] },
+                        major: { ver: major, time: res[3].time[major] },
                     },
                 });
             });
@@ -87,7 +119,7 @@ export default class Package extends React.Component {
 
     render() {
         const { package: _package } = this.props;
-        const { downloads } = this.state;
+        const { downloads, versionTime, maxVersions } = this.state;
 
         const reasons = _package.modules.reduce((acc, mod) =>
             acc.concat(mod.reasons), []).filter(reason => reason.module.package !== _package);
@@ -96,7 +128,13 @@ export default class Package extends React.Component {
             <div>
                 <h2>{_package.name}</h2>
                 <br />
-                <Section title="version" collapse={false} body={_package.version} />
+                <Section
+                    title="version"
+                    collapse={false}
+                    body={`${_package.version}${versionTime ? ` published ${distanceInWordsToNow(versionTime, {
+                        addSuffix: true,
+                    })}` : ''}`}
+                />
                 { _package.description && <Section title="description" collapse={false} body={_package.description} /> }
                 <Section title="license" collapse={false} body={_package.license} />
                 { _package.homepage &&
@@ -147,6 +185,15 @@ export default class Package extends React.Component {
                         </Card>
                     </Section>
                 }
+                { maxVersions &&
+                <Section title="Latest versions based on current version" collapse={false}>
+                    <Card bordered={false} bodyStyle={{ padding: 0 }}>
+                        <VersionIndicator title="Major" version={maxVersions.major.ver} time={maxVersions.major.time} />
+                        <VersionIndicator title="Minor" version={maxVersions.minor.ver} time={maxVersions.minor.time} />
+                        <VersionIndicator title="Patch" version={maxVersions.patch.ver} time={maxVersions.patch.time} />
+                    </Card>
+                </Section>
+                }
                 <Section title="package.json">
                     <JSONTree data={_package.pkgJson} hideRoot theme={theme} />
                 </Section>
@@ -157,5 +204,5 @@ export default class Package extends React.Component {
 
 Package.propTypes = {
     package: PropTypes.object.isRequired,
-    getPackagePopularity: PropTypes.func.isRequired,
+    getPackageData: PropTypes.func.isRequired,
 };

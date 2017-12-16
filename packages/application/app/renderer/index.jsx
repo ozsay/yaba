@@ -29,5 +29,5 @@ store.dispatch(initApp())
         render(<App />, document.querySelector('#app'));
     })
     .then(() => {
-        store.dispatch(gotoTab(0, 'chunks'));
+        store.dispatch(gotoTab(0, 'packages'));
     });

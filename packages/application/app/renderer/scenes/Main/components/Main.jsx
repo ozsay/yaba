@@ -125,7 +125,7 @@ class Main extends React.Component {
                         <Sider width={200} style={{ background: '#f1f1f1', borderRight: '1px #cacaca solid' }}>
                             <Search
                                 style={searchStyle}
-                                placeholder={`search ${statsKey}`}
+                                placeholder={`search ${statsKey || ''}`}
                                 onChange={value => console.log(value)}
                             />
                             <Menu
