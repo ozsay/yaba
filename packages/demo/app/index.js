@@ -1,7 +1,8 @@
 import 'qs';
 import 'lodash';
 
-// import './css.css';
+import './inline.css';
+import './standalone.css';
 
 import {AAA, BBB, C, D, E} from './file';
 

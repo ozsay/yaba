@@ -128,13 +128,22 @@ export default class Package extends React.Component {
                         </Card>
                     </div>
                 </Section>
-                <Section title="Popularity" collapse={false}>
-                    <Card bordered={false} bodyStyle={{ padding: 0 }}>
-                        <DownloadIndicator title="Last day" number={downloads.day} busy={!downloads.day} />
-                        <DownloadIndicator title="Last week" number={downloads.week} busy={!downloads.week} />
-                        <DownloadIndicator title="Last month" number={downloads.month} busy={!downloads.month} />
-                    </Card>
-                </Section>
+                { _package.private &&
+                    <Section
+                        title="Popularity"
+                        collapse={false}
+                        body="downloads indicator is disabled for private packages"
+                    />
+                }
+                { !_package.private &&
+                    <Section title="Popularity" collapse={false}>
+                        <Card bordered={false} bodyStyle={{ padding: 0 }}>
+                            <DownloadIndicator title="Last day" number={downloads.day} busy={!downloads.day} />
+                            <DownloadIndicator title="Last week" number={downloads.week} busy={!downloads.week} />
+                            <DownloadIndicator title="Last month" number={downloads.month} busy={!downloads.month} />
+                        </Card>
+                    </Section>
+                }
                 <Section title="package.json">
                     <JSONTree data={_package.pkgJson} hideRoot theme={theme} />
                 </Section>

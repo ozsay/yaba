@@ -12,6 +12,7 @@ import CodeViewer from '../../../components/CodeViewer';
 const MIME_TYPES_PREVIEWERS = {
     js: 'editor',
     html: 'editor',
+    css: 'editor',
 };
 
 function largeuint8ArrToString(uint8arr) {
@@ -43,6 +44,8 @@ export default class Asset extends React.Component {
                 if (asset.mimeType === `application/javascript`) {
                     return largeuint8ArrToString(payload);
                 } else if (asset.mimeType === 'text/html') {
+                    return largeuint8ArrToString(payload);
+                } else if (asset.mimeType === 'text/css') {
                     return largeuint8ArrToString(payload);
                 }
 

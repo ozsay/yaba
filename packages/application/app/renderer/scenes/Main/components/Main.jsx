@@ -20,7 +20,7 @@ const addStatsButtonStyle = {
 
 const searchStyle = {
     padding: '5px 0',
-    width: '375px',
+    width: '175px',
     marginLeft: '12px',
 };
 
@@ -123,7 +123,7 @@ class Main extends React.Component {
                 </Header>
                 <Layout>
                     {
-                        <Sider width={400} style={{ background: '#f1f1f1', borderRight: '1px #cacaca solid' }}>
+                        <Sider width={200} style={{ background: '#f1f1f1', borderRight: '1px #cacaca solid' }}>
                             <Search
                                 style={searchStyle}
                                 placeholder={`search ${statsKey}`}

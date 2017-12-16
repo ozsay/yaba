@@ -1,4 +1,5 @@
 {
+  "name": "yaba",
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",

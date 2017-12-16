@@ -7,6 +7,7 @@ import 'codemirror/lib/codemirror.css';
 
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/htmlmixed/htmlmixed';
+import 'codemirror/mode/css/css';
 
 import 'codemirror/theme/monokai.css';
 
@@ -26,6 +27,8 @@ export default class CodeViewer extends React.Component {
             mode = 'javascript';
         } else if (mime === 'text/html') {
             mode = 'htmlmixed';
+        } else if (mime === 'text/css') {
+            mode = 'css';
         }
 
         return (

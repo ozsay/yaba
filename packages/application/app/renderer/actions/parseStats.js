@@ -134,6 +134,7 @@ class Package {
         this.license = pkgJson.license;
         this.homepage = pkgJson.homepage;
         this.description = pkgJson.description;
+        this.private = pkgJson.private;
         this.pkgJson = pkgJson;
     }
 

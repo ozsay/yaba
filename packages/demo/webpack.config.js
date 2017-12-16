@@ -1,6 +1,8 @@
 const path = require('path');
 const tmp = require('tmp');
 
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 const YabaPlugin = require('@yaba/plugin');
 
 module.exports = ({ tmpFolder = true } = {}) => ({
@@ -22,6 +24,19 @@ module.exports = ({ tmpFolder = true } = {}) => ({
                 },
             },
             {
+                test: /standalone\.css/,
+                use: ExtractTextPlugin.extract({
+                    use: 'css-loader',
+                }),
+            },
+            {
+                test: /inline\.css/,
+                use: [
+                    { loader: 'style-loader' },
+                    { loader: 'css-loader' },
+                ],
+            },
+            {
                 test: /\.html$|.gif$|.png$|.ico$/,
                 exclude: /node_modules/,
                 use: 'file-loader?name=[name].[ext]',
@@ -29,6 +44,7 @@ module.exports = ({ tmpFolder = true } = {}) => ({
         ],
     },
     plugins: [
+        new ExtractTextPlugin('styles.css'),
         new YabaPlugin(),
     ],
 });
