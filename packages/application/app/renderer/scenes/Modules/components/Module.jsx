@@ -11,6 +11,7 @@ import { Card, Button } from 'antd';
 
 import ModulesTable from '../../../components/ModulesTable';
 import Section from '../../../components/Section';
+import SizeCardGrid from '../../../components/SizeCardGrid';
 
 const cjsMarkerStyle = 'background-color: red';
 const es6MarkerStyle = 'background-color: blue';
@@ -20,6 +21,12 @@ const reasonStyle = {
     height: '75px',
     textAlign: 'left',
     padding: '15px',
+};
+
+const reasonModuleStyle = {
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
 };
 
 const reasonButtonStyle = {
@@ -32,6 +39,7 @@ export default class Module extends React.Component {
         super(props);
 
         this.onLoadEditor = this.onLoadEditor.bind(this);
+        this.gotoReason = this.gotoReason.bind(this);
     }
 
     componentDidMount() {
@@ -48,16 +56,21 @@ export default class Module extends React.Component {
         this.editor = editor;
     }
 
+    gotoReason(reason) {
+        const { gotoTab } = this.props;
+        gotoTab(reason.module.id, 'modules', reason);
+    }
+
     renderEditor() {
         const { codeMirror } = this.editor;
         const { doc } = codeMirror;
 
         doc.setValue(this.props.module.source);
 
-        if (this.props.reasonParams) {
+        if (this.props.reason) {
             const {
                 line, start, end, type,
-            } = this.props.reasonParams;
+            } = this.props.reason;
 
             doc.markText(
                 { line: line - 1, ch: start },
@@ -83,6 +96,13 @@ export default class Module extends React.Component {
                         <h4><a onClick={() => gotoTab(module.issuer.id, 'modules')}>{module.issuer.name}</a></h4>
                     </Section>
                 }
+                <Section title="Sizes" collapse={false}>
+                    <Card bordered={false} bodyStyle={{ padding: 0 }}>
+                        <SizeCardGrid title="Exclusive size" data={module} calcFunc={() => module.size} />
+                        <SizeCardGrid title="Inclusive size" data={module} calcFunc={() => module.totalSize} />
+                        <SizeCardGrid title="% of chunk" data={module} calcFunc={() => '5%'} />
+                    </Card>
+                </Section>
                 { module.children.length > 0 &&
                 <Section title="Children" badge={module.children.length}>
                     <div style={{ maxHeight: 250, overflow: 'auto' }} >
@@ -95,8 +115,13 @@ export default class Module extends React.Component {
                     <Card bordered={false} bodyStyle={{ padding: 0 }}>
                         { module.reasons.map(reason => (
                             <Card.Grid style={reasonStyle} key={`${reason.module.id}_${reason.reasonText()}`}>
-                                <Button style={reasonButtonStyle} shape="circle" icon="arrow-right" />
-                                <h4>{reason.module.name}</h4>
+                                <Button
+                                    style={reasonButtonStyle}
+                                    shape="circle"
+                                    icon="arrow-right"
+                                    onClick={() => this.gotoReason(reason)}
+                                />
+                                <h4 style={reasonModuleStyle}>{reason.module.name}</h4>
                                 <h5 style={{ color: 'rgba(0, 0, 0, 0.54)' }}>
                                     {`${reason.type} at ${reason.reasonText()} as '${reason.userRequest}'`}
                                 </h5>
@@ -125,7 +150,7 @@ export default class Module extends React.Component {
 Module.propTypes = {
     module: PropTypes.object, // eslint-disable-line
     gotoTab: PropTypes.func.isRequired,
-    reasonParams: PropTypes.object, // eslint-disable-line
+    reason: PropTypes.object, // eslint-disable-line
 };
 
-Module.defaultProps = { module: null, reasonParams: null };
+Module.defaultProps = { module: null, reason: null };

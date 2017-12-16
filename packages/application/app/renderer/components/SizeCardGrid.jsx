@@ -14,18 +14,29 @@ export default class SizeCardGrid extends React.Component {
     constructor(props) {
         super(props);
 
-        const { calcFunc, data } = this.props;
+        this.state = {};
+    }
+    componentWillMount() {
+        this.calcSize();
+    }
+
+    componentWillReceiveProps(next) {
+        this.calcSize(next);
+    }
+
+    calcSize(props = this.props) {
+        const { calcFunc, data } = props;
 
         const sizePromise = calcFunc(data);
 
         if (sizePromise.then) {
-            this.state = { busy: true };
+            this.setState({ busy: true });
 
             sizePromise.then((size) => {
                 this.setState({ size, busy: false });
             });
         } else {
-            this.state = { size: sizePromise };
+            this.setState({ size: sizePromise });
         }
     }
 
@@ -46,7 +57,7 @@ export default class SizeCardGrid extends React.Component {
 SizeCardGrid.propTypes = {
     title: PropTypes.string.isRequired,
     data: PropTypes.any.isRequired, // eslint-disable-line
-    calcFunc: PropTypes.func,
+    calcFunc: PropTypes.func, // eslint-disable-line
 };
 
 SizeCardGrid.defaultProps = {

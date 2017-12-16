@@ -1,4 +1,4 @@
-import { LOAD_STATS_FULFILLED, UPDATE_STATS } from '../actions/types';
+import { UPDATE_STATS } from '../actions/types';
 import { ACTION_TYPE as GOTO_TAB } from '../actions/gotoTab';
 
 import General from '../scenes/General';
@@ -92,8 +92,7 @@ export default function (
     }
 
     if (type === GOTO_TAB) {
-        const { index, type: tabType } = payload;
-
+        const { index, type: tabType, additional } = payload;
 
         if (tabType !== 'main') {
             const mainTab = state.mainTabs.find(mt => mt.statsKey === tabType);
@@ -101,6 +100,7 @@ export default function (
 
             return Object.assign({}, state, {
                 currentTab: tab,
+                additional,
             });
         }
 

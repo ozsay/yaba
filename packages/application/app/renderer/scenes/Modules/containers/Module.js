@@ -4,10 +4,10 @@ import ModuleComponent from '../components/Module';
 
 import gotoTab from '../../../actions/gotoTab';
 
-function mapStateToProps({ stats, tabs: { currentTab: { elementId } } }) {
+function mapStateToProps({ stats, tabs: { currentTab: { elementId }, additional } }) {
     const module = stats.modules.find(mod => mod.id === elementId);
 
-    return { module };
+    return { module, reason: additional };
 }
 
 const mapDispatchToProps = {
