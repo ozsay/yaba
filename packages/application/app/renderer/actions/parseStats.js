@@ -17,6 +17,8 @@ class Reason {
             this.type = 'commonjs';
         } else if (reason.type === 'harmony import') {
             this.type = 'es6';
+        } else if (reason.type === 'single entry') {
+            this.type = 'se';
         } else {
             throw new Error(reason.type);
         }

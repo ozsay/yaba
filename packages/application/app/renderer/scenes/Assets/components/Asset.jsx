@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CodeMirror from 'react-codemirror';
-
 import { Card } from 'antd';
 
 import { AVAILABLE_SIZES } from '../../../actions/calcSize';
 
 import Section from '../../../components/Section';
 import SizeCardGrid from '../../../components/SizeCardGrid';
+import CodeViewer from '../../../components/CodeViewer';
 
 const MIME_TYPES_PREVIEWERS = {
     js: 'editor',
+    html: 'editor',
 };
 
 function largeuint8ArrToString(uint8arr) {
@@ -41,6 +41,8 @@ export default class Asset extends React.Component {
         getAssetData(asset.name)
             .then(({ payload }) => {
                 if (asset.mimeType === `application/javascript`) {
+                    return largeuint8ArrToString(payload);
+                } else if (asset.mimeType === 'text/html') {
                     return largeuint8ArrToString(payload);
                 }
 
@@ -90,15 +92,7 @@ export default class Asset extends React.Component {
                 </Section>
                 <Section title="Preview" collapse={false}>
                     { assetData &&
-                        <CodeMirror
-                            value={assetData}
-                            options={{
-                                readOnly: true,
-                                lineNumbers: true,
-                                theme: 'monokai',
-                                mode: 'javascript',
-                            }}
-                        />
+                        <CodeViewer source={assetData} mime={asset.mimeType} />
                     }
                 </Section>
             </div>

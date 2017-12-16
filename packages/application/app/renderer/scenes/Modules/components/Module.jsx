@@ -25,11 +25,13 @@ export default class Module extends React.Component {
     }
 
     componentDidMount() {
-        this.renderEditor();
+        if (this.props.module.source) {
+            this.renderEditor();
+        }
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.module !== this.props.module) {
+        if ((prevProps.module !== this.props.module) && this.props.module.source) {
             this.renderEditor();
         }
     }
@@ -104,17 +106,19 @@ export default class Module extends React.Component {
                     </div>
                 </Section>
                 }
-                <Section title="Source code" collapse={false} newLine={false}>
-                    <CodeMirror
-                        ref={this.onLoadEditor}
-                        options={{
-                            readOnly: true,
-                            lineNumbers: true,
-                            theme: 'monokai',
-                            mode: 'javascript',
-                        }}
-                    />
-                </Section>
+                { module.source &&
+                    <Section title="Source code" collapse={false} newLine={false}>
+                        <CodeMirror
+                            ref={this.onLoadEditor}
+                            options={{
+                                readOnly: true,
+                                lineNumbers: true,
+                                theme: 'monokai',
+                                mode: 'javascript',
+                            }}
+                        />
+                    </Section>
+                }
             </div>
         );
     }
