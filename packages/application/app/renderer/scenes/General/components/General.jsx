@@ -34,7 +34,7 @@ Content.defaultProps = {
 
 export default function General(props) {
     const {
-        version, hash, errors = [], warnings = [], modules = [], assets = [], chunks = [], mainModule, time,
+        version, hash, errors = [], warnings = [], modules = [], assets = [], chunks = [], packages = [], mainModule, time,
     } = props.stats;
 
     const { gotoTab } = props;
@@ -77,6 +77,12 @@ export default function General(props) {
             <Content
                 title="Chunks count"
                 description={chunks.length}
+            />
+
+            <Content
+                title="Packages count"
+                description={packages.length}
+                action={packages.length > 0 && <Button onClick={() => gotoTab(3)}>Learn More</Button>}
             />
 
         </Card>

@@ -40,7 +40,6 @@ function largeuint8ArrToBase64(uint8arr) {
     });
 }
 
-
 export default class Asset extends React.Component {
     constructor(props) {
         super(props);
@@ -62,10 +61,6 @@ export default class Asset extends React.Component {
                 } else if (asset.mimeType === 'text/css') {
                     return largeuint8ArrToString(payload);
                 } else if (asset.mimeType === 'image/png') {
-                    // String.fromCharCode.apply(null, payload);
-                    // const base64 = btoa(String.fromCharCode.apply(null, payload));
-                    // return `data:image/png;base64,${base64}`;
-
                     return largeuint8ArrToBase64(payload)
                         .then(res => `data:image/png;base64,${res.substr(13)}`);
                 }
@@ -123,6 +118,9 @@ export default class Asset extends React.Component {
                     <Section title="Preview" collapse={false}>
                         <img style={{ maxHeight: 400 }} src={assetData} />
                     </Section>
+                }
+                { assetData && !MIME_TYPES_PREVIEWERS[asset.mimeType] &&
+                <Section title="Preview" collapse={false} body="Preview of this asset type is not implemented yet" />
                 }
             </div>
         );
