@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Layout, Menu, Modal, Badge, Input } from 'antd';
 
 import TabContainer from './TabContainer';
+import MenuActions from '../../../components/MenuActions';
 import StatsImporter from '../containers/StatsImporter';
 
 const { confirm } = Modal;
@@ -16,6 +17,11 @@ const addStatsButtonStyle = {
     float: 'left',
     marginTop: '5px',
     marginRight: '24px',
+};
+
+const actionsButtonStyle = {
+    float: 'right',
+    marginTop: '5px',
 };
 
 const searchStyle = {
@@ -102,6 +108,7 @@ class Main extends React.Component {
             <Layout style={{ height: '100vh' }}>
                 <Header style={{ height: headerHeight }}>
                     <StatsImporter style={addStatsButtonStyle} />
+                    <MenuActions style={actionsButtonStyle} />
                     <Menu
                         theme="dark"
                         mode="horizontal"
@@ -132,9 +139,9 @@ class Main extends React.Component {
                                 defaultSelectedKeys={['1']}
                                 style={{ borderRight: 0, background: 'transparent' }}
                             >
-                                {/*{ sideTabs.map(sideTab => (*/}
-                                    {/*<Menu.Item key={sideTab.name}>{sideTab.name}</Menu.Item>*/}
-                                {/*))}*/}
+                                {/* { sideTabs.map(sideTab => ( */}
+                                {/* <Menu.Item key={sideTab.name}>{sideTab.name}</Menu.Item> */}
+                                {/* ))} */}
                             </Menu>
                         </Sider>
                     }
