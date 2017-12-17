@@ -1,1 +1,1 @@
-export { default } from './containers/AssetsList';
+export { default } from './containers/Assets';

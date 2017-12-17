@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 
 import { Table } from 'antd';
 
-export default class Assets extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+import Actions from './Actions';
 
-    render() {
-        const { assets, gotoTab } = this.props;
+export default function AssetsTable({ assets }) {
+    function renderTable(actions) {
+        const { gotoTab } = actions;
 
         const dataSource = assets.map(asset => ({
             id: asset.id,
@@ -32,16 +30,22 @@ export default class Assets extends React.Component {
             dataIndex: 'size',
         }];
 
-        return (<Table
-            dataSource={dataSource}
-            columns={columns}
-            size="small"
-            pagination={false}
-        />);
+        return (
+            <Table
+                dataSource={dataSource}
+                columns={columns}
+                size="small"
+                pagination={false}
+            />
+        );
     }
+    return (
+        <Actions>{ renderTable }</Actions>
+    );
 }
 
-Assets.propTypes = {
-    assets: PropTypes.arrayOf(PropTypes.object).isRequired,
-    gotoTab: PropTypes.func.isRequired,
+AssetsTable.propTypes = {
+    assets: PropTypes.arrayOf(PropTypes.object),
 };
+
+AssetsTable.defaultProps = { assets: [] };

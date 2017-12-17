@@ -16,14 +16,12 @@ import Chunk from '../scenes/Chunks/containers/Chunk';
 
 class Tab {
     constructor({
-        index, name, elementId, link, path, component, statsKey, type, children,
+        index, name, elementId, component, statsKey, type, children,
     }) {
         this.type = type;
         this.index = index;
         this.name = name;
         this.elementId = elementId;
-        this.link = link;
-        this.path = path || link;
         this.component = component;
         this.children = children;
         this.statsKey = statsKey;
@@ -33,54 +31,43 @@ class Tab {
 const TABS = [
     {
         name: 'General',
-        link: '/general',
-        path: '/general',
         component: General,
     },
     {
         name: 'Modules',
-        link: '/modules',
-        path: '/modules',
         statsKey: 'modules',
         component: Modules,
         childComponent: Module,
     },
     {
         name: 'Assets',
-        link: '/assets',
-        path: '/assets',
         statsKey: 'assets',
         component: Assets,
         childComponent: Asset,
     },
     {
         name: 'Chunks',
-        link: '/chunks',
-        path: '/chunks',
         statsKey: 'chunks',
         component: Chunks,
         childComponent: Chunk,
     },
     {
         name: 'Packages',
-        link: '/packages',
         statsKey: 'packages',
         component: Packages,
         childComponent: Package,
     },
     {
         name: 'Warnings',
-        link: '/warnings',
         statsKey: 'warnings',
         component: Warnings,
     },
     {
         name: 'Errors',
-        link: '/errors',
         statsKey: 'errors',
         component: Errors,
     },
-    // { name: 'Hints', link: '/hints' },
+    // { name: 'Hints' },
 ];
 
 function createChildrenTabs(arr, { type, childComponent }) {
@@ -91,14 +78,12 @@ function createChildrenTabs(arr, { type, childComponent }) {
         elementId: element.id,
         component: childComponent,
         name: element.name,
-        link: `${type}?id=${index}`,
-        path: `${type}:id`,
         type,
     }));
 }
 
 export default function (
-    state = { mainTabs: TABS.map((tab, index) => new Tab({ type: 'main', index, ...tab })) },
+    state = { mainTabs: TABS.map((tab, index) => new Tab({ type: 'main', index, ...tab })), sideTabs: [] },
     { type, payload },
 ) {
     if (type === UPDATE_STATS) {
@@ -106,6 +91,7 @@ export default function (
             mainTabs: TABS.map((tab, index) => new Tab({
                 type: 'main', index, ...tab, children: createChildrenTabs(payload[tab.statsKey], tab),
             })),
+            sideTabs: [],
         };
     }
 
@@ -116,9 +102,12 @@ export default function (
             const mainTab = state.mainTabs.find(mt => mt.statsKey === tabType);
             const tab = mainTab.children.find(child => child.index === index);
 
+            const { sideTabs } = state;
+
             return Object.assign({}, state, {
                 currentTab: tab,
                 additional,
+                sideTabs: sideTabs.find(t => t === tab) ? sideTabs : sideTabs.concat([tab]),
             });
         }
 

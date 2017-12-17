@@ -12,6 +12,7 @@
   "dependencies": {
     "@yaba/demo": "1.0.0",
     "antd": "^3.0.1",
+    "axios": "^0.17.1",
     "codemirror": "5.32.0",
     "date-fns": "^1.29.0",
     "electron": "1.7.9",

@@ -5,11 +5,11 @@ import gotoTab from '../../../actions/gotoTab';
 
 import MainComponent from '../components/Main';
 
-function mapStateToProps({ stats, tabs: { mainTabs, secondaryTabs, currentTab } }) {
+function mapStateToProps({ stats, tabs: { mainTabs, sideTabs, currentTab } }) {
     return {
         stats,
         mainTabs,
-        secondaryTabs,
+        sideTabs,
         currentTab,
     };
 }

@@ -92,9 +92,8 @@ class Main extends React.Component {
         const {
             stats,
             mainTabs,
-            currentTab: {
-                index, type, component, statsKey,
-            } = { type: 'main', index: -1 },
+            sideTabs = [],
+            currentTab: { index, type, component } = { type: 'main', index: -1 },
         } = this.props;
 
         const mainIndex = type === 'main' && index !== -1 ? mainTabs[index].name : null;
@@ -125,7 +124,7 @@ class Main extends React.Component {
                         <Sider width={200} style={{ background: '#f1f1f1', borderRight: '1px #cacaca solid' }}>
                             <Search
                                 style={searchStyle}
-                                placeholder={`search ${statsKey || ''}`}
+                                placeholder="search"
                                 onChange={value => console.log(value)}
                             />
                             <Menu
@@ -133,10 +132,9 @@ class Main extends React.Component {
                                 defaultSelectedKeys={['1']}
                                 style={{ borderRight: 0, background: 'transparent' }}
                             >
-                                {/*{ children && children.map(child => (*/}
-                                    {/*<Menu.Item key={child.name}>{child.name}</Menu.Item>*/}
-                                {/*))*/}
-                                {/*}*/}
+                                {/*{ sideTabs.map(sideTab => (*/}
+                                    {/*<Menu.Item key={sideTab.name}>{sideTab.name}</Menu.Item>*/}
+                                {/*))}*/}
                             </Menu>
                         </Sider>
                     }
@@ -161,6 +159,7 @@ class Main extends React.Component {
 Main.propTypes = {
     stats: PropTypes.object, // eslint-disable-line
     mainTabs: PropTypes.array.isRequired, // eslint-disable-line
+    sideTabs: PropTypes.array.isRequired, // eslint-disable-line
     currentTab: PropTypes.object, // eslint-disable-line
     startListening: PropTypes.func.isRequired,
     gotoTab: PropTypes.func.isRequired,
