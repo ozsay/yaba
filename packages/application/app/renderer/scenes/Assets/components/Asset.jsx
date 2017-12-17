@@ -8,6 +8,8 @@ import { AVAILABLE_SIZES } from '../../../actions/calcSize';
 import Section from '../../../components/Section';
 import SizeCardGrid from '../../../components/SizeCardGrid';
 import CodeViewer from '../../../components/CodeViewer';
+import ChunksTable from '../../../components/ChunksTable';
+import ModulesTable from '../../../components/ModulesTable';
 
 const MIME_TYPES_PREVIEWERS = {
     'application/javascript': 'editor',
@@ -110,6 +112,20 @@ export default class Asset extends React.Component {
                         </Card>
                     }
                 </Section>
+                { asset.chunks.length > 0 &&
+                    <Section title="Associated chunks" badge={asset.chunks.length}>
+                        <div style={{ maxHeight: 250, overflow: 'auto' }} >
+                            <ChunksTable chunks={asset.chunks} />
+                        </div>
+                    </Section>
+                }
+                { asset.modules.length > 0 &&
+                <Section title="Associated modules" badge={asset.modules.length}>
+                    <div style={{ maxHeight: 250, overflow: 'auto' }} >
+                        <ModulesTable modules={asset.modules} />
+                    </div>
+                </Section>
+                }
                 { assetData && MIME_TYPES_PREVIEWERS[asset.mimeType] === 'editor' &&
                     <Section title="Preview" collapse={false}>
                         <CodeViewer source={assetData} mime={asset.mimeType} />

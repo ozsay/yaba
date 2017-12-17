@@ -13,6 +13,8 @@ import ModulesTable from '../../../components/ModulesTable';
 import Section from '../../../components/Section';
 import SizeCardGrid from '../../../components/SizeCardGrid';
 import Reason from '../../../components/Reason';
+import ChunksTable from '../../../components/ChunksTable';
+import AssetsTable from '../../../components/AssetsTable';
 
 const cjsMarkerStyle = 'background-color: red';
 const es6MarkerStyle = 'background-color: blue';
@@ -103,6 +105,20 @@ export default class Module extends React.Component {
                                 />
                             ))}
                         </Card>
+                    </div>
+                </Section>
+                }
+                { module.chunks.length > 0 &&
+                <Section title="Associated Chunks" badge={module.chunks.length}>
+                    <div style={{ maxHeight: 250, overflow: 'auto' }} >
+                        <ChunksTable chunks={module.chunks} />
+                    </div>
+                </Section>
+                }
+                { module.assets.length > 0 &&
+                <Section title="Associated Assets" badge={module.assets.length}>
+                    <div style={{ maxHeight: 250, overflow: 'auto' }} >
+                        <AssetsTable assets={module.assets} />
                     </div>
                 </Section>
                 }

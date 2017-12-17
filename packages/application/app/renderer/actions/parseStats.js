@@ -149,6 +149,7 @@ class Chunk {
 
                 this.modules.forEach((module) => {
                     module.assets.push(a);
+                    a.modules.push(module);
                 });
 
                 a.chunks.push(this);
@@ -168,6 +169,7 @@ class Asset {
         this.size = asset.size;
         this.mimeType = mime.lookup(asset.name);
         this.chunks = [];
+        this.modules = [];
     }
 }
 

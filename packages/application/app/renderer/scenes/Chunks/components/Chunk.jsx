@@ -7,6 +7,7 @@ import ModulesChart from './ModulesChart';
 import ModulesTable from '../../../components/ModulesTable';
 import Section from '../../../components/Section';
 import SizeCardGrid from '../../../components/SizeCardGrid';
+import AssetsTable from '../../../components/AssetsTable';
 
 export default class Chunk extends React.Component {
     constructor(props) {
@@ -34,6 +35,11 @@ export default class Chunk extends React.Component {
                 <Section title="Associated modules" badge={chunk.modules.length}>
                     <div style={{ maxHeight: 250, overflow: 'auto' }} >
                         <ModulesTable modules={chunk.modules} />
+                    </div>
+                </Section>
+                <Section title="Associated assets" badge={chunk.assets.length}>
+                    <div style={{ maxHeight: 250, overflow: 'auto' }} >
+                        <AssetsTable assets={chunk.assets} />
                     </div>
                 </Section>
             </div>
