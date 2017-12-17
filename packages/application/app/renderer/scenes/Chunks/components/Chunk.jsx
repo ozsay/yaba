@@ -29,7 +29,6 @@ export default class Chunk extends React.Component {
                 <Section title="Sizes" collapse={false}>
                     <Card bordered={false} bodyStyle={{ padding: 0 }}>
                         <SizeCardGrid title="Exclusive size" data={chunk} calcFunc={() => chunk.size} />
-                        <SizeCardGrid title="% of chunk" data={chunk} calcFunc={() => '5%'} />
                     </Card>
                 </Section>
                 <Section title="Associated modules" badge={chunk.modules.length}>

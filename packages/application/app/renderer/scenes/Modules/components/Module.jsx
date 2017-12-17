@@ -84,7 +84,14 @@ export default class Module extends React.Component {
                     <Card bordered={false} bodyStyle={{ padding: 0 }}>
                         <SizeCardGrid title="Exclusive size" data={module} calcFunc={() => module.size} />
                         <SizeCardGrid title="Inclusive size" data={module} calcFunc={() => module.totalSize} />
-                        <SizeCardGrid title="% of chunk" data={module} calcFunc={() => '5%'} />
+                        { module.chunks.map(chunk => (
+                            <SizeCardGrid
+                                key={`size_${chunk.id}`}
+                                title={`Exclusive % of ${chunk.name}`}
+                                data={chunk.modules}
+                                calcFunc={() => `${((module.size / chunk.modulesSize) * 100).toPrecision(4)}%`}
+                            />
+                        ))}
                     </Card>
                 </Section>
                 { module.children.length > 0 &&

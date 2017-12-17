@@ -157,6 +157,16 @@ class Chunk {
         });
     }
 
+    get modulesSize() {
+        let count = 0;
+
+        this.modules.forEach((module) => {
+            count += module.size;
+        });
+
+        return count;
+    }
+
     doneInit() {
         delete this._raw;
     }
