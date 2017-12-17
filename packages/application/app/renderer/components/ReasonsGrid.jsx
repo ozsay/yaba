@@ -23,7 +23,7 @@ const reasonButtonStyle = {
     marginTop: '6px',
 };
 
-export default function Reason({ reason }) {
+function Reason({ reason }) {
     return (
         <Actions>
             { ({ gotoTab }) => (
@@ -44,6 +44,19 @@ export default function Reason({ reason }) {
     );
 }
 
-Reason.propTypes = {
-    reason: PropTypes.object.isRequired, // eslint-disable-line
+export default function ReasonsGrid({ reasons }) {
+    return (
+        <Card bordered={false} bodyStyle={{ padding: 0 }}>
+            { reasons.map(reason => (
+                <Reason
+                    key={`${reason.module.id}_${reason.reasonText()}`}
+                    reason={reason}
+                />
+            ))}
+        </Card>
+    );
+}
+
+ReasonsGrid.propTypes = {
+    reasons: PropTypes.array.isRequired, // eslint-disable-line
 };

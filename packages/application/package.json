@@ -6,11 +6,10 @@
     "prepare": "electron-rebuild -w iltorb",
     "start-main": "PORT=8000 electron .",
     "start-renderer": "webpack-dev-server",
-    "build": "webpack"
+    "build": "webpack --progress --profile --json > /dev/null"
   },
   "license": "MIT",
   "dependencies": {
-    "@yaba/demo": "1.0.0",
     "antd": "^3.0.1",
     "axios": "^0.17.1",
     "codemirror": "5.32.0",
@@ -37,6 +36,7 @@
     "semver": "^5.4.1"
   },
   "devDependencies": {
+    "@yaba/plugin": "1.0.0",
     "babel-core": "6.26.0",
     "babel-eslint": "8.0.3",
     "babel-loader": "7.1.2",

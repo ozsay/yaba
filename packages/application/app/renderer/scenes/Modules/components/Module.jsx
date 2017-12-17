@@ -12,7 +12,7 @@ import { Card } from 'antd';
 import ModulesTable from '../../../components/ModulesTable';
 import Section from '../../../components/Section';
 import SizeCardGrid from '../../../components/SizeCardGrid';
-import Reason from '../../../components/Reason';
+import ReasonsGrid from '../../../components/ReasonsGrid';
 import ChunksTable from '../../../components/ChunksTable';
 import AssetsTable from '../../../components/AssetsTable';
 
@@ -103,15 +103,8 @@ export default class Module extends React.Component {
                 }
                 { module.reasons.length > 0 &&
                 <Section title="Reasons" badge={module.reasons.length}>
-                    <div style={{ maxHeight: 500, overflow: 'auto', paddingBottom: 10 }} >
-                        <Card bordered={false} bodyStyle={{ padding: 0 }}>
-                            { module.reasons.map(reason => (
-                                <Reason
-                                    key={`${reason.module.id}_${reason.reasonText()}`}
-                                    reason={reason}
-                                />
-                            ))}
-                        </Card>
+                    <div style={{ maxHeight: 250, overflow: 'auto', paddingBottom: 10 }} >
+                        <ReasonsGrid reasons={module.reasons} />
                     </div>
                 </Section>
                 }

@@ -9,7 +9,7 @@ import JSONTree from 'react-json-tree';
 
 import Section from '../../../components/Section';
 import ModulesTable from '../../../components/ModulesTable';
-import Reason from '../../../components/Reason';
+import ReasonsGrid from '../../../components/ReasonsGrid';
 import SizeCardGrid from '../../../components/SizeCardGrid';
 
 const { shell } = window.require('electron');
@@ -148,8 +148,6 @@ export default class Package extends React.Component {
                 <Section title="Sizes" collapse={false}>
                     <Card bordered={false} bodyStyle={{ padding: 0 }}>
                         <SizeCardGrid title="Exclusive size" data={_package} calcFunc={() => _package.size} />
-                        {/* <SizeCardGrid title="Inclusive size" data={module} calcFunc={() => module.totalSize} /> */}
-                        <SizeCardGrid title="% of chunk" data={module} calcFunc={() => '5%'} />
                     </Card>
                 </Section>
                 <Section title="Associated modules" badge={_package.modules.length}>
@@ -158,15 +156,8 @@ export default class Package extends React.Component {
                     </div>
                 </Section>
                 <Section title="Usages" badge={reasons.length}>
-                    <div style={{ maxHeight: 500, overflow: 'auto', paddingBottom: 10 }} >
-                        <Card bordered={false} bodyStyle={{ padding: 0 }}>
-                            { reasons.map(reason => (
-                                <Reason
-                                    key={`${reason.module.id}_${reason.reasonText()}`}
-                                    reason={reason}
-                                />
-                            ))}
-                        </Card>
+                    <div style={{ maxHeight: 250, overflow: 'auto', paddingBottom: 10 }} >
+                        <ReasonsGrid reasons={reasons} />
                     </div>
                 </Section>
                 { _package.private &&

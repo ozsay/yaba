@@ -5,6 +5,7 @@
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
     "build:demo": "lerna run --scope @yaba/demo build",
+    "build:application": "lerna run --scope @yaba/application build",
     "start:main": "lerna run --stream --scope @yaba/application start-main",
     "start:renderer": "lerna run --stream --scope @yaba/application start-renderer"
   },

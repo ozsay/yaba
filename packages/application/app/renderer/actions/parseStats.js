@@ -4,24 +4,7 @@ class Reason {
     constructor(reason) {
         this._raw = reason;
 
-        const [line, column] = reason.loc.split(':');
-        const [start, end] = column.split('-');
-
-        this.line = line;
-        this.start = start;
-        this.end = end;
-
         this.userRequest = reason.userRequest;
-
-        if (reason.type === 'cjs require') {
-            this.type = 'commonjs';
-        } else if (reason.type === 'harmony import') {
-            this.type = 'es6';
-        } else if (reason.type === 'single entry') {
-            this.type = 'entry';
-        } else {
-            throw new Error(reason.type);
-        }
     }
 
     setModule(modules) {
@@ -33,12 +16,78 @@ class Reason {
     }
 
     reasonText() {
-        if (this.type === 'entry') {
-            return this.line;
-        }
+        return '';
+    }
+}
 
+class EntryReason extends Reason {
+    constructor(reason) {
+        super(reason);
+
+        this.type = 'entry';
+    }
+
+    reasonText() {
+        return this.line;
+    }
+}
+
+class RequireReason extends Reason {
+    constructor(reason) {
+        super(reason);
+
+        this.type = 'commonjs';
+        const [line, column] = reason.loc.split(':');
+        const [start, end] = column.split('-');
+
+        this.line = line;
+        this.start = start;
+        this.end = end;
+    }
+
+    reasonText() {
         return `${this.line}:[${this.start}-${this.end}]`;
     }
+}
+
+class ImportReason extends RequireReason {
+    constructor(reason) {
+        super(reason);
+
+        this.type = 'es6';
+    }
+}
+
+class AMDReason extends RequireReason {
+    constructor(reason) {
+        super(reason);
+
+        this.type = 'amd';
+    }
+}
+
+class ContextElementReason extends Reason {
+    constructor(reason) {
+        super(reason);
+
+        this.type = 'context_element';
+    }
+}
+
+function createReason(reason) {
+    if (reason.type === 'cjs require' || reason.type === 'cjs require context') {
+        return new RequireReason(reason);
+    } else if (reason.type === 'harmony import') {
+        return new ImportReason(reason);
+    } else if (reason.type === 'single entry') {
+        return new EntryReason(reason);
+    } else if (reason.type === 'context element') {
+        return new ContextElementReason(reason);
+    } else if (reason.type === 'amd require') {
+        return new AMDReason(reason);
+    }
+
+    throw new Error(reason);
 }
 
 class Module {
@@ -59,7 +108,7 @@ class Module {
     }
 
     setReasons(modules) {
-        this.reasons = this._raw.reasons.map(reason => new Reason(reason));
+        this.reasons = this._raw.reasons.map(reason => createReason(reason));
 
         this.reasons.forEach((reason) => {
             reason.setModule(modules);

@@ -120,7 +120,12 @@ class Main extends React.Component {
                             <Menu.Item key={tab.name} disabled={stats === null}>
                                 {tab.name}
                                 { getSize(stats, tab) > 0 &&
-                                    <Badge count={getSize(stats, tab)} style={{ backgroundColor: '#52c41a' }} offset={[0, 5]} />
+                                    <Badge
+                                        overflowCount={9999}
+                                        count={getSize(stats, tab)}
+                                        style={{ backgroundColor: '#52c41a' }}
+                                        offset={[0, 5]}
+                                    />
                                 }
                             </Menu.Item>
                         ))}

@@ -1,5 +1,6 @@
 const path = require('path');
 
+const YabaPlugin = require('@yaba/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const APP_DIR = path.resolve('./app/renderer');
@@ -54,5 +55,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: `${APP_DIR}/index.html`,
         }),
+        // new YabaPlugin(),
     ],
 };
