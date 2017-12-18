@@ -90,6 +90,10 @@ export default class Package extends React.Component {
     componentDidMount() {
         const { package: _package, getPackageData } = this.props;
 
+        if (!_package.version || _package.private) {
+            return;
+        }
+
         getPackageData(_package.name)
             .then(({ value: res }) => {
                 const versions = Object.keys(res[3].versions);
@@ -128,13 +132,15 @@ export default class Package extends React.Component {
             <div>
                 <h2>{_package.name}</h2>
                 <br />
-                <Section
-                    title="version"
-                    collapse={false}
-                    body={`${_package.version}${versionTime ? ` published ${distanceInWordsToNow(versionTime, {
-                        addSuffix: true,
-                    })}` : ''}`}
-                />
+                { _package.version &&
+                    <Section
+                        title="version"
+                        collapse={false}
+                        body={`${_package.version}${versionTime ? ` published ${distanceInWordsToNow(versionTime, {
+                            addSuffix: true,
+                        })}` : ''}`}
+                    />
+                }
                 { _package.description && <Section title="description" collapse={false} body={_package.description} /> }
                 <Section title="license" collapse={false} body={_package.license} />
                 { _package.homepage &&

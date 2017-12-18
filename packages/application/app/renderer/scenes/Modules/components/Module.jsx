@@ -15,6 +15,7 @@ import SizeCardGrid from '../../../components/SizeCardGrid';
 import ReasonsGrid from '../../../components/ReasonsGrid';
 import ChunksTable from '../../../components/ChunksTable';
 import AssetsTable from '../../../components/AssetsTable';
+import PackagesTable from '../../../components/PackagesTable';
 
 const cjsMarkerStyle = 'background-color: red';
 const es6MarkerStyle = 'background-color: blue';
@@ -119,6 +120,13 @@ export default class Module extends React.Component {
                 <Section title="Associated Assets" badge={module.assets.length}>
                     <div style={{ maxHeight: 250, overflow: 'auto' }} >
                         <AssetsTable assets={module.assets} />
+                    </div>
+                </Section>
+                }
+                { module.loaders.length > 0 &&
+                <Section title="Loaders" badge={module.loaders.length}>
+                    <div style={{ maxHeight: 250, overflow: 'auto', paddingBottom: 10 }} >
+                        <PackagesTable packages={module.loaders} />
                     </div>
                 </Section>
                 }

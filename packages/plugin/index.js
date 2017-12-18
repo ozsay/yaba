@@ -36,7 +36,14 @@ function getPkgJson(moduleDir) {
             dir: moduleDir,
             pkgJson: JSON.parse(data),
         }))
-        .catch(() => getPkgJson(path.dirname(moduleDir)))
+        .then(({ dir, pkgJson }) => {
+            if (!pkgJson.name) {
+                return Promise.reject();
+            }
+
+            return { dir, pkgJson };
+        })
+        .catch(() => getPkgJson(path.dirname(moduleDir)));
 }
 
 function applyPackages(context, stats) {
