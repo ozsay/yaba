@@ -2,6 +2,7 @@ import Module from './Module';
 import Chunk from './Chunk';
 import Asset from './Asset';
 import Package from './Package';
+import Loader from './Loader';
 
 export default class Stats {
     constructor(stats) {
@@ -25,6 +26,10 @@ export default class Stats {
 
     setAssets(assets) {
         this.assets = assets.map((asset, i) => new Asset(asset, i));
+    }
+
+    setLoaders(loaders) {
+        this.loaders = loaders.map((loader, i) => new Loader(loader, i));
     }
 
     setPackages(packages) {

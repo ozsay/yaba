@@ -11,6 +11,7 @@ export default class Module {
         this.errors = module.errors;
         this.warnings = module.warnings;
         this.assets = [];
+        this.loaders = [];
     }
 
     setIssuer(modules) {
