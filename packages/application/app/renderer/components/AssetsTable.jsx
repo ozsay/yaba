@@ -18,7 +18,7 @@ export default function AssetsTable({ assets }) {
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
-        render: (text, obj) => <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(obj.id, 'chunks')}>{text}</a> }</Actions>,
+        render: (text, obj) => <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(obj.id, 'assets')}>{text}</a> }</Actions>,
     }, {
         title: 'Mime type',
         dataIndex: 'mime',
