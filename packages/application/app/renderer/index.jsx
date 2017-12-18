@@ -29,5 +29,5 @@ store.dispatch(initApp())
         render(<App />, document.querySelector('#app'));
     })
     .then(() => {
-        store.dispatch(gotoTab(0, 'modules'));
+        store.dispatch(gotoTab(1));
     });

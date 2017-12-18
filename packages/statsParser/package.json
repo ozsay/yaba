@@ -1,0 +1,9 @@
+{
+  "name": "@yaba/statsParser",
+  "version": "1.0.0",
+  "main": "lib/parse.js",
+  "license": "MIT",
+  "dependencies": {
+    "mime-types": "^2.1.17"
+  }
+}

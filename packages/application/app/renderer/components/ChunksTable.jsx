@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Table } from 'antd';
+import Table from './Table';
 
 import Actions from './Actions';
 
@@ -35,10 +35,8 @@ export default function ChunksTable({ chunks }) {
 
         return (
             <Table
-                dataSource={dataSource}
+                data={dataSource}
                 columns={columns}
-                size="small"
-                pagination={false}
             />
         );
     }

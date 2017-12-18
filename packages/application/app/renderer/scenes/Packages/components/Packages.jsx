@@ -23,9 +23,12 @@ export default class Packages extends React.Component {
         }));
 
         const columns = [{
+            title: 'Id',
+            dataIndex: 'id',
+            key: 'id',
+        }, {
             title: 'Name',
             dataIndex: 'name',
-            key: 'name',
             render: (text, obj) => <a onClick={() => gotoTab(obj.id, 'packages')}>{text}</a>,
         }, {
             title: 'Version',
@@ -36,15 +39,17 @@ export default class Packages extends React.Component {
         }, {
             title: 'Homepage',
             dataIndex: 'homepage',
-            render: (text, obj) => <a onClick={() => shell.openExternal(text)}>{text}</a>,
+            render: text => <a onClick={() => shell.openExternal(text)}>{text}</a>,
         }];
 
-        return (<Table
-            dataSource={dataSource}
-            columns={columns}
-            size="small"
-            pagination={false}
-        />);
+        return (
+            <Table
+                dataSource={dataSource}
+                columns={columns}
+                size="small"
+                pagination={false}
+            />
+        );
     }
 }
 

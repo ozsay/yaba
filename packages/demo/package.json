@@ -4,11 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "date-fns": "^1.29.0",
     "lodash": "4.0.0",
     "qs": "6.5.1"
   },
   "scripts": {
-    "build": "webpack --progress --profile --json > /dev/null"
+    "build": "webpack --progress --profile --json > /dev/null",
+    "test": "webpack"
   },
   "devDependencies": {
     "@yaba/plugin": "1.0.0",

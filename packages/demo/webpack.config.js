@@ -6,6 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const YabaPlugin = require('@yaba/plugin');
 
 module.exports = ({ tmpFolder = true } = {}) => ({
+    devtool: 'cheap-module-source-map',
     entry: [
         './app/index.js',
         './app/index.html',
