@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { Layout, Menu, Modal, Badge, Input } from 'antd';
 
-import TabContainer from './TabContainer';
 import MenuActions from '../../../components/MenuActions';
 import StatsImporter from '../containers/StatsImporter';
 
@@ -38,7 +37,7 @@ function getSize(stats, { statsKey }) {
 
 function DefaultComponent() {
     return (
-        <TabContainer><div>Please upload a stats file</div></TabContainer>
+        <div>Please upload a stats file</div>
     );
 }
 
@@ -99,7 +98,7 @@ class Main extends React.Component {
             stats,
             mainTabs,
             sideTabs = [],
-            currentTab: { index, type, component } = { type: 'main', index: -1 },
+            currentTab: { index, type, component: Component } = { type: 'main', index: -1 },
         } = this.props;
 
         const mainIndex = type === 'main' && index !== -1 ? mainTabs[index].name : null;
@@ -158,7 +157,7 @@ class Main extends React.Component {
                             {
                                 index === -1 ?
                                     <DefaultComponent /> :
-                                    <TabContainer comp={component}>{Comp => <Comp />}</TabContainer>
+                                    <Component />
                             }
                         </Content>
                     </Layout>

@@ -114,16 +114,12 @@ export default class Asset extends React.Component {
                 </Section>
                 { asset.chunks.length > 0 &&
                     <Section title="Associated chunks" badge={asset.chunks.length}>
-                        <div style={{ maxHeight: 250, overflow: 'auto' }} >
-                            <ChunksTable chunks={asset.chunks} />
-                        </div>
+                        <ChunksTable chunks={asset.chunks} maxHeight={250} />
                     </Section>
                 }
                 { asset.modules.length > 0 &&
                 <Section title="Associated modules" badge={asset.modules.length}>
-                    <div style={{ maxHeight: 250, overflow: 'auto' }} >
-                        <ModulesTable modules={asset.modules} />
-                    </div>
+                    <ModulesTable modules={asset.modules} maxHeight={250} />
                 </Section>
                 }
                 { assetData && MIME_TYPES_PREVIEWERS[asset.mimeType] === 'editor' &&

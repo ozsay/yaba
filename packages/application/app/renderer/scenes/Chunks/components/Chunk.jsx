@@ -32,14 +32,10 @@ export default class Chunk extends React.Component {
                     </Card>
                 </Section>
                 <Section title="Associated modules" badge={chunk.modules.length}>
-                    <div style={{ maxHeight: 250, overflow: 'auto' }} >
-                        <ModulesTable modules={chunk.modules} />
-                    </div>
+                    <ModulesTable modules={chunk.modules} maxHeight={250} />
                 </Section>
                 <Section title="Associated assets" badge={chunk.assets.length}>
-                    <div style={{ maxHeight: 250, overflow: 'auto' }} >
-                        <AssetsTable assets={chunk.assets} />
-                    </div>
+                    <AssetsTable assets={chunk.assets} maxHeight={250} />
                 </Section>
             </div>
         );

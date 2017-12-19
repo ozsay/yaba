@@ -157,9 +157,7 @@ export default class Package extends React.Component {
                     </Card>
                 </Section>
                 <Section title="Associated modules" badge={_package.modules.length}>
-                    <div style={{ maxHeight: 250, overflow: 'auto' }} >
-                        <ModulesTable modules={_package.modules} />
-                    </div>
+                    <ModulesTable modules={_package.modules} maxHeight={250} />
                 </Section>
                 <Section title="Usages" badge={reasons.length}>
                     <div style={{ maxHeight: 250, overflow: 'auto', paddingBottom: 10 }} >

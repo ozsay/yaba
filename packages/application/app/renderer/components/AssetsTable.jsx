@@ -1,37 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Column } from 'react-virtualized';
+
 import Table from './Table';
 
 import Actions from './Actions';
 
-export default function AssetsTable({ assets }) {
-    const dataSource = assets.map(asset => ({
-        id: asset.id,
-        key: asset.name,
-        name: asset.name,
-        mime: asset.mimeType,
-        size: asset.size,
-    }));
-
-    const columns = [{
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-        render: (text, obj) => <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(obj.id, 'assets')}>{text}</a> }</Actions>,
-    }, {
-        title: 'Mime type',
-        dataIndex: 'mime',
-    }, {
-        title: 'Size',
-        dataIndex: 'size',
-    }];
+export default function AssetsTable(props) {
+    const { assets } = props;
 
     return (
-        <Table
-            data={dataSource}
-            columns={columns}
-        />
+        <Table data={assets} {...props}>
+            <Column
+                label="Name"
+                dataKey="name"
+                width={400}
+                cellRenderer={({ rowData, cellData }) =>
+                    <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(rowData.id, 'assets')}>{cellData}</a> }</Actions>}
+            />
+            <Column
+                label="Mime type"
+                dataKey="mimeType"
+                width={400}
+            />
+            <Column
+                label="Size"
+                dataKey="size"
+                width={400}
+            />
+        </Table>
     );
 }
 

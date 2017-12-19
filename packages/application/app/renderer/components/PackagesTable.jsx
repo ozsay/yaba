@@ -1,46 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Column } from 'react-virtualized';
+
 import Actions from './Actions';
 import Table from './Table';
 
 const { shell } = window.require('electron');
 
-export default function PackagesTable({ packages }) {
-    const dataSource = packages.map(_package => ({
-        id: _package.id,
-        key: _package.name,
-        name: _package.name,
-        version: _package.version,
-        license: _package.license,
-        homepage: _package.homepage,
-    }));
-
-    const columns = [{
-        title: 'Id',
-        dataIndex: 'id',
-        key: 'id',
-    }, {
-        title: 'Name',
-        dataIndex: 'name',
-        render: (text, obj) => <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(obj.id, 'packages')}>{text}</a> }</Actions>,
-    }, {
-        title: 'Version',
-        dataIndex: 'version',
-    }, {
-        title: 'License',
-        dataIndex: 'license',
-    }, {
-        title: 'Homepage',
-        dataIndex: 'homepage',
-        render: text => <a onClick={() => shell.openExternal(text)}>{text}</a>,
-    }];
-
+export default function PackagesTable(props) {
+    const { packages } = props;
     return (
-        <Table
-            data={dataSource}
-            columns={columns}
-        />
+        <Table data={packages} {...props}>
+            <Column
+                label="Id"
+                dataKey="id"
+                width={240}
+            />
+            <Column
+                label="Name"
+                dataKey="name"
+                width={240}
+                cellRenderer={({ rowData, cellData }) =>
+                    <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(rowData.id, 'packages')}>{cellData}</a> }</Actions>}
+            />
+            <Column
+                label="Version"
+                dataKey="version"
+                width={240}
+            />
+            <Column
+                label="License"
+                dataKey="license"
+                width={240}
+            />
+            <Column
+                label="Homepage"
+                dataKey="homepage"
+                width={240}
+                cellRenderer={({ cellData }) => <a onClick={() => shell.openExternal(cellData)}>{cellData}</a>}
+            />
+        </Table>
     );
 }
 

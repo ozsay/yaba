@@ -97,9 +97,7 @@ export default class Module extends React.Component {
                 </Section>
                 { module.children.length > 0 &&
                 <Section title="Children" badge={module.children.length}>
-                    <div style={{ maxHeight: 250, overflow: 'auto' }} >
-                        <ModulesTable modules={module.children} />
-                    </div>
+                    <ModulesTable modules={module.children} maxHeight={250} />
                 </Section>
                 }
                 { module.reasons.length > 0 &&
@@ -111,23 +109,17 @@ export default class Module extends React.Component {
                 }
                 { module.chunks.length > 0 &&
                 <Section title="Associated Chunks" badge={module.chunks.length}>
-                    <div style={{ maxHeight: 250, overflow: 'auto' }} >
-                        <ChunksTable chunks={module.chunks} />
-                    </div>
+                    <ChunksTable chunks={module.chunks} maxHeight={250} />
                 </Section>
                 }
                 { module.assets.length > 0 &&
                 <Section title="Associated Assets" badge={module.assets.length}>
-                    <div style={{ maxHeight: 250, overflow: 'auto' }} >
-                        <AssetsTable assets={module.assets} />
-                    </div>
+                    <AssetsTable assets={module.assets} maxHeight={250} />
                 </Section>
                 }
                 { module.loaders.length > 0 &&
                 <Section title="Loaders" badge={module.loaders.length}>
-                    <div style={{ maxHeight: 250, overflow: 'auto', paddingBottom: 10 }} >
-                        <PackagesTable packages={module.loaders} />
-                    </div>
+                    <PackagesTable packages={module.loaders} maxHeight={250} />
                 </Section>
                 }
                 { module.source &&

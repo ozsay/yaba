@@ -27,9 +27,7 @@ export default class Modules extends React.Component {
         const filteredModules = modules.filter(this.isFiltered);
 
         return (
-            <div>
-                <ModulesTable modules={filteredModules} />
-            </div>
+            <ModulesTable modules={filteredModules} />
         );
     }
 }

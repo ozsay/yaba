@@ -1,46 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Column } from 'react-virtualized';
+
 import Table from './Table';
 
 import Actions from './Actions';
 
-export default function ModulesTable({ modules }) {
-    const dataSource = modules.map(module => ({
-        key: module.id,
-        id: module.id,
-        name: module.name,
-        issuer: module.issuer && module.issuer.name,
-        issuerId: module.issuer && module.issuer.id,
-        size: module.size,
-        _children: module.children.length,
-    }));
-
-    const columns = [{
-        title: 'Id',
-        dataIndex: 'id',
-        key: 'id',
-        render: (text, obj) => <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(obj.id, 'modules')}>{text}</a> }</Actions>,
-    }, {
-        title: 'Path',
-        dataIndex: 'name',
-    }, {
-        title: 'Issuer',
-        dataIndex: 'issuer',
-        render: (text, obj) => <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(obj.issuerId, 'modules')}>{text}</a> }</Actions>,
-    }, {
-        title: 'Size',
-        dataIndex: 'size',
-    }, {
-        title: 'Children',
-        dataIndex: '_children',
-    }];
+export default function ModulesTable(props) {
+    const { modules } = props;
 
     return (
-        <Table
-            data={dataSource}
-            columns={columns}
-        />
+        <Table data={modules} {...props}>
+            <Column
+                label="Id"
+                dataKey="id"
+                width={240}
+                cellRenderer={({ rowData, cellData }) =>
+                    <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(rowData.id, 'modules')}>{cellData}</a> }</Actions>}
+            />
+            <Column
+                label="Path"
+                dataKey="name"
+                width={240}
+            />
+            <Column
+                label="Issuer"
+                dataKey="issuer"
+                width={240}
+                cellRenderer={({ cellData: issuer = {} }) =>
+                    <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(issuer.id, 'modules')}>{issuer.name}</a> }</Actions>}
+            />
+            <Column
+                label="Size"
+                dataKey="size"
+                width={240}
+            />
+            <Column
+                label="Children"
+                dataKey="children"
+                width={240}
+                cellRenderer={({ cellData: children }) => <div>{children.length}</div>}
+            />
+        </Table>
     );
 }
 

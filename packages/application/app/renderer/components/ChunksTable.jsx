@@ -1,40 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Column } from 'react-virtualized';
+
 import Table from './Table';
 
 import Actions from './Actions';
 
-export default function ChunksTable({ chunks }) {
-    const dataSource = chunks.map(chunk => ({
-        id: chunk.id,
-        key: chunk.id,
-        name: chunk.name,
-        size: chunk.size,
-        hash: chunk.hash,
-    }));
-
-    const columns = [{
-        title: 'Id',
-        dataIndex: 'id',
-        key: 'id',
-    }, {
-        title: 'Name',
-        dataIndex: 'name',
-        render: (text, obj) => <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(obj.id, 'chunks')}>{text}</a> }</Actions>,
-    }, {
-        title: 'Hash',
-        dataIndex: 'hash',
-    }, {
-        title: 'size',
-        dataIndex: 'size',
-    }];
+export default function ChunksTable(props) {
+    const { chunks } = props;
 
     return (
-        <Table
-            data={dataSource}
-            columns={columns}
-        />
+        <Table data={chunks} {...props}>
+            <Column
+                label="Id"
+                dataKey="id"
+                width={300}
+            />
+            <Column
+                label="Name"
+                dataKey="name"
+                width={300}
+                cellRenderer={({ rowData, cellData }) =>
+                    <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(rowData.id, 'chunks')}>{cellData}</a> }</Actions>}
+            />
+            <Column
+                label="Hash"
+                dataKey="hash"
+                width={300}
+            />
+            <Column
+                label="Size"
+                dataKey="size"
+                width={300}
+            />
+        </Table>
     );
 }
 
