@@ -10,34 +10,40 @@ const { shell } = window.require('electron');
 
 export default function PackagesTable(props) {
     const { packages } = props;
+
     return (
         <Table data={packages} {...props}>
             <Column
                 label="Id"
                 dataKey="id"
-                width={240}
+                dataLength={val => val.toString().length}
+                width={10}
             />
             <Column
                 label="Name"
                 dataKey="name"
-                width={240}
+                dataLength={val => val ? val.length : 0}
+                width={10}
                 cellRenderer={({ rowData, cellData }) =>
                     <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(rowData.id, 'packages')}>{cellData}</a> }</Actions>}
             />
             <Column
                 label="Version"
                 dataKey="version"
-                width={240}
+                dataLength={val => val ? val.length : 0}
+                width={10}
             />
             <Column
                 label="License"
                 dataKey="license"
-                width={240}
+                dataLength={val => val ? val.length : 0}
+                width={10}
             />
             <Column
                 label="Homepage"
                 dataKey="homepage"
-                width={240}
+                dataLength={val => val ? val.length : 0}
+                width={10}
                 cellRenderer={({ cellData }) => <a onClick={() => shell.openExternal(cellData)}>{cellData}</a>}
             />
         </Table>

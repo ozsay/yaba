@@ -15,31 +15,36 @@ export default function ModulesTable(props) {
             <Column
                 label="Id"
                 dataKey="id"
-                width={240}
+                dataLength={val => val.length}
+                width={10}
                 cellRenderer={({ rowData, cellData }) =>
                     <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(rowData.id, 'modules')}>{cellData}</a> }</Actions>}
             />
             <Column
                 label="Path"
                 dataKey="name"
-                width={240}
+                dataLength={val => val.length}
+                width={10}
             />
             <Column
                 label="Issuer"
                 dataKey="issuer"
-                width={240}
+                dataLength={val => val ? val.name.length : 0}
+                width={10}
                 cellRenderer={({ cellData: issuer = {} }) =>
                     <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(issuer.id, 'modules')}>{issuer.name}</a> }</Actions>}
             />
             <Column
                 label="Size"
                 dataKey="size"
-                width={240}
+                dataLength={val => val.toString().length}
+                width={10}
             />
             <Column
                 label="Children"
                 dataKey="children"
-                width={240}
+                dataLength={val => val.length.toString().length}
+                width={10}
                 cellRenderer={({ cellData: children }) => <div>{children.length}</div>}
             />
         </Table>

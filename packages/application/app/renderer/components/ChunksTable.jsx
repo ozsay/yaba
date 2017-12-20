@@ -15,24 +15,28 @@ export default function ChunksTable(props) {
             <Column
                 label="Id"
                 dataKey="id"
-                width={300}
+                dataLength={val => val.length}
+                width={10}
             />
             <Column
                 label="Name"
                 dataKey="name"
-                width={300}
+                dataLength={val => val.length}
+                width={10}
                 cellRenderer={({ rowData, cellData }) =>
                     <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(rowData.id, 'chunks')}>{cellData}</a> }</Actions>}
             />
             <Column
                 label="Hash"
                 dataKey="hash"
-                width={300}
+                dataLength={val => val.length}
+                width={10}
             />
             <Column
                 label="Size"
                 dataKey="size"
-                width={300}
+                dataLength={val => val.toString().length}
+                width={10}
             />
         </Table>
     );

@@ -15,19 +15,22 @@ export default function AssetsTable(props) {
             <Column
                 label="Name"
                 dataKey="name"
-                width={400}
+                width={10}
+                dataLength={val => val.length}
                 cellRenderer={({ rowData, cellData }) =>
                     <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(rowData.id, 'assets')}>{cellData}</a> }</Actions>}
             />
             <Column
                 label="Mime type"
                 dataKey="mimeType"
-                width={400}
+                width={10}
+                dataLength={val => val.length}
             />
             <Column
                 label="Size"
                 dataKey="size"
-                width={400}
+                width={10}
+                dataLength={val => val.toString().length}
             />
         </Table>
     );

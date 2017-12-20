@@ -2,16 +2,16 @@ import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Table as VTable, AutoSizer } from 'react-virtualized';
+import { Table as VTable, AutoSizer, Column } from 'react-virtualized';
 import 'react-virtualized/styles.css';
 
-const tableStyle = {
+const tableStyle = width => ({
     border: '1px solid #e8e8e8',
     borderRadius: 4,
-    width: 1200,
+    width,
     paddingRight: 8,
     paddingLeft: 8,
-};
+});
 
 const rowStyle = {
     borderBottom: '1px solid #e8e8e8',
@@ -25,6 +25,25 @@ const headerStyle = {
     fontWeight: 600,
 };
 
+function getFlexedColumns(data, columns) {
+    const propsArr = _.map(columns, 'props');
+
+    const maxLengths = _(propsArr)
+        .map(col => _.map(data, val => col.dataLength(val[col.dataKey])))
+        .map(_.max)
+        .map((l, i) => _.max([l, propsArr[i].label.length]))
+        .value();
+
+    const sum = _.sum(maxLengths);
+
+    return _(maxLengths)
+        .map(l => l / sum)
+        .map(l => _.round(l, propsArr.length))
+        .map(l => l * 100 * propsArr.length)
+        .map((factor, i) => <Column {...propsArr[i]} flexGrow={factor} key={`${propsArr.label}`} width={10} />)
+        .value();
+}
+
 const headerHeight = 38;
 
 function calcHeight(requestedHeight, data, rh, hh, minElements = 4) {
@@ -36,15 +55,23 @@ function calcHeight(requestedHeight, data, rh, hh, minElements = 4) {
     return Math.max(minHeight, maxHeight);
 }
 
+function hover(target, color = '') {
+    if (target.getAttribute('role') === 'row') {
+        target.style.backgroundColor = color;
+    } else {
+        hover(target.parentNode, color);
+    }
+}
+
 export default function Table({
     data, children, rowHeight, maxHeight,
 }) {
-    function createTable(width, height) {
+    function createTable(width, height, columns = children) {
         return (
             <VTable
-                style={tableStyle}
+                style={tableStyle(width)}
                 headerStyle={headerStyle}
-                width={(width) - 16}
+                width={width - 16}
                 height={height}
                 headerHeight={headerHeight}
                 rowHeight={rowHeight}
@@ -52,34 +79,24 @@ export default function Table({
                 rowGetter={({ index }) => data[index]}
                 rowStyle={({ index }) => (index === (data.length - 1) ? lastRowStyle : rowStyle)}
                 onRowMouseOver={({ event: { target } }) => {
-                    if (target.getAttribute('role') === 'row') {
-                        target.style.backgroundColor = '#e6f7ff';
-                    } else if (target.parentNode.getAttribute('role') === 'row') {
-                        target.parentNode.style.backgroundColor = '#e6f7ff';
-                    }
+                    hover(target, '#e6f7ff');
                 }}
                 onRowMouseOut={({ event: { target } }) => {
-                    if (target.getAttribute('role') === 'row') {
-                        target.style.backgroundColor = '';
-                    } else if (target.parentNode.getAttribute('role') === 'row') {
-                        target.parentNode.style.backgroundColor = '';
-                    }
+                    hover(target);
                 }}
             >
-                { children }
+                { columns }
             </VTable>
         );
     }
 
-    const calcedWidth = _.sumBy(children, 'props.width');
-
-    if (maxHeight) {
-        return createTable(calcedWidth, calcHeight(maxHeight, data, rowHeight, headerHeight));
-    }
-
     return (
-        <AutoSizer>
-            {({ height }) => createTable(calcedWidth, calcHeight(height, data, rowHeight, headerHeight))}
+        <AutoSizer disableHeight={!!maxHeight}>
+            {({ height, width }) => {
+                const calcedHeight = calcHeight(maxHeight || height, data, rowHeight, headerHeight);
+
+                return createTable(width, calcedHeight, getFlexedColumns(data, children));
+            }}
         </AutoSizer>
     );
 }
