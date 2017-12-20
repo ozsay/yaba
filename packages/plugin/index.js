@@ -59,8 +59,8 @@ async function applyPackages(context, stats) {
         return { id: module.id, dir, pkgJson };
     }));
 
-    const allpkgJsons = pkgJsons.concat(pkgJsons, await Promise.all(stats.loaders.map(async (loader) => {
-        const moduleDir = path.dirname(loader.module);
+    const allpkgJsons = pkgJsons.concat(pkgJsons, await Promise.all(stats.loaders.map(async ({ loader }) => {
+        const moduleDir = path.dirname(loader);
 
         const { dir, pkgJson } = await getPkgJson(moduleDir);
 
@@ -113,10 +113,6 @@ async function applyLoaders(compiler, stats) {
             });
         }
     });
-
-    for (const loader of loaders) {
-        loader.module = loader.loader;
-    }
 
     stats.loaders = loaders;
 }
