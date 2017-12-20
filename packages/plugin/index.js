@@ -46,31 +46,40 @@ function getPkgJson(moduleDir) {
         .catch(() => getPkgJson(path.dirname(moduleDir)));
 }
 
-function applyPackages(context, stats) {
+async function applyPackages(context, stats) {
     const { modules } = stats;
     const packages = {};
 
-    const pkgJsonsPromises = modules.map((module) => {
+    const pkgJsons = await Promise.all(modules.map(async (module) => {
         const modulePath = path.resolve(context, module.name);
         const moduleDir = path.dirname(modulePath);
 
-        return getPkgJson(moduleDir).then(({ dir, pkgJson }) => ({ id: module.id, dir, pkgJson }));
+        const { dir, pkgJson } = await getPkgJson(moduleDir);
+
+        return { id: module.id, dir, pkgJson };
+    }));
+
+    const allpkgJsons = pkgJsons.concat(pkgJsons, await Promise.all(stats.loaders.map(async (loader) => {
+        const moduleDir = path.dirname(loader.module);
+
+        const { dir, pkgJson } = await getPkgJson(moduleDir);
+
+        return { dir, pkgJson };
+    })));
+
+    allpkgJsons.forEach(({ id, dir, pkgJson }) => {
+        packages[dir] = { dir, pkgJson };
+
+        if (!id) {
+            return;
+        }
+
+        const module = modules.find(mod => mod.id === id);
+
+        module.partOf = dir;
     });
 
-    return Promise.all(pkgJsonsPromises).then((pkgJsons) => {
-        pkgJsons.forEach(({ id, dir, pkgJson }) => {
-            packages[dir] = { dir, pkgJson };
-
-            const module = modules.find(mod => mod.id === id);
-
-            module.partOf = dir;
-        });
-
-        return _.values(packages);
-    })
-        .then((_packages) => {
-            stats.packages = _packages;
-        });
+    stats.packages = _.values(packages);
 }
 
 function applyMoreDataToModules(compiler, stats) {
@@ -106,7 +115,7 @@ async function applyLoaders(compiler, stats) {
     });
 
     for (const loader of loaders) {
-        loader.loaderModule = await getPkgJson(path.dirname(loader.loader));
+        loader.module = loader.loader;
     }
 
     stats.loaders = loaders;
@@ -135,6 +144,10 @@ class YabaPlugin {
                 yabaApplication.on('connect', () => createStats(currCompiler)
                     .then((tmpPath) => {
                         yabaApplication.emit('message', JSON.stringify({ context, path: tmpPath }));
+                    })
+                    .catch((e) => {
+                        console.log(e);
+                        cb();
                     }));
 
                 yabaApplication.on('message', () => {

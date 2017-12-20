@@ -151,19 +151,25 @@ export default class Package extends React.Component {
                 <Section title="Path" collapse={false}>
                     <h4><a onClick={() => shell.openItem(_package.dir)}>{_package.dir}</a></h4>
                 </Section>
-                <Section title="Sizes" collapse={false}>
-                    <Card bordered={false} bodyStyle={{ padding: 0 }}>
-                        <SizeCardGrid title="Exclusive size" data={_package} calcFunc={() => _package.size} />
-                    </Card>
-                </Section>
-                <Section title="Associated modules" badge={_package.modules.length}>
-                    <ModulesTable modules={_package.modules} maxHeight={250} />
-                </Section>
-                <Section title="Usages" badge={reasons.length}>
-                    <div style={{ maxHeight: 250, overflow: 'auto', paddingBottom: 10 }} >
-                        <ReasonsGrid reasons={reasons} />
-                    </div>
-                </Section>
+                { _package.size > 0 &&
+                    <Section title="Sizes" collapse={false}>
+                        <Card bordered={false} bodyStyle={{ padding: 0 }}>
+                            <SizeCardGrid title="Exclusive size" data={_package} calcFunc={() => _package.size} />
+                        </Card>
+                    </Section>
+                }
+                { _package.modules.length > 0 &&
+                    <Section title="Associated modules" badge={_package.modules.length}>
+                        <ModulesTable modules={_package.modules} maxHeight={250} />
+                    </Section>
+                }
+                { reasons.length > 0 &&
+                    <Section title="Usages" badge={reasons.length}>
+                        <div style={{ maxHeight: 250, overflow: 'auto', paddingBottom: 10 }} >
+                            <ReasonsGrid reasons={reasons} />
+                        </div>
+                    </Section>
+                }
                 { _package.private &&
                     <Section
                         title="Popularity"

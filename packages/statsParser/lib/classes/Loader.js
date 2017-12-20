@@ -1,14 +1,14 @@
 export default class Loader {
-    constructor({ loaderModule: { dir, pkgJson } }, index) {
+    constructor(loader, index) {
         this.id = index;
-        this.dir = dir;
-        this.name = pkgJson.name;
-        this.version = pkgJson.version;
-        this.license = pkgJson.license;
-        this.homepage = pkgJson.homepage;
-        this.description = pkgJson.description;
-        this.private = pkgJson.private;
-        this.pkgJson = pkgJson;
+        // this.dir = dir;
+        // this.name = pkgJson.name;
+        // this.version = pkgJson.version;
+        // this.license = pkgJson.license;
+        // this.homepage = pkgJson.homepage;
+        // this.description = pkgJson.description;
+        // this.private = pkgJson.private;
+        // this.pkgJson = pkgJson;
     }
 
     setModules(modules) {
