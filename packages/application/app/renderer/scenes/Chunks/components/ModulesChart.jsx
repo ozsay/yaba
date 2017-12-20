@@ -18,7 +18,7 @@ export default class ModulesChart extends React.Component {
             [title, null, 0, 0],
         ];
 
-        modules.forEach((module) => {
+        modules.sort(v => v.size).slice(-15).forEach((module) => {
             data.push([module.name, title, module.size, -module.size]);
         });
 

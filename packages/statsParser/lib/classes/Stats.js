@@ -40,6 +40,31 @@ export default class Stats {
         this.mainModule = module;
     }
 
+    createRelations() {
+        this.modules.forEach((module) => {
+            module.setIssuer(this.modules);
+            module.setReasons(this.modules);
+            module.setChildren(this.modules);
+            module.setChunks(this.chunks);
+
+            if (!module.issuer) {
+                this.setMain(module);
+            }
+        });
+
+        this.packages.forEach((pac) => {
+            pac.setModules(this.modules);
+        });
+
+        this.chunks.forEach((chunk) => {
+            chunk.setAssets(this.assets);
+        });
+
+        this.loaders.forEach((loader) => {
+            loader.setModules(this.modules);
+        });
+    }
+
     doneInit() {
         delete this._raw;
 
