@@ -71,11 +71,16 @@ export default class Module extends React.Component {
 
         return (
             <div>
-                <h2>{module.name}</h2>
+                <h2>{module.display}</h2>
                 <br />
                 { module.issuer &&
                     <Section title="Iuuser" collapse={false}>
-                        <h4><a onClick={() => gotoTab(module.issuer.id, 'modules')}>{module.issuer.name}</a></h4>
+                        <h4><a onClick={() => gotoTab(module.issuer.id, 'modules')}>{module.issuer.display}</a></h4>
+                    </Section>
+                }
+                { module.fullPath &&
+                    <Section title="Full path" collapse={false}>
+                        <h4>{module.fullPath}</h4>
                     </Section>
                 }
                 <Section title="Part of package" collapse={false}>

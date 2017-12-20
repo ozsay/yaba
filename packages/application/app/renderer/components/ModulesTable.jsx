@@ -22,17 +22,17 @@ export default function ModulesTable(props) {
             />
             <Column
                 label="Path"
-                dataKey="name"
+                dataKey="display"
                 dataLength={val => val.length}
                 width={10}
             />
             <Column
                 label="Issuer"
                 dataKey="issuer"
-                dataLength={val => val ? val.name.length : 0}
+                dataLength={val => val ? val.display.length : 0}
                 width={10}
                 cellRenderer={({ cellData: issuer = {} }) =>
-                    <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(issuer.id, 'modules')}>{issuer.name}</a> }</Actions>}
+                    <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(issuer.id, 'modules')}>{issuer.display}</a> }</Actions>}
             />
             <Column
                 label="Size"

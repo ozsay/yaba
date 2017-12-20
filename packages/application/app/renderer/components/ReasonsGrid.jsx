@@ -34,7 +34,7 @@ function Reason({ reason }) {
                         icon="arrow-right"
                         onClick={() => gotoTab(reason.module.id, 'modules', reason)}
                     />
-                    <h4 style={reasonModuleStyle}>{reason.module.name}</h4>
+                    <h4 style={reasonModuleStyle}>{reason.module.display}</h4>
                     <h5 style={{ color: 'rgba(0, 0, 0, 0.54)' }}>
                         {`${reason.type} at ${reason.reasonText()} as '${reason.userRequest}'`}
                     </h5>

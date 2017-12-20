@@ -73,10 +73,14 @@ function applyPackages(context, stats) {
         });
 }
 
-function applyMoreDataToModules(stats) {
+function applyMoreDataToModules(compiler, stats) {
     const { modules } = stats;
 
-    return modules.map(module => module);
+    _.forEach(modules, (module, i) => {
+        module.resource = compiler.modules[i].resource;
+        module.relativePath = compiler.modules[i].resource &&
+            path.relative(compiler.options.context, compiler.modules[i].resource);
+    });
 }
 
 async function applyLoaders(compiler, stats) {
@@ -116,7 +120,7 @@ async function createStats(compiler) {
 
     await applyPackages(context, stats);
 
-    await applyMoreDataToModules(stats);
+    await applyMoreDataToModules(compiler, stats);
 
     return writeAssets(outputPath, compiler.assets, stats);
 }

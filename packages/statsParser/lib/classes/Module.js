@@ -6,6 +6,8 @@ export default class Module {
 
         this.id = module.id;
         this.name = module.name;
+        this.fullPath = module.resource;
+        this.relativePath = module.relativePath;
         this.size = module.size;
         this.source = module.source;
         this.errors = module.errors;
@@ -45,6 +47,10 @@ export default class Module {
                 chunk.modules.push(this);
             }
         });
+    }
+
+    get display() {
+        return this.relativePath || this.name;
     }
 
     get totalSize() {
