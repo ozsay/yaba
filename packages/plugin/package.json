@@ -5,7 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "fs-extra": "^5.0.0",
-    "lodash": "^4.17.4",
+    "lodash": "4.17.5",
     "node-ipc": "9.1.1",
     "tmp": "^0.0.33"
   }

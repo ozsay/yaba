@@ -9,7 +9,7 @@ function Actions({ children, ...actions }) {
         <div>{children(actions)}</div>
     );
 }
-const mapDispaptchToProps = {
+const mapDispatchToProps = {
     gotoTab: gotoTabAction,
 };
 
@@ -17,4 +17,4 @@ Actions.propTypes = {
     children: PropTypes.func.isRequired,
 };
 
-export default connect(() => ({}), mapDispaptchToProps)(Actions);
+export default connect(() => ({}), mapDispatchToProps)(Actions);
