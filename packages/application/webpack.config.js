@@ -1,6 +1,5 @@
 const path = require('path');
 
-const YabaPlugin = require('@yaba/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const APP_DIR = path.resolve('./app/renderer');
@@ -8,6 +7,7 @@ const BUILD_DIR = path.resolve('./dist');
 const MODULES_DIRS = [path.resolve('./node_modules'), path.resolve('../../node_modules')];
 
 module.exports = {
+    mode: 'development',
     devtool: 'cheap-module-source-map',
     context: APP_DIR,
     entry: `./index.jsx`,
