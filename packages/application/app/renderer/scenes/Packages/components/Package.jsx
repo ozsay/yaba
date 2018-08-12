@@ -45,9 +45,15 @@ const downloadCardStyle = {
 function DownloadIndicator({ title, number, busy }) {
     return (
         <Card.Grid style={downloadCardStyle}>
-            <h4>{title}</h4>
+            <h4>
+                {title}
+            </h4>
             { busy && <Spin size="small" /> }
-            { !busy && <h5>{number.toLocaleString()}</h5> }
+            { !busy && (
+                <h5>
+                    {number.toLocaleString()}
+                </h5>
+            ) }
         </Card.Grid>
     );
 }
@@ -66,8 +72,12 @@ DownloadIndicator.defaultProps = {
 function VersionIndicator({ title, version, time }) {
     return (
         <Card.Grid style={downloadCardStyle}>
-            <h4>{title}</h4>
-            <h5>{`${version}${` published ${distanceInWordsToNow(time, { addSuffix: true })}`}`}</h5>
+            <h4>
+                {title}
+            </h4>
+            <h5>
+                {`${version}${` published ${distanceInWordsToNow(time, { addSuffix: true })}`}`}
+            </h5>
         </Card.Grid>
     );
 }
@@ -125,75 +135,104 @@ export default class Package extends React.Component {
         const { package: _package } = this.props;
         const { downloads, versionTime, maxVersions } = this.state;
 
-        const reasons = _package.modules.reduce((acc, mod) =>
-            acc.concat(mod.reasons), []).filter(reason => reason.module.package !== _package);
+        const reasons = _package.modules
+            .reduce((acc, mod) => acc.concat(mod.reasons), [])
+            .filter((reason) => {
+                return reason.module && reason.module.package !== _package;
+            });
 
         return (
             <div>
-                <h2>{_package.name}</h2>
+                <h2>
+                    {_package.name}
+                </h2>
                 <br />
-                { _package.version &&
-                    <Section
-                        title="version"
-                        collapse={false}
-                        body={`${_package.version}${versionTime ? ` published ${distanceInWordsToNow(versionTime, {
-                            addSuffix: true,
-                        })}` : ''}`}
-                    />
+                { _package.version
+                    && (
+                        <Section
+                            title="version"
+                            collapse={false}
+                            body={`${_package.version}${versionTime ? ` published ${distanceInWordsToNow(versionTime, {
+                                addSuffix: true,
+                            })}` : ''}`}
+                        />
+                    )
                 }
                 { _package.description && <Section title="description" collapse={false} body={_package.description} /> }
                 <Section title="license" collapse={false} body={_package.license} />
-                { _package.homepage &&
-                <Section title="homepage" collapse={false}>
-                    <h4><a onClick={() => shell.openExternal(_package.homepage)}>{_package.homepage}</a></h4>
-                </Section>
+                { _package.homepage
+                && (
+                    <Section title="homepage" collapse={false}>
+                        <h4>
+                            <a onClick={() => shell.openExternal(_package.homepage)}>
+                                {_package.homepage}
+                            </a>
+                        </h4>
+                    </Section>
+                )
                 }
                 <Section title="Path" collapse={false}>
-                    <h4><a onClick={() => shell.openItem(_package.dir)}>{_package.dir}</a></h4>
+                    <h4>
+                        <a onClick={() => shell.openItem(_package.dir)}>
+                            {_package.dir}
+                        </a>
+                    </h4>
                 </Section>
-                { _package.size > 0 &&
-                    <Section title="Sizes" collapse={false}>
+                { _package.size > 0
+                    && (
+                        <Section title="Sizes" collapse={false}>
+                            <Card bordered={false} bodyStyle={{ padding: 0 }}>
+                                <SizeCardGrid title="Exclusive size" data={_package} calcFunc={() => _package.size} />
+                            </Card>
+                        </Section>
+                    )
+                }
+                { _package.modules.length > 0
+                    && (
+                        <Section title="Associated modules" badge={_package.modules.length}>
+                            <ModulesTable modules={_package.modules} maxHeight={250} />
+                        </Section>
+                    )
+                }
+                { reasons.length > 0
+                    && (
+                        <Section title="Usages" badge={reasons.length}>
+                            <div style={{ maxHeight: 250, overflow: 'auto', paddingBottom: 10 }}>
+                                <ReasonsGrid reasons={reasons} />
+                            </div>
+                        </Section>
+                    )
+                }
+                { _package.private
+                    && (
+                        <Section
+                            title="Popularity"
+                            collapse={false}
+                            body="downloads indicator is disabled for private packages"
+                        />
+                    )
+                }
+                { !_package.private
+                    && (
+                        <Section title="Popularity" collapse={false}>
+                            <Card bordered={false} bodyStyle={{ padding: 0 }}>
+                                <DownloadIndicator title="Last day" number={downloads.day} busy={!downloads.day} />
+                                <DownloadIndicator title="Last week" number={downloads.week} busy={!downloads.week} />
+                                <DownloadIndicator title="Last month" number={downloads.month} busy={!downloads.month} />
+                            </Card>
+                        </Section>
+                    )
+                }
+                { maxVersions
+                && (
+                    <Section title="Latest versions based on current version" collapse={false}>
                         <Card bordered={false} bodyStyle={{ padding: 0 }}>
-                            <SizeCardGrid title="Exclusive size" data={_package} calcFunc={() => _package.size} />
+                            <VersionIndicator title="Major" version={maxVersions.major.ver} time={maxVersions.major.time} />
+                            <VersionIndicator title="Minor" version={maxVersions.minor.ver} time={maxVersions.minor.time} />
+                            <VersionIndicator title="Patch" version={maxVersions.patch.ver} time={maxVersions.patch.time} />
                         </Card>
                     </Section>
-                }
-                { _package.modules.length > 0 &&
-                    <Section title="Associated modules" badge={_package.modules.length}>
-                        <ModulesTable modules={_package.modules} maxHeight={250} />
-                    </Section>
-                }
-                { reasons.length > 0 &&
-                    <Section title="Usages" badge={reasons.length}>
-                        <div style={{ maxHeight: 250, overflow: 'auto', paddingBottom: 10 }} >
-                            <ReasonsGrid reasons={reasons} />
-                        </div>
-                    </Section>
-                }
-                { _package.private &&
-                    <Section
-                        title="Popularity"
-                        collapse={false}
-                        body="downloads indicator is disabled for private packages"
-                    />
-                }
-                { !_package.private &&
-                    <Section title="Popularity" collapse={false}>
-                        <Card bordered={false} bodyStyle={{ padding: 0 }}>
-                            <DownloadIndicator title="Last day" number={downloads.day} busy={!downloads.day} />
-                            <DownloadIndicator title="Last week" number={downloads.week} busy={!downloads.week} />
-                            <DownloadIndicator title="Last month" number={downloads.month} busy={!downloads.month} />
-                        </Card>
-                    </Section>
-                }
-                { maxVersions &&
-                <Section title="Latest versions based on current version" collapse={false}>
-                    <Card bordered={false} bodyStyle={{ padding: 0 }}>
-                        <VersionIndicator title="Major" version={maxVersions.major.ver} time={maxVersions.major.time} />
-                        <VersionIndicator title="Minor" version={maxVersions.minor.ver} time={maxVersions.minor.time} />
-                        <VersionIndicator title="Patch" version={maxVersions.patch.ver} time={maxVersions.patch.time} />
-                    </Card>
-                </Section>
+                )
                 }
                 <Section title="package.json">
                     <JSONTree data={_package.pkgJson} hideRoot theme={theme} />

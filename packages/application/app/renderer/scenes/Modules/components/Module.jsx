@@ -1,14 +1,9 @@
-import 'codemirror/lib/codemirror.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CodeMirror from 'react-codemirror';
-
-import 'codemirror/mode/javascript/javascript';
-import 'codemirror/theme/monokai.css';
-
 import { Card } from 'antd';
 
+import { Link } from 'react-router-dom';
 import ModulesTable from '../../../components/ModulesTable';
 import Section from '../../../components/Section';
 import SizeCardGrid from '../../../components/SizeCardGrid';
@@ -16,75 +11,48 @@ import ReasonsGrid from '../../../components/ReasonsGrid';
 import ChunksTable from '../../../components/ChunksTable';
 import AssetsTable from '../../../components/AssetsTable';
 import PackagesTable from '../../../components/PackagesTable';
-
-const cjsMarkerStyle = 'background-color: red';
-const es6MarkerStyle = 'background-color: blue';
+import CodeViewer from '../../../components/CodeViewer';
 
 export default class Module extends React.Component {
     constructor(props) {
         super(props);
-
-        this.onLoadEditor = this.onLoadEditor.bind(this);
-    }
-
-    componentDidMount() {
-        if (this.props.module.source) {
-            this.renderEditor();
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        if ((prevProps.module !== this.props.module) && this.props.module.source) {
-            this.renderEditor();
-        }
-    }
-
-    onLoadEditor(editor) {
-        this.editor = editor;
-    }
-
-    renderEditor() {
-        const { codeMirror } = this.editor;
-        const { doc } = codeMirror;
-
-        doc.setValue(this.props.module.source);
-
-        if (this.props.reason) {
-            const {
-                line, start, end, type,
-            } = this.props.reason;
-
-            doc.markText(
-                { line: line - 1, ch: start },
-                { line: line - 1, ch: end },
-                { css: type === 'es6' ? es6MarkerStyle : cjsMarkerStyle },
-            );
-            const t = codeMirror.charCoords({ line, ch: 0 }, 'local').top;
-            const middleHeight = codeMirror.getScrollerElement().offsetHeight / 2;
-            codeMirror.scrollTo(null, t - middleHeight - 5);
-            codeMirror.display.wrapper.scrollIntoView();
-        }
     }
 
     render() {
-        const { module, gotoTab } = this.props;
+        const { module, reason } = this.props;
 
         return (
             <div>
-                <h2>{module.display}</h2>
+                <h2>
+                    {module.display}
+                </h2>
                 <br />
-                { module.issuer &&
-                    <Section title="Iuuser" collapse={false}>
-                        <h4><a onClick={() => gotoTab(module.issuer.id, 'modules')}>{module.issuer.display}</a></h4>
-                    </Section>
+                { module.issuer
+                    && (
+                        <Section title="Issuer" collapse={false}>
+                            <h4>
+                                <Link to={`/modules/${module.issuer.id}`}>
+                                    {module.issuer.display}
+                                </Link>
+                            </h4>
+                        </Section>
+                    )
                 }
-                { module.fullPath &&
-                    <Section title="Full path" collapse={false}>
-                        <h4>{module.fullPath}</h4>
-                    </Section>
+                { module.fullPath
+                    && (
+                        <Section title="Full path" collapse={false}>
+                            <h4>
+                                {module.fullPath}
+                            </h4>
+                        </Section>
+                    )
                 }
                 <Section title="Part of package" collapse={false}>
-                    <h4><a onClick={() => gotoTab(module.package.id, 'packages')}>{module.package.name}</a></h4>
+                    <h4>
+                        <Link to={`/packages/${module.package.id}`}>
+                            {module.package.name}
+                        </Link>
+                    </h4>
                 </Section>
                 <Section title="Sizes" collapse={false}>
                     <Card bordered={false} bodyStyle={{ padding: 0 }}>
@@ -100,45 +68,49 @@ export default class Module extends React.Component {
                         ))}
                     </Card>
                 </Section>
-                { module.children.length > 0 &&
-                <Section title="Children" badge={module.children.length}>
-                    <ModulesTable modules={module.children} maxHeight={250} />
-                </Section>
-                }
-                { module.reasons.length > 0 &&
-                <Section title="Reasons" badge={module.reasons.length}>
-                    <div style={{ maxHeight: 250, overflow: 'auto', paddingBottom: 10 }} >
-                        <ReasonsGrid reasons={module.reasons} />
-                    </div>
-                </Section>
-                }
-                { module.chunks.length > 0 &&
-                <Section title="Associated Chunks" badge={module.chunks.length}>
-                    <ChunksTable chunks={module.chunks} maxHeight={250} />
-                </Section>
-                }
-                { module.assets.length > 0 &&
-                <Section title="Associated Assets" badge={module.assets.length}>
-                    <AssetsTable assets={module.assets} maxHeight={250} />
-                </Section>
-                }
-                { module.loaders.length > 0 &&
-                <Section title="Loaders" badge={module.loaders.length}>
-                    <PackagesTable packages={module.loaders} maxHeight={250} />
-                </Section>
-                }
-                { module.source &&
-                    <Section title="Source code" collapse={false} newLine={false}>
-                        <CodeMirror
-                            ref={this.onLoadEditor}
-                            options={{
-                                readOnly: true,
-                                lineNumbers: true,
-                                theme: 'monokai',
-                                mode: 'javascript',
-                            }}
-                        />
+                { module.children.length > 0
+                && (
+                    <Section title="Children" badge={module.children.length}>
+                        <ModulesTable modules={module.children} maxHeight={250} />
                     </Section>
+                )
+                }
+                { module.reasons.length > 0
+                && (
+                    <Section title="Reasons" badge={module.reasons.length}>
+                        <div style={{ maxHeight: 250, overflow: 'auto', paddingBottom: 10 }}>
+                            <ReasonsGrid reasons={module.reasons} />
+                        </div>
+                    </Section>
+                )
+                }
+                { module.chunks.length > 0
+                && (
+                    <Section title="Associated Chunks" badge={module.chunks.length}>
+                        <ChunksTable chunks={module.chunks} maxHeight={250} />
+                    </Section>
+                )
+                }
+                { module.assets.length > 0
+                && (
+                    <Section title="Associated Assets" badge={module.assets.length}>
+                        <AssetsTable assets={module.assets} maxHeight={250} />
+                    </Section>
+                )
+                }
+                { module.loaders.length > 0
+                && (
+                    <Section title="Loaders" badge={module.loaders.length}>
+                        <PackagesTable packages={module.loaders} maxHeight={250} />
+                    </Section>
+                )
+                }
+                { module.source
+                && (
+                    <Section title="Source code" collapse={false} newLine={false}>
+                        <CodeViewer source={module.source} reason={reason} mode="javascript" />
+                    </Section>
+                )
                 }
             </div>
         );
@@ -147,7 +119,6 @@ export default class Module extends React.Component {
 
 Module.propTypes = {
     module: PropTypes.object, // eslint-disable-line
-    gotoTab: PropTypes.func.isRequired,
     reason: PropTypes.object, // eslint-disable-line
 };
 

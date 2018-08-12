@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 
 import { Column } from 'react-virtualized';
 
+import { Link } from 'react-router-dom';
 import Table from './Table';
-
-import Actions from './Actions';
 
 export default function ModulesTable(props) {
     const { modules } = props;
@@ -17,8 +16,11 @@ export default function ModulesTable(props) {
                 dataKey="id"
                 dataLength={val => val.length}
                 width={10}
-                cellRenderer={({ rowData, cellData }) =>
-                    <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(rowData.id, 'modules')}>{cellData}</a> }</Actions>}
+                cellRenderer={({ rowData, cellData }) => (
+                    <Link to={`/modules/${rowData.id}`}>
+                        {cellData}
+                    </Link>
+                )}
             />
             <Column
                 label="Path"
@@ -29,10 +31,13 @@ export default function ModulesTable(props) {
             <Column
                 label="Issuer"
                 dataKey="issuer"
-                dataLength={val => val ? val.display.length : 0}
+                dataLength={val => (val ? val.display.length : 0)}
                 width={10}
-                cellRenderer={({ cellData: issuer = {} }) =>
-                    <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(issuer.id, 'modules')}>{issuer.display}</a> }</Actions>}
+                cellRenderer={({ cellData: issuer = {} }) => (
+                    <Link to={`/modules/${issuer.id}`}>
+                        {issuer.display}
+                    </Link>
+                )}
             />
             <Column
                 label="Size"
@@ -45,7 +50,11 @@ export default function ModulesTable(props) {
                 dataKey="children"
                 dataLength={val => val.length.toString().length}
                 width={10}
-                cellRenderer={({ cellData: children }) => <div>{children.length}</div>}
+                cellRenderer={({ cellData: children }) => (
+                    <div>
+                        {children.length}
+                    </div>
+                )}
             />
         </Table>
     );

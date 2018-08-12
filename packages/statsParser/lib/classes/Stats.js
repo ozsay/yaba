@@ -72,8 +72,14 @@ export default class Stats {
             module.doneInit();
         });
 
-        this.chunks.forEach((chunk) => {
-            chunk.doneInit();
+        this.chunks.forEach((chunk, index) => {
+            chunk.doneInit(index);
+        });
+
+        this.packages.forEach((_package) => {
+            if (_package.root) {
+                this.rootPackage = _package;
+            }
         });
     }
 }

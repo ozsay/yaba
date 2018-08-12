@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { Column } from 'react-virtualized';
 
 import Table from './Table';
 
-import Actions from './Actions';
 
 export default function ChunksTable(props) {
     const { chunks } = props;
@@ -23,8 +23,11 @@ export default function ChunksTable(props) {
                 dataKey="name"
                 dataLength={val => val.length}
                 width={10}
-                cellRenderer={({ rowData, cellData }) =>
-                    <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(rowData.id, 'chunks')}>{cellData}</a> }</Actions>}
+                cellRenderer={({ rowData, cellData }) => (
+                    <Link to={`/chunks/${rowData.index}`}>
+                        {cellData}
+                    </Link>
+                )}
             />
             <Column
                 label="Hash"

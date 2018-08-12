@@ -1,22 +1,20 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import statsListener from '../../../actions/statsListener';
 import gotoTab from '../../../actions/gotoTab';
 
 import MainComponent from '../components/Main';
 
-function mapStateToProps({ stats, tabs: { mainTabs, sideTabs, currentTab } }) {
+function mapStateToProps({ stats }) {
     return {
         stats,
-        mainTabs,
-        sideTabs,
-        currentTab,
+        gotoTab,
     };
 }
 
 const mapDispatchToProps = {
-    gotoTab,
     startListening: statsListener,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainComponent);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainComponent));

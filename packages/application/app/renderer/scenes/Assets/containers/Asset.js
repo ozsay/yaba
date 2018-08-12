@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import AssetComponent from '../components/Asset';
 
 import getAssetData from '../../../actions/getAssetData';
 import calcSize from '../../../actions/calcSize';
 
-function mapStateToProps({ stats, tabs: { currentTab: { elementId } } }) {
-    const asset = stats.assets.find(_asset => _asset.id === elementId);
+function mapStateToProps({ stats }, { match: { params: { id } } }) {
+    const asset = stats.assets.find(_asset => _asset.id === Number.parseInt(id, 10));
 
     return { asset };
 }
@@ -16,4 +17,4 @@ const mapDispatchToProps = {
     calcSize,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AssetComponent);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AssetComponent));

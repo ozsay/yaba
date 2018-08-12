@@ -23,7 +23,7 @@ export default class Section extends React.Component {
 
         const badger = () => (
             badge !== null &&
-            <Badge overflowCount={9999} count={badge} style={{ backgroundColor: '#52c41a' }} offset={[0, 5]} />
+            <Badge overflowCount={9999} count={badge} style={{ backgroundColor: '#52c41a' }} offset={[5, 0]} />
         );
 
         return (

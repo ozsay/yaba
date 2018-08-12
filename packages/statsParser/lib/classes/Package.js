@@ -1,7 +1,8 @@
 export default class Package {
-    constructor({ dir, pkgJson }, index) {
-        this.id = index;
+    constructor({ dir, pkgJson, root = false }, index) {
+        this.id = index.toString();
         this.dir = dir;
+        this.root = root;
         this.name = pkgJson.name;
         this.version = pkgJson.version;
         this.license = pkgJson.license;

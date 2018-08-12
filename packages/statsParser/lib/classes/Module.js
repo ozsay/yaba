@@ -4,7 +4,7 @@ export default class Module {
     constructor(module) {
         this._raw = module;
 
-        this.id = module.id;
+        this.id = module.id.toString();
         this.name = module.name;
         this.fullPath = module.resource;
         this.relativePath = module.relativePath;
@@ -17,11 +17,16 @@ export default class Module {
     }
 
     setIssuer(modules) {
-        this.issuer = modules[this._raw.issuerId];
+        if (this._raw.issuerId !== null) {
+            this.issuer = modules.find(m => m.id === this._raw.issuerId.toString());
+        }
     }
 
     setReasons(modules) {
-        this.reasons = this._raw.reasons.map(reason => createReason(reason));
+        this.reasons = this._raw.reasons
+            .filter(reason => reason.type !== 'multi entry')
+            .filter(reason => reason.type !== 'harmony import specifier')
+            .map((reason, i) => createReason(reason, i));
 
         this.reasons.forEach((reason) => {
             reason.setModule(modules);

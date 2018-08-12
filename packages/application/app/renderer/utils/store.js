@@ -6,11 +6,9 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import statsReducer from '../reducers/stats';
-import tabsReducer from '../reducers/tabs';
 
 const reducer = combineReducers({
     stats: statsReducer,
-    tabs: tabsReducer,
 });
 
 const MIDDLEWARES = [

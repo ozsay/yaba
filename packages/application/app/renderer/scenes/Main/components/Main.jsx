@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Route, Switch } from 'react-router';
 
-import { Layout, Menu, Modal, Badge, Input } from 'antd';
+import {
+    Layout, Menu, Modal, Badge, Input,
+} from 'antd';
+
+import routes from '../../../utils/routes';
 
 import MenuActions from '../../../components/MenuActions';
 import StatsImporter from '../containers/StatsImporter';
 
-const { confirm } = Modal;
+const { confirm: openConfirm } = Modal;
 const { Header, Content, Sider } = Layout;
 const { Search } = Input;
 
@@ -24,9 +29,8 @@ const actionsButtonStyle = {
 };
 
 const searchStyle = {
-    padding: '5px 0',
-    width: '175px',
-    marginLeft: '12px',
+    margin: 12,
+    width: 175,
 };
 
 function getSize(stats, { statsKey }) {
@@ -35,60 +39,45 @@ function getSize(stats, { statsKey }) {
     return size || 0;
 }
 
-function DefaultComponent() {
-    return (
-        <div>Please upload a stats file</div>
-    );
-}
-
 class Main extends React.Component {
     constructor(props) {
         super(props);
 
         this.handleMainChange = this.handleMainChange.bind(this);
-        this.handleSecondaryChange = this.handleSecondaryChange.bind(this);
 
         this.state = {};
 
         props.startListening(() => new Promise((resolve, reject) => {
-            this.setState(Object.assign({}, this.state, { confirm: resolve, reject }));
+            this.setState({ confirm: resolve, reject });
         }));
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.state.confirm && !prevState.confirm) {
+        const { confirm } = this.state;
+
+        if (confirm && !prevState.confirm) {
             this.showStatsUpdateConfirm();
         }
     }
 
-    changeTab(index, type = 'main') {
+    handleMainChange({ key: url }) {
         const { gotoTab } = this.props;
 
-        gotoTab(index, type);
-    }
-
-    handleMainChange({ key }) {
-        const { mainTabs } = this.props;
-
-        this.changeTab(mainTabs.findIndex(tab => tab.name === key));
-    }
-
-    handleSecondaryChange(event, value) {
-        this.changeTab(value, 'modules');
+        gotoTab(url);
     }
 
     showStatsUpdateConfirm() {
         const self = this;
-        confirm({
+        openConfirm({
             title: 'Confirm stats update',
             content: 'Stats have been updated through the yaba plugin. Do you wish to apply changes?',
             onOk() {
                 self.state.confirm();
-                self.setState(Object.assign({}, self.state, { confirm: null }));
+                self.setState({ confirm: null });
             },
             onCancel() {
                 self.state.reject();
-                self.setState(Object.assign({}, self.state, { confirm: null }));
+                self.setState({ confirm: null });
             },
         });
     }
@@ -96,12 +85,10 @@ class Main extends React.Component {
     render() {
         const {
             stats,
-            mainTabs,
-            sideTabs = [],
-            currentTab: { index, type, component: Component } = { type: 'main', index: -1 },
+            location,
         } = this.props;
 
-        const mainIndex = type === 'main' && index !== -1 ? mainTabs[index].name : null;
+        const currentMainRoute = routes.find(r => location.pathname.startsWith(r.path));
 
         return (
             <Layout style={{ height: '100vh' }}>
@@ -111,20 +98,22 @@ class Main extends React.Component {
                     <Menu
                         theme="dark"
                         mode="horizontal"
-                        selectedKeys={[mainIndex]}
+                        selectedKeys={[currentMainRoute && currentMainRoute.path]}
                         style={{ lineHeight: headerHeight }}
                         onSelect={this.handleMainChange}
                     >
-                        {mainTabs.map(tab => (
-                            <Menu.Item key={tab.name} disabled={stats === null}>
-                                {tab.name}
-                                { getSize(stats, tab) > 0 &&
-                                    <Badge
-                                        overflowCount={9999}
-                                        count={getSize(stats, tab)}
-                                        style={{ backgroundColor: '#52c41a' }}
-                                        offset={[0, 5]}
-                                    />
+                        {routes.map(route => (
+                            <Menu.Item key={route.path} disabled={stats === null}>
+                                {route.name}
+                                { getSize(stats, route) > 0
+                                    && (
+                                        <Badge
+                                            overflowCount={9999}
+                                            count={getSize(stats, route)}
+                                            style={{ backgroundColor: '#52c41a' }}
+                                            offset={[5, 0]}
+                                        />
+                                    )
                                 }
                             </Menu.Item>
                         ))}
@@ -142,11 +131,7 @@ class Main extends React.Component {
                                 mode="inline"
                                 defaultSelectedKeys={['1']}
                                 style={{ borderRight: 0, background: 'transparent' }}
-                            >
-                                {/* { sideTabs.map(sideTab => ( */}
-                                {/* <Menu.Item key={sideTab.name}>{sideTab.name}</Menu.Item> */}
-                                {/* ))} */}
-                            </Menu>
+                            />
                         </Sider>
                     }
                     <Layout style={{ background: '#fff' }}>
@@ -154,11 +139,28 @@ class Main extends React.Component {
                             background: '#fff', padding: 24, margin: 0, minHeight: 280,
                         }}
                         >
-                            {
-                                index === -1 ?
-                                    <DefaultComponent /> :
-                                    <Component />
-                            }
+                            <Switch>
+                                {
+                                    routes.map(route => (
+                                        <Route
+                                            key={route.name}
+                                            exact
+                                            path={route.path}
+                                            component={route.component}
+                                        />
+                                    ))
+                                }
+                                {
+                                    routes.filter(route => !!route.childComponent).map(route => (
+                                        <Route
+                                            key={`${route.name}_child`}
+                                            exact
+                                            path={`${route.path}/:id+`}
+                                            component={route.childComponent}
+                                        />
+                                    ))
+                                }
+                            </Switch>
                         </Content>
                     </Layout>
                 </Layout>
@@ -169,9 +171,6 @@ class Main extends React.Component {
 
 Main.propTypes = {
     stats: PropTypes.object, // eslint-disable-line
-    mainTabs: PropTypes.array.isRequired, // eslint-disable-line
-    sideTabs: PropTypes.array.isRequired, // eslint-disable-line
-    currentTab: PropTypes.object, // eslint-disable-line
     startListening: PropTypes.func.isRequired,
     gotoTab: PropTypes.func.isRequired,
 };

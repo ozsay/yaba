@@ -23,9 +23,9 @@ export default function (data, sizeAlg = AVAILABLE_SIZES.GZIP) {
                     resolve(val);
                 });
             } else if (sizeAlg === AVAILABLE_SIZES.BROTLI) {
-                // sizer.brotli(data, (err, val) => {
-                //     resolve(val);
-                // });
+                sizer.brotli(data, (err, val) => {
+                    resolve(val);
+                });
             }
         }),
     };

@@ -39,7 +39,8 @@ export default class Chunk {
         return count;
     }
 
-    doneInit() {
+    doneInit(index) {
+        this.index = index;
         delete this._raw;
     }
 }

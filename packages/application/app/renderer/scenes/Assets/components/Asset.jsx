@@ -56,27 +56,29 @@ export default class Asset extends React.Component {
 
         getAssetData(asset.name)
             .then(({ payload }) => {
+                this.rawAsset = payload;
+
                 if (asset.mimeType === `application/javascript`) {
                     return largeuint8ArrToString(payload);
-                } else if (asset.mimeType === 'text/html') {
+                } if (asset.mimeType === 'text/html') {
                     return largeuint8ArrToString(payload);
-                } else if (asset.mimeType === 'text/css') {
+                } if (asset.mimeType === 'text/css') {
                     return largeuint8ArrToString(payload);
-                } else if (asset.mimeType === 'image/png') {
+                } if (asset.mimeType === 'image/png') {
                     return largeuint8ArrToBase64(payload)
                         .then(res => `data:image/png;base64,${res.substr(13)}`);
                 }
 
                 return payload;
             }).then((data) => {
-                this.setState(Object.assign({}, this.state, { assetData: data }));
+                this.setState({ assetData: data });
             });
     }
 
     calcSize(assetData, sizer) {
         const { calcSize } = this.props;
 
-        return calcSize(assetData, sizer)
+        return calcSize(this.rawAsset, sizer)
             .then(({ value }) => value);
     }
 
@@ -87,53 +89,65 @@ export default class Asset extends React.Component {
 
         return (
             <div>
-                <h2>{asset.name}</h2>
+                <h2>
+                    {asset.name}
+                </h2>
                 <br />
                 <Section title="Mime type" collapse={false} body={asset.mimeType} />
                 <Section title="Sizes" collapse={false}>
-                    { assetData &&
-                        <Card bordered={false} bodyStyle={{ padding: 0 }}>
-                            <SizeCardGrid data={assetData} title="Raw size" />
-                            <SizeCardGrid
-                                data={assetData}
-                                title="Gzip size"
-                                calcFunc={() => this.calcSize(assetData)}
-                            />
-                            <SizeCardGrid
-                                data={assetData}
-                                title="Deflate size"
-                                calcFunc={() => this.calcSize(assetData, AVAILABLE_SIZES.DEFLATE)}
-                            />
-                            <SizeCardGrid
-                                data={assetData}
-                                title="Brotli size"
-                                calcFunc={() => this.calcSize(assetData, AVAILABLE_SIZES.BROTLI)}
-                            />
-                        </Card>
+                    { assetData
+                        && (
+                            <Card bordered={false} bodyStyle={{ padding: 0 }}>
+                                <SizeCardGrid data={assetData} title="Raw size" />
+                                <SizeCardGrid
+                                    data={assetData}
+                                    title="Gzip size"
+                                    calcFunc={() => this.calcSize(assetData)}
+                                />
+                                <SizeCardGrid
+                                    data={assetData}
+                                    title="Deflate size"
+                                    calcFunc={() => this.calcSize(assetData, AVAILABLE_SIZES.DEFLATE)}
+                                />
+                                <SizeCardGrid
+                                    data={assetData}
+                                    title="Brotli size"
+                                    calcFunc={() => this.calcSize(assetData, AVAILABLE_SIZES.BROTLI)}
+                                />
+                            </Card>
+                        )
                     }
                 </Section>
-                { asset.chunks.length > 0 &&
-                    <Section title="Associated chunks" badge={asset.chunks.length}>
-                        <ChunksTable chunks={asset.chunks} maxHeight={250} />
+                { asset.chunks.length > 0
+                    && (
+                        <Section title="Associated chunks" badge={asset.chunks.length}>
+                            <ChunksTable chunks={asset.chunks} maxHeight={250} />
+                        </Section>
+                    )
+                }
+                { asset.modules.length > 0
+                && (
+                    <Section title="Associated modules" badge={asset.modules.length}>
+                        <ModulesTable modules={asset.modules} maxHeight={250} />
                     </Section>
+                )
                 }
-                { asset.modules.length > 0 &&
-                <Section title="Associated modules" badge={asset.modules.length}>
-                    <ModulesTable modules={asset.modules} maxHeight={250} />
-                </Section>
+                { assetData && MIME_TYPES_PREVIEWERS[asset.mimeType] === 'editor'
+                    && (
+                        <Section title="Preview" collapse={false}>
+                            <CodeViewer source={assetData} mime={asset.mimeType} />
+                        </Section>
+                    )
                 }
-                { assetData && MIME_TYPES_PREVIEWERS[asset.mimeType] === 'editor' &&
-                    <Section title="Preview" collapse={false}>
-                        <CodeViewer source={assetData} mime={asset.mimeType} />
-                    </Section>
+                { assetData && MIME_TYPES_PREVIEWERS[asset.mimeType] === 'image'
+                    && (
+                        <Section title="Preview" collapse={false}>
+                            <img style={{ maxHeight: 400 }} src={assetData} alt="Asset data" />
+                        </Section>
+                    )
                 }
-                { assetData && MIME_TYPES_PREVIEWERS[asset.mimeType] === 'image' &&
-                    <Section title="Preview" collapse={false}>
-                        <img style={{ maxHeight: 400 }} src={assetData} />
-                    </Section>
-                }
-                { assetData && !MIME_TYPES_PREVIEWERS[asset.mimeType] &&
-                <Section title="Preview" collapse={false} body="Preview of this asset type is not implemented yet" />
+                { assetData && !MIME_TYPES_PREVIEWERS[asset.mimeType]
+                && <Section title="Preview" collapse={false} body="Preview of this asset type is not implemented yet" />
                 }
             </div>
         );

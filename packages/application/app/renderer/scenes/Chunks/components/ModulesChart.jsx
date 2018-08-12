@@ -27,11 +27,9 @@ export default class ModulesChart extends React.Component {
                 <Chart
                     chartType="TreeMap"
                     data={data}
-                    options={{}}
                     width="100%"
                     height="400px"
                     legend_toggle
-                    chartPackages={['treemap']}
                 />
             </div>
         );

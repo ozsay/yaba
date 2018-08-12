@@ -6,14 +6,16 @@ export class Reason {
     }
 
     setModule(modules) {
-        this.module = modules[this._raw.moduleId];
+        if (this._raw.moduleId !== null) {
+            this.module = modules.find(m => m.id === this._raw.moduleId.toString());
+        }
     }
 
     doneInit() {
         delete this._raw;
     }
 
-    reasonText() {
+    get text() {
         return '';
     }
 }
@@ -25,8 +27,8 @@ export class EntryReason extends Reason {
         this.type = 'entry';
     }
 
-    reasonText() {
-        return this.line;
+    get text() {
+        return `single entry as '${this.userRequest}'`;
     }
 }
 
@@ -43,8 +45,8 @@ export class RequireReason extends Reason {
         this.end = end;
     }
 
-    reasonText() {
-        return `${this.line}:[${this.start}-${this.end}]`;
+    get text() {
+        return `${this.type} at ${this.line}:[${this.start}-${this.end}] as '${this.userRequest}'`;
     }
 }
 
@@ -72,18 +74,30 @@ export class ContextElementReason extends Reason {
     }
 }
 
-export default function createReason(reason) {
+export default function createReason(reason, index) {
     if (reason.type === 'cjs require' || reason.type === 'cjs require context') {
-        return new RequireReason(reason);
-    } else if (reason.type === 'harmony import') {
-        return new ImportReason(reason);
-    } else if (reason.type === 'single entry') {
-        return new EntryReason(reason);
-    } else if (reason.type === 'context element') {
-        return new ContextElementReason(reason);
-    } else if (reason.type === 'amd require') {
-        return new AMDReason(reason);
+        return new RequireReason(reason, index);
     }
 
-    throw new Error(reason);
+    if (reason.type === 'harmony import'
+        || reason.type === 'harmony side effect evaluation'
+        || reason.type === 'harmony import specifier') {
+        return new ImportReason(reason, index);
+    }
+
+    if (reason.type === 'single entry' || reason.type === 'multi entry') {
+        return new EntryReason(reason, index);
+    }
+
+    if (reason.type === 'context element') {
+        return new ContextElementReason(reason, index);
+    }
+
+    if (reason.type === 'amd require') {
+        return new AMDReason(reason, index);
+    }
+
+    // throw new Error(reason);
+
+    return new ContextElementReason(reason, index);
 }

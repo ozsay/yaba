@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Column } from 'react-virtualized';
+import { Link } from 'react-router-dom';
 
 import Table from './Table';
-
-import Actions from './Actions';
 
 export default function AssetsTable(props) {
     const { assets } = props;
@@ -17,8 +16,11 @@ export default function AssetsTable(props) {
                 dataKey="name"
                 width={10}
                 dataLength={val => val.length}
-                cellRenderer={({ rowData, cellData }) =>
-                    <Actions>{ ({ gotoTab }) => <a onClick={() => gotoTab(rowData.id, 'assets')}>{cellData}</a> }</Actions>}
+                cellRenderer={({ rowData, cellData }) => (
+                    <Link to={`/assets/${rowData.id}`}>
+                        {cellData}
+                    </Link>
+                )}
             />
             <Column
                 label="Mime type"

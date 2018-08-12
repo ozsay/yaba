@@ -1,11 +1,12 @@
 const path = require('path');
 const tmp = require('tmp');
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const YabaPlugin = require('@yaba/plugin');
 
 module.exports = ({ tmpFolder = true } = {}) => ({
+    mode: 'development',
     devtool: 'cheap-module-source-map',
     entry: [
         './app/index.js',
@@ -26,9 +27,12 @@ module.exports = ({ tmpFolder = true } = {}) => ({
             },
             {
                 test: /standalone\.css/,
-                use: ExtractTextPlugin.extract({
-                    use: 'css-loader',
-                }),
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    'css-loader',
+                ],
             },
             {
                 test: /inline\.css/,
@@ -45,7 +49,9 @@ module.exports = ({ tmpFolder = true } = {}) => ({
         ],
     },
     plugins: [
-        new ExtractTextPlugin('styles.css'),
+        new MiniCssExtractPlugin({
+            filename: 'styles.css',
+        }),
         new YabaPlugin(),
     ],
 });
