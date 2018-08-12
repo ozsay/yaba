@@ -5,8 +5,9 @@ module.exports = async function handleModules() {
     const { modules: compilationModules, options: { context } } = this.stats.compilation;
 
     modules.forEach((module, i) => {
-        module.resource = compilationModules[i].resource;
-        module.relativePath = compilationModules[i].resource
-            && path.relative(context, compilationModules[i].resource);
+        const compilationModule = compilationModules.find(cm => module.id === cm.id);
+        module.resource = compilationModule.resource;
+        module.relativePath = compilationModule.resource
+            && path.relative(context, compilationModule.resource);
     });
 };
