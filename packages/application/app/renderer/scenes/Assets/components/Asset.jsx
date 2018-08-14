@@ -58,18 +58,12 @@ export default class Asset extends React.Component {
             .then(({ payload }) => {
                 this.rawAsset = payload;
 
-                if (asset.mimeType === `application/javascript`) {
-                    return largeuint8ArrToString(payload);
-                } if (asset.mimeType === 'text/html') {
-                    return largeuint8ArrToString(payload);
-                } if (asset.mimeType === 'text/css') {
-                    return largeuint8ArrToString(payload);
-                } if (asset.mimeType === 'image/png') {
+                if (asset.mimeType === 'image/png') {
                     return largeuint8ArrToBase64(payload)
                         .then(res => `data:image/png;base64,${res.substr(13)}`);
                 }
 
-                return payload;
+                return largeuint8ArrToString(payload);
             }).then((data) => {
                 this.setState({ assetData: data });
             });

@@ -55,7 +55,12 @@ export default class Module {
     }
 
     get display() {
-        return this.relativePath || this.name;
+        if (!this.fullPath) {
+            return this.name;
+        }
+
+        const splittedPath = this.fullPath.split('/');
+        return splittedPath[splittedPath.length - 1];
     }
 
     get totalSize() {

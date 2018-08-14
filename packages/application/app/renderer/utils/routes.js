@@ -9,6 +9,7 @@ import Packages from '../scenes/Packages/containers/Packages';
 import Package from '../scenes/Packages/containers/Package';
 import Warnings from '../scenes/Warnings';
 import Errors from '../scenes/Errors';
+import Analysis from '../scenes/Analysis';
 
 export default [
     {
@@ -56,5 +57,9 @@ export default [
         component: Errors,
         path: '/errors',
     },
-    // { name: 'Hints' },
+    {
+        name: 'Analysis',
+        component: Analysis,
+        path: '/analysis',
+    },
 ];

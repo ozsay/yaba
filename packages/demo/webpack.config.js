@@ -35,6 +35,15 @@ module.exports = ({ tmpFolder = true } = {}) => ({
                 ],
             },
             {
+                test: /font-awesome\.css/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    'css-loader',
+                ],
+            },
+            {
                 test: /inline\.css/,
                 use: [
                     { loader: 'style-loader' },
@@ -45,6 +54,16 @@ module.exports = ({ tmpFolder = true } = {}) => ({
                 test: /\.html$|.gif$|.png$|.ico$/,
                 exclude: /node_modules/,
                 use: 'file-loader?name=[name].[ext]',
+            },
+            {
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'fonts/',
+                    },
+                }],
             },
         ],
     },

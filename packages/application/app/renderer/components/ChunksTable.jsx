@@ -6,7 +6,6 @@ import { Column } from 'react-virtualized';
 
 import Table from './Table';
 
-
 export default function ChunksTable(props) {
     const { chunks } = props;
 

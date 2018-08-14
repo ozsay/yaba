@@ -12,8 +12,8 @@ export default function ModulesTable(props) {
     return (
         <Table data={modules} {...props}>
             <Column
-                label="Id"
-                dataKey="id"
+                label="Display"
+                dataKey="display"
                 dataLength={val => val.length}
                 width={15}
                 cellRenderer={({ rowData, cellData }) => (
@@ -24,8 +24,8 @@ export default function ModulesTable(props) {
             />
             <Column
                 label="Path"
-                dataKey="display"
-                dataLength={val => val.length}
+                dataKey="fullPath"
+                dataLength={val => (val ? val.length : 0)}
                 width={5}
             />
             <Column

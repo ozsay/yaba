@@ -1,6 +1,8 @@
 import 'qs';
 import 'lodash';
 
+import 'font-awesome/css/font-awesome.css';
+
 import './inline.css';
 import './standalone.css';
 
