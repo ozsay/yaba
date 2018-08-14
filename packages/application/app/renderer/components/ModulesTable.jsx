@@ -15,7 +15,7 @@ export default function ModulesTable(props) {
                 label="Id"
                 dataKey="id"
                 dataLength={val => val.length}
-                width={10}
+                width={15}
                 cellRenderer={({ rowData, cellData }) => (
                     <Link to={`/modules/${rowData.id}`}>
                         {cellData}
@@ -26,7 +26,7 @@ export default function ModulesTable(props) {
                 label="Path"
                 dataKey="display"
                 dataLength={val => val.length}
-                width={10}
+                width={5}
             />
             <Column
                 label="Issuer"
@@ -43,13 +43,13 @@ export default function ModulesTable(props) {
                 label="Size"
                 dataKey="size"
                 dataLength={val => val.toString().length}
-                width={10}
+                width={3}
             />
             <Column
                 label="Children"
                 dataKey="children"
                 dataLength={val => val.length.toString().length}
-                width={10}
+                width={3}
                 cellRenderer={({ cellData: children }) => (
                     <div>
                         {children.length}

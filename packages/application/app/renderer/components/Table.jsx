@@ -34,13 +34,8 @@ function getFlexedColumns(data, columns) {
         .map((l, i) => _.max([l, propsArr[i].label.length]))
         .value();
 
-    const sum = _.sum(maxLengths);
-
     return _(maxLengths)
-        .map(l => l / sum)
-        .map(l => _.round(l, propsArr.length))
-        .map(l => l * 100 * propsArr.length)
-        .map((factor, i) => <Column {...propsArr[i]} flexGrow={factor} key={`${propsArr.label}`} width={10} />)
+        .map((l, i) => <Column {...propsArr[i]} flexGrow={l} key={`${propsArr.label}`} width={50} />)
         .value();
 }
 

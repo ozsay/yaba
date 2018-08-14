@@ -5,8 +5,6 @@ import ModuleComponent from '../components/Module';
 function mapStateToProps({ stats }, { location: { state: reason }, match: { params: { id } } }) {
     const module = stats.modules.find(mod => mod.id === id);
 
-    console.log(module);
-
     return { module, reason };
 }
 

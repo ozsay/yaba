@@ -6,7 +6,7 @@
     "prepare": "electron-rebuild -w iltorb",
     "start-main": "PORT=8000 electron .",
     "start-renderer": "webpack-dev-server",
-    "build": "webpack --progress --profile --json > /dev/null"
+    "build": "webpack --progress --profile --json"
   },
   "license": "MIT",
   "dependencies": {
@@ -28,7 +28,6 @@
     "react": "16.4.2",
     "react-codemirror2": "5.1.0",
     "react-dom": "16.4.2",
-    "react-google-charts": "3.0.3",
     "react-json-tree": "0.11.0",
     "react-redux": "5.0.7",
     "react-router": "^4.3.1",

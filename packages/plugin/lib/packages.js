@@ -48,7 +48,9 @@ module.exports = async function handlePackages() {
         .filter((value, index, self) => self.indexOf(value) === index)
         .map(getPkgJson));
 
-    const rootPackage = uniqPkgJsons.find(p => p.dir === context);
+    const contextPackageJson = await locatePkgJson(context);
+
+    const rootPackage = uniqPkgJsons.find(p => p.dir === contextPackageJson);
 
     rootPackage.root = true;
 

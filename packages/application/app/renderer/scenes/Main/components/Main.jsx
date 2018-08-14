@@ -3,13 +3,10 @@ import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router';
 
 import {
-    Layout, Menu, Modal, Badge, Input,
+    Layout, Menu, Modal, Badge, Input, Button,
 } from 'antd';
 
 import routes from '../../../utils/routes';
-
-import MenuActions from '../../../components/MenuActions';
-import StatsImporter from '../containers/StatsImporter';
 
 const { confirm: openConfirm } = Modal;
 const { Header, Content, Sider } = Layout;
@@ -17,15 +14,13 @@ const { Search } = Input;
 
 const headerHeight = '42px';
 
-const addStatsButtonStyle = {
-    float: 'left',
-    marginTop: '5px',
-    marginRight: '24px',
-};
-
-const actionsButtonStyle = {
-    float: 'right',
-    marginTop: '5px',
+const navigationStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: 150,
+    lineHeight: '42px',
+    paddingRight: 50,
 };
 
 const searchStyle = {
@@ -44,6 +39,8 @@ class Main extends React.Component {
         super(props);
 
         this.handleMainChange = this.handleMainChange.bind(this);
+        this.next = this.next.bind(this);
+        this.back = this.back.bind(this);
 
         this.state = {};
 
@@ -82,24 +79,49 @@ class Main extends React.Component {
         });
     }
 
+    next() {
+        const { history } = this.props;
+
+        history.goForward();
+    }
+
+    back() {
+        const { history } = this.props;
+
+        history.goBack();
+    }
+
     render() {
         const {
             stats,
             location,
+            history,
         } = this.props;
 
         const currentMainRoute = routes.find(r => location.pathname.startsWith(r.path));
 
         return (
             <Layout style={{ height: '100vh' }}>
-                <Header style={{ height: headerHeight }}>
-                    <StatsImporter style={addStatsButtonStyle} />
-                    <MenuActions style={actionsButtonStyle} />
+                <Header style={{ height: headerHeight, display: 'flex' }}>
+                    <div style={navigationStyle}>
+                        <Button
+                            shape="circle"
+                            icon="arrow-left"
+                            disabled={history.index === 0}
+                            onClick={this.back}
+                        />
+                        <Button
+                            shape="circle"
+                            icon="arrow-right"
+                            disabled={history.index === (history.length - 1)}
+                            onClick={this.next}
+                        />
+                    </div>
                     <Menu
                         theme="dark"
                         mode="horizontal"
                         selectedKeys={[currentMainRoute && currentMainRoute.path]}
-                        style={{ lineHeight: headerHeight }}
+                        style={{ lineHeight: headerHeight, flex: 1 }}
                         onSelect={this.handleMainChange}
                     >
                         {routes.map(route => (

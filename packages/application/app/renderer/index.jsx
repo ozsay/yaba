@@ -33,5 +33,5 @@ store.dispatch(initApp())
         render(<App />, document.querySelector('#app'));
     })
     .then(() => {
-        gotoTab('/modules');
+        gotoTab('/modules', true);
     });
