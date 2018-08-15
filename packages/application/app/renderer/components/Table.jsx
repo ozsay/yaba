@@ -2,7 +2,11 @@ import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Table as VTable, AutoSizer, Column } from 'react-virtualized';
+import { Card, Button, Icon } from 'antd';
+
+import {
+    Table as VTable, AutoSizer, Column, defaultTableHeaderRowRenderer,
+} from 'react-virtualized';
 import 'react-virtualized/styles.css';
 
 const tableStyle = width => ({
@@ -23,6 +27,10 @@ const lastRowStyle = Object.assign({}, rowStyle, { borderBottom: 'none' });
 const headerStyle = {
     textTransform: 'none',
     fontWeight: 600,
+};
+
+const overlayStyle = {
+    zIndex: 999,
 };
 
 function getFlexedColumns(data, columns) {
@@ -58,42 +66,110 @@ function hover(target, color = '') {
     }
 }
 
-export default function Table({
-    data, children, rowHeight, maxHeight,
-}) {
-    function createTable(width, height, columns = children) {
+export default class Table extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.toggleOverlay = this.toggleOverlay.bind(this);
+        this.fullOpacity = this.fullOpacity.bind(this);
+        this.someOpacity = this.someOpacity.bind(this);
+
+        this.state = {};
+    }
+
+    createTable(width, height, columns = this.props.children) {
+        const { data, rowHeight, overlay } = this.props;
+
         return (
-            <VTable
-                style={tableStyle(width)}
-                headerStyle={headerStyle}
-                width={width - 16}
-                height={height}
-                headerHeight={headerHeight}
-                rowHeight={rowHeight}
-                rowCount={data.length}
-                rowGetter={({ index }) => data[index]}
-                rowStyle={({ index }) => (index === (data.length - 1) ? lastRowStyle : rowStyle)}
-                onRowMouseOver={({ event: { target } }) => {
-                    hover(target, '#e6f7ff');
-                }}
-                onRowMouseOut={({ event: { target } }) => {
-                    hover(target);
-                }}
-            >
-                { columns }
-            </VTable>
+            <React.Fragment>
+                {
+                    overlay && this.renderOverlay()
+                }
+                <VTable
+                    style={tableStyle(width)}
+                    headerStyle={headerStyle}
+                    width={width - 16}
+                    height={height}
+                    headerRowRenderer={defaultTableHeaderRowRenderer}
+                    headerHeight={headerHeight}
+                    rowHeight={rowHeight}
+                    rowCount={data.length}
+                    rowGetter={({ index }) => data[index]}
+                    rowStyle={({ index }) => (index === (data.length - 1) ? lastRowStyle : rowStyle)}
+                    onRowMouseOver={({ event: { target } }) => {
+                        hover(target, '#e6f7ff');
+                    }}
+                    onRowMouseOut={({ event: { target } }) => {
+                        hover(target);
+                    }}
+                >
+                    { columns }
+                </VTable>
+            </React.Fragment>
         );
     }
 
-    return (
-        <AutoSizer disableHeight={!!maxHeight}>
-            {({ height, width }) => {
-                const calcedHeight = calcHeight(maxHeight || height, data, rowHeight, headerHeight);
+    toggleOverlay() {
+        const { showOverlay } = this.state;
 
-                return createTable(width, calcedHeight, getFlexedColumns(data, children));
-            }}
-        </AutoSizer>
-    );
+        this.setState({ showOverlay: !showOverlay, fullOpacity: false });
+    }
+
+    fullOpacity() {
+        this.setState({ fullOpacity: true });
+    }
+
+    someOpacity() {
+        this.setState({ fullOpacity: false });
+    }
+
+    renderOverlay() {
+        const { overlay } = this.props;
+        const { showOverlay, fullOpacity } = this.state;
+
+        return (
+            <div style={{ position: 'absolute' }}>
+                <Button
+                    size="small"
+                    style={{
+                        padding: 0, height: 14, borderRadius: 2, display: 'flex',
+                    }}
+                    onClick={this.toggleOverlay}
+                >
+                    <Icon type={showOverlay ? 'minus' : 'plus'} style={{ fontSize: 12 }} />
+                </Button>
+                {
+                    showOverlay
+                        && (
+                            <Card
+                                style={{ ...overlayStyle, opacity: fullOpacity ? 1 : 0.7 }}
+                                onMouseEnter={this.fullOpacity}
+                                onMouseLeave={this.someOpacity}
+                            >
+                                {overlay}
+                            </Card>
+                        )
+                }
+
+            </div>
+        );
+    }
+
+    render() {
+        const {
+            data, children, rowHeight, maxHeight,
+        } = this.props;
+
+        return (
+            <AutoSizer disableHeight={!!maxHeight}>
+                {({ height, width }) => {
+                    const calcedHeight = calcHeight(maxHeight || height, data, rowHeight, headerHeight);
+
+                    return this.createTable(width, calcedHeight, getFlexedColumns(data, children));
+                }}
+            </AutoSizer>
+        );
+    }
 }
 
 Table.propTypes = {
@@ -101,9 +177,11 @@ Table.propTypes = {
     children: PropTypes.arrayOf(PropTypes.node).isRequired,
     rowHeight: PropTypes.number,
     maxHeight: PropTypes.number,
+    overlay: PropTypes.node,
 };
 
 Table.defaultProps = {
     rowHeight: 38,
     maxHeight: null,
+    overlay: null,
 };

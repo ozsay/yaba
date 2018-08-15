@@ -10,7 +10,7 @@ import SizeCardGrid from '../../../components/SizeCardGrid';
 import ReasonsGrid from '../../../components/ReasonsGrid';
 import ChunksTable from '../../../components/ChunksTable';
 import AssetsTable from '../../../components/AssetsTable';
-import PackagesTable from '../../../components/PackagesTable';
+// import PackagesTable from '../../../components/PackagesTable';
 import CodeViewer from '../../../components/CodeViewer';
 
 export default class Module extends React.Component {
@@ -98,13 +98,13 @@ export default class Module extends React.Component {
                     </Section>
                 )
                 }
-                { module.loaders.length > 0
-                && (
-                    <Section title="Loaders" badge={module.loaders.length}>
-                        <PackagesTable packages={module.loaders} maxHeight={250} />
-                    </Section>
-                )
-                }
+                {/*{ module.loaders.length > 0*/}
+                {/*&& (*/}
+                    {/*<Section title="Loaders" badge={module.loaders.length}>*/}
+                        {/*<PackagesTable packages={module.loaders} maxHeight={250} />*/}
+                    {/*</Section>*/}
+                {/*)*/}
+                {/*}*/}
                 { module.source
                 && (
                     <Section title="Source code" collapse={false} newLine={false}>
