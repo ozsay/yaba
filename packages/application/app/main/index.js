@@ -8,17 +8,16 @@ global.customModules = {
     sizer: require('./sizer'),
 };
 
-// const iconPath = require.resolve('@yaba/icon/png/64x64.png');
-
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 // Global reference to mainWindow
 // Necessary to prevent win from being garbage collected
 let mainWindow;
 
+
 function createMainWindow() {
     // Construct new BrowserWindow
-    const window = new BrowserWindow({ icon: '' });
+    const window = new BrowserWindow({ title: `yaba v${app.getVersion()}` });
 
     // Set url for `win`
     // points to `webpack-dev-server` in development
