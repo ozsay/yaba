@@ -2,7 +2,13 @@ const { app, BrowserWindow } = require('electron');
 
 const listen = require('./server');
 
-const iconPath = require.resolve('@yaba/icon/png/64x64.png');
+global.customModules = {
+    analytics: require('./analytics'),
+    requester: require('./requester'),
+    sizer: require('./sizer'),
+};
+
+// const iconPath = require.resolve('@yaba/icon/png/64x64.png');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -12,7 +18,7 @@ let mainWindow;
 
 function createMainWindow() {
     // Construct new BrowserWindow
-    const window = new BrowserWindow({ icon: iconPath });
+    const window = new BrowserWindow({ icon: '' });
 
     // Set url for `win`
     // points to `webpack-dev-server` in development
@@ -23,7 +29,7 @@ function createMainWindow() {
 
     if (isDevelopment) {
         window.webContents.openDevTools();
-        require('./devtools');
+        // require('./devtools');
     }
 
     window.loadURL(url);

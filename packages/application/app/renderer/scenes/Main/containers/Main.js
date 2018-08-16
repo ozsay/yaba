@@ -7,6 +7,10 @@ import gotoTab from '../../../actions/gotoTab';
 import MainComponent from '../components/Main';
 
 function mapStateToProps({ stats }) {
+    if (stats) {
+        gotoTab('/general', true);
+    }
+
     return {
         stats,
         gotoTab,

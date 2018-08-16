@@ -2,7 +2,7 @@ export const ACTION_TYPE = 'GET_PACKAGE_DATA';
 
 const { remote } = window.require('electron');
 
-const fetch = remote.require('./requester');
+const fetch = remote.getGlobal('customModules').requester;
 
 export default function (name) {
     const promises = [

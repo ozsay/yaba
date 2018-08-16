@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "main": "app/main/index.js",
   "scripts": {
-    "prepare": "electron-rebuild -w iltorb",
-    "start-main": "PORT=8000 electron .",
-    "start-renderer": "webpack-dev-server",
-    "build": "webpack --progress --profile --json"
+    "clean": "rm -rf dist release",
+    "start:main": "PORT=8000 electron .",
+    "start:main:prod": "NODE_ENV=production electron dist",
+    "start:renderer": "webpack-dev-server --config webpack.config.renderer.js",
+    "build:renderer:prod": "webpack -p --config webpack.config.renderer.js",
+    "build:main:prod": "webpack -p --config webpack.config.main.js",
+    "build:prod": "yarn run clean && yarn run build:renderer:prod && yarn run build:main:prod && cp package.release.json dist/package.json",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "license": "MIT",
   "dependencies": {
@@ -53,15 +58,29 @@
     "babel-preset-react": "6.24.1",
     "css-loader": "1.0.0",
     "devtron": "1.4.0",
+    "electron-builder": "^20.28.1",
     "electron-devtools-installer": "2.2.4",
     "electron-rebuild": "1.8.2",
     "file-loader": "1.1.11",
     "html-webpack-plugin": "3.2.0",
     "lodash.flatten": "4.4.0",
+    "node-loader": "^0.6.0",
     "style-loader": "0.22.1",
     "webpack": "4.16.5",
     "webpack-cli": "3.1.0",
     "webpack-dev-server": "3.1.5",
     "why-did-you-update": "0.1.1"
+  },
+  "build": {
+    "appId": "com.yaba.io",
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "target": "dmg",
+      "icon": "../icon/mac/icon.icns"
+    },
+    "directories": {
+      "output": "release",
+      "app": "dist"
+    }
   }
 }

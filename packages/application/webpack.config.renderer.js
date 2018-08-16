@@ -10,6 +10,7 @@ const MODULES_DIRS = [path.resolve('./node_modules'), path.resolve('../../node_m
 module.exports = {
     mode: 'development',
     devtool: 'cheap-module-source-map',
+    target: 'electron-renderer',
     context: APP_DIR,
     entry: `./index.jsx`,
     output: {

@@ -2,7 +2,7 @@ import uuidv4 from 'uuid/v4';
 
 const { remote } = window.require('electron');
 
-const sendAnalytics = remote.require('./analytics');
+const sendAnalytics = remote.getGlobal('customModules').analytics;
 
 function getOrCreateClientId() {
     const clientId = localStorage.getItem('clientId');

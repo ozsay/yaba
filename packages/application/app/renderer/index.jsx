@@ -32,8 +32,4 @@ function App() {
 store.dispatch(initApp())
     .then(() => {
         render(<App />, document.querySelector('#app'));
-    })
-    // .then(sendAnalytics)
-    .then(() => {
-        gotoTab('/chunks/0', true);
     });

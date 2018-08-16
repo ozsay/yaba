@@ -34,6 +34,10 @@ function getSize(stats, { statsKey }) {
     return size || 0;
 }
 
+function NoStats() {
+    return 'Please use the plugin to load stats';
+}
+
 class Main extends React.Component {
     constructor(props) {
         super(props);
@@ -181,6 +185,9 @@ class Main extends React.Component {
                                             component={route.childComponent}
                                         />
                                     ))
+                                }
+                                {
+                                    <Route component={NoStats} />
                                 }
                             </Switch>
                         </Content>

@@ -1,6 +1,6 @@
 const { remote } = window.require('electron');
 
-const sizer = remote.require('./sizer');
+const sizer = remote.getGlobal('customModules').sizer;
 
 export const ACTION_TYPE = 'CALC_SIZE';
 
