@@ -81,6 +81,10 @@
     "directories": {
       "output": "release",
       "app": "dist"
+    },
+    "publish": {
+      "provider": "github",
+      "private": true
     }
   }
 }
