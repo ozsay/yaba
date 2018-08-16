@@ -2,6 +2,8 @@ const { app, BrowserWindow } = require('electron');
 
 const listen = require('./server');
 
+const iconPath = require.resolve('@yaba/icon/png/64x64.png');
+
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 // Global reference to mainWindow
@@ -10,7 +12,7 @@ let mainWindow;
 
 function createMainWindow() {
     // Construct new BrowserWindow
-    const window = new BrowserWindow();
+    const window = new BrowserWindow({ icon: iconPath });
 
     // Set url for `win`
     // points to `webpack-dev-server` in development

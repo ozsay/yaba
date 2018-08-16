@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 
 import { Card, Button } from 'antd';
 
+const { shell } = window.require('electron');
+
 const gridStyle = {
     width: '20%',
     height: '150px',
@@ -39,18 +41,28 @@ Content.defaultProps = {
 export default function General(props) {
     const {
         stats: {
-            version, hash, errors = [], warnings = [], modules = [], assets = [],
+            options, version, hash, errors = [], warnings = [], modules = [], assets = [],
             chunks = [], packages = [], mainModule, time, rootPackage,
         },
     } = props;
 
     return (
-        <Card title="General properties of the bundle">
+        <Card title="General properties of the bundle" style={{ marginBottom: 24 }}>
             <Content title="Webpack version" description={version} />
             { time
               && <Content title="Build time" description={`${time}ms`} />
             }
             <Content title="Hash" description={hash} />
+            <Content title="Mode" description={options.mode} />
+            <Content
+                title="Devtool"
+                description={options.devtool}
+                action={(
+                    <Button onClick={() => shell.openExternal('https://webpack.js.org/configuration/devtool/')}>
+                            Learn More
+                    </Button>
+                )}
+            />
             <Content
                 title="Errors count"
                 description={errors.length}

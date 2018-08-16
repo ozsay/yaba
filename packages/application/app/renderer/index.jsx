@@ -6,10 +6,11 @@ import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 
 import initApp from './actions/initApp';
+import gotoTab from './actions/gotoTab';
 
 import store from './utils/store';
 import history from './utils/history';
-import gotoTab from './actions/gotoTab';
+import sendAnalytics from './utils/analytics';
 
 import Main from './scenes/Main';
 
@@ -32,6 +33,7 @@ store.dispatch(initApp())
     .then(() => {
         render(<App />, document.querySelector('#app'));
     })
+    // .then(sendAnalytics)
     .then(() => {
-        gotoTab('/modules', true);
+        gotoTab('/chunks/0', true);
     });

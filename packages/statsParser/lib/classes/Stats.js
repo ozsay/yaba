@@ -8,6 +8,8 @@ export default class Stats {
     constructor(stats) {
         this._raw = stats;
 
+        this.options = stats.options;
+
         this.version = stats.version;
         this.hash = stats.hash;
         this.time = stats.time;

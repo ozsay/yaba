@@ -25,6 +25,16 @@ class YabaPlugin {
         this.stats = stats;
         this.output = this.stats.toJson();
 
+        this.output.options = {};
+
+        const fields = ['context', 'devtool', 'mode'];
+
+        for (const prop in this.stats.compilation.options) {
+            if (fields.indexOf(prop) > -1) {
+                this.output.options[prop] = this.stats.compilation.options[prop];
+            }
+        }
+
         this.outputDir = await tmpDirAsync();
 
         for (const handler of handlers) {

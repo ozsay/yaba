@@ -159,7 +159,7 @@ export default class Package extends React.Component {
                     )
                 }
                 { _package.description && <Section title="description" collapse={false} body={_package.description} /> }
-                <Section title="license" collapse={false} body={_package.license} />
+                { _package.license && <Section title="license" collapse={false} body={_package.license} /> }
                 { _package.homepage
                 && (
                     <Section title="homepage" collapse={false}>

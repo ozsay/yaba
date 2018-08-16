@@ -51,8 +51,20 @@ function buildTree(modules, title) {
 
     fixTree(obj.groups[0]);
 
+    obj.groups[0].groups.forEach((g) => {
+        obj.groups[0].weight += g.weight;
+    });
+
     return obj;
 }
+
+const overlayStyle = {
+    boxShadow: 'rgba(0, 0, 0, 0.15) 0px 2px 8px 2px',
+    position: 'absolute',
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 3,
+};
 
 export default class ModulesChart extends React.Component {
     constructor(props) {
@@ -67,14 +79,15 @@ export default class ModulesChart extends React.Component {
         const { modules, title } = this.props;
 
         const tree = buildTree(modules, title);
+        const self = this;
 
-        this.treeMap = new CarrotSearchFoamTree({
+        const options = {
             element: this.chartRef.current,
             layout: 'squarified',
             stacking: 'flattened',
             pixelRatio: window.devicePixelRatio || 1,
-            maxGroupLevelsDrawn: Number.MAX_VALUE,
-            maxGroupLabelLevelsDrawn: Number.MAX_VALUE,
+            maxGroupLevelsDrawn: Number.MAX_SAFE_INTEGER,
+            maxGroupLabelLevelsDrawn: Number.MAX_SAFE_INTEGER,
             groupLabelVerticalPadding: 0.2,
             rolloutDuration: 0,
             pullbackDuration: 0,
@@ -91,24 +104,47 @@ export default class ModulesChart extends React.Component {
                     e.preventDefault();
                 }
             },
-        });
+            onGroupHover(event) {
+                const geometry = self.treeMap.get('geometry', event.group);
+
+                if (!geometry) {
+                    self.setState({ showOverlay: false });
+                    return;
+                }
+
+                self.setState({
+                    showOverlay: true,
+                    coords: { x: geometry.boxLeft, y: geometry.boxTop },
+                    group: event.group,
+                });
+            },
+        };
+
+        this.treeMap = new CarrotSearchFoamTree(options);
     }
 
     render() {
-        const { modules, title } = this.props;
-
-        const data = [
-            ['Location', 'Parent', 'Market trade volume (size)', 'Market increase/decrease (color)'],
-            [title, null, 0, 0],
-        ];
-
-        modules.sort(v => v.size).slice(-15).forEach((module) => {
-            data.push([module.name, title, module.size, -module.size]);
-        });
+        const { showOverlay, coords: { x, y } = {}, group } = this.state;
 
         return (
-            <div>
+            <div style={{ position: 'relative' }}>
                 <div style={{ width: '100%', height: 500 }} ref={this.chartRef} />
+                {
+                    showOverlay && (
+                        <div style={{ ...overlayStyle, top: y, left: x }}>
+                            <div>
+                                <strong>
+                                    {group.label}
+                                </strong>
+                            </div>
+                            <div>
+                                {'Size: '}
+                                {group.weight}
+                            </div>
+
+                        </div>
+                    )
+                }
             </div>
         );
     }

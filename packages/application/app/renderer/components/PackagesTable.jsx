@@ -62,6 +62,14 @@ export default class PackagesTable extends Component {
                     dataKey="id"
                     dataLength={val => val.toString().length}
                     width={10}
+                    cellRenderer={({ rowData, cellData }) => (
+                        rowData.name ? cellData
+                            : (
+                                <Link to={`/packages/${rowData.id}`}>
+                                    {cellData}
+                                </Link>
+                            )
+                    )}
                 />
                 <Column
                     label="Name"

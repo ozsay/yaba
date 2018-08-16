@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200">
+    <filter id="blurMe">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
+    </filter>
+    <g transform="rotate(45, 760, 470) scale(1.25)">
+        <circle cx="600" cy="350" r="300" stroke="white" stroke-width="40" fill="#8ed6fb" />
+        <rect x="565" y="640" width="70" height="500" rx="30" ry="30" fill="white" />
+    </g>
+    <g transform="rotate(45, 760, 470) scale(1.25)" filter="url(#blurMe)">
+        <circle cx="600" cy="350" r="120" stroke="white" stroke-width="30" fill="#1c78c0" />
+        <line x1="300" y1="350" x2="900" y2="350" stroke="white" stroke-width="15" />
+        <line x1="600" y1="50" x2="600" y2="650" stroke="white" stroke-width="15" />
+    </g>
+</svg>
