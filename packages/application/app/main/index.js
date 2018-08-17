@@ -6,6 +6,7 @@ global.customModules = {
     analytics: require('./analytics'),
     requester: require('./requester'),
     sizer: require('./sizer'),
+    updater: require('electron-updater'),
 };
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
@@ -13,7 +14,6 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 // Global reference to mainWindow
 // Necessary to prevent win from being garbage collected
 let mainWindow;
-
 
 function createMainWindow() {
     // Construct new BrowserWindow

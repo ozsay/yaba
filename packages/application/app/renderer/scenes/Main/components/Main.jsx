@@ -8,6 +8,8 @@ import {
 
 import routes from '../../../utils/routes';
 
+import AppUpdater from '../../../components/AppUpdater';
+
 const { confirm: openConfirm } = Modal;
 const { Header, Content, Sider } = Layout;
 const { Search } = Input;
@@ -106,6 +108,7 @@ class Main extends React.Component {
 
         return (
             <Layout style={{ height: '100vh' }}>
+                <AppUpdater />
                 <Header style={{ height: headerHeight, display: 'flex' }}>
                     <div style={navigationStyle}>
                         <Button
@@ -146,20 +149,20 @@ class Main extends React.Component {
                     </Menu>
                 </Header>
                 <Layout>
-                    {
-                        <Sider width={200} style={{ background: '#f1f1f1', borderRight: '1px #cacaca solid' }}>
-                            <Search
-                                style={searchStyle}
-                                placeholder="search"
-                                onChange={value => console.log(value)}
-                            />
-                            <Menu
-                                mode="inline"
-                                defaultSelectedKeys={['1']}
-                                style={{ borderRight: 0, background: 'transparent' }}
-                            />
-                        </Sider>
-                    }
+                    {/*{*/}
+                        {/*<Sider width={200} style={{ background: '#f1f1f1', borderRight: '1px #cacaca solid' }}>*/}
+                            {/*<Search*/}
+                                {/*style={searchStyle}*/}
+                                {/*placeholder="search"*/}
+                                {/*onChange={value => console.log(value)}*/}
+                            {/*/>*/}
+                            {/*<Menu*/}
+                                {/*mode="inline"*/}
+                                {/*defaultSelectedKeys={['1']}*/}
+                                {/*style={{ borderRight: 0, background: 'transparent' }}*/}
+                            {/*/>*/}
+                        {/*</Sider>*/}
+                    {/*}*/}
                     <Layout style={{ background: '#fff' }}>
                         <Content style={{
                             background: '#fff', padding: 24, margin: 0, minHeight: 280,

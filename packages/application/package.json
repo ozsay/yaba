@@ -1,6 +1,12 @@
 {
   "name": "@yaba/application",
   "version": "1.0.0",
+  "description": "Yet Another Bundle Analyzer for Webpack",
+  "author": {
+    "name": "Oz Sayag",
+    "email": "ozsayag@gmail.com",
+    "url": "https://github.com/ozsay"
+  },
   "main": "app/main/index.js",
   "scripts": {
     "clean": "rm -rf dist release",
@@ -9,10 +15,13 @@
     "start:renderer": "webpack-dev-server --config webpack.config.renderer.js",
     "build:renderer:prod": "webpack -p --config webpack.config.renderer.js",
     "build:main:prod": "webpack -p --config webpack.config.main.js",
-    "build:prod": "yarn run clean && yarn run build:renderer:prod && yarn run build:main:prod && cp package.release.json dist/package.json",
+    "build:prod": "yarn run build:renderer:prod && yarn run build:main:prod && node scripts/createPackageJson.js",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "publish": "electron-builder -p onTagOrDraft",
+    "publish:dev": "AWS_ACCESS_KEY_ID=2XXK0AEBB8XWG56E1RBV AWS_SECRET_ACCESS_KEY=f1jVnodvC1cQCqe3yUTFgmMioZVM6faXqQ2qD9Jf node scripts/publishDev.js"
   },
+  "repository": "https://github.com/ozsay/yaba",
   "license": "MIT",
   "dependencies": {
     "@yaba/analyzer": "1.0.0",
@@ -23,6 +32,7 @@
     "codemirror": "5.39.2",
     "date-fns": "1.29.0",
     "electron": "2.0.7",
+    "electron-updater": "^3.1.1",
     "history": "4.7.2",
     "iltorb": "2.4.0",
     "localforage": "1.7.2",
@@ -58,6 +68,7 @@
     "babel-preset-react": "6.24.1",
     "css-loader": "1.0.0",
     "devtron": "1.4.0",
+    "electron": "2.0.7",
     "electron-builder": "^20.28.1",
     "electron-devtools-installer": "2.2.4",
     "electron-rebuild": "1.8.2",
@@ -75,16 +86,11 @@
     "appId": "com.yaba.io",
     "mac": {
       "category": "public.app-category.developer-tools",
-      "target": "dmg",
       "icon": "../icon/mac/icon.icns"
     },
     "directories": {
       "output": "release",
       "app": "dist"
-    },
-    "publish": {
-      "provider": "github",
-      "private": true
     }
   }
 }

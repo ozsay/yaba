@@ -57,6 +57,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: `${APP_DIR}/index.html`,
         }),
-        new YabaPlugin(),
+        // new YabaPlugin(),
     ],
 };
