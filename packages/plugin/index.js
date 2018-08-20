@@ -35,7 +35,7 @@ class YabaPlugin {
             }
         }
 
-        this.outputDir = await tmpDirAsync();
+        this.outputDir = await tmpDirAsync({ unsafeCleanup: true });
 
         for (const handler of handlers) {
             await handler.call(this);

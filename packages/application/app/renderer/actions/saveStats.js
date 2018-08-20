@@ -6,8 +6,6 @@ const { remote } = window.require('electron');
 const fs = remote.require('fs');
 const path = remote.require('path');
 
-export const ACTION_TYPE = 'STORE_STATS';
-
 function storeAssetInDB(outputPath, key, asset) {
     return new Promise((resolve) => {
         fs.readFile(path.resolve(outputPath, asset.name), (err, data) => {
@@ -29,7 +27,7 @@ export default function ({
 
     const storeAssets = stats.assets.map(asset => storeAssetInDB(outputPath, stringifiedKey, asset));
 
-    const promise = Promise.all(storeAssets)
+    return Promise.all(storeAssets)
         .then((assets) => {
             const promises = [localforage.setItem(stringifiedKey, { stats, assets: _.fromPairs(assets) })];
 
@@ -39,7 +37,4 @@ export default function ({
 
             return Promise.all(promises);
         });
-
-
-    return { type: ACTION_TYPE, payload: promise };
 }

@@ -105,7 +105,7 @@ export default class Package extends React.Component {
         }
 
         getPackageData(_package.name)
-            .then(({ value: res }) => {
+            .then((res) => {
                 const versions = Object.keys(res[3].versions);
 
                 const patch = semver.maxSatisfying(

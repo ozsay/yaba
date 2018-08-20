@@ -1,5 +1,3 @@
-export const ACTION_TYPE = 'IMPORT_STATS';
-
 function readFile(file) {
     return new Promise((resolve) => {
         const reader = new FileReader();
@@ -13,5 +11,5 @@ function readFile(file) {
 }
 
 export default function (fileHandler) {
-    return { type: ACTION_TYPE, payload: readFile(fileHandler) };
+    return readFile(fileHandler);
 }

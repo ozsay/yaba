@@ -7,8 +7,9 @@ import { Card, Button } from 'antd';
 const { shell } = window.require('electron');
 
 const gridStyle = {
-    width: '20%',
-    height: '150px',
+    width: '16.667%',
+    minWidth: 250,
+    height: 150,
     textAlign: 'center',
 };
 
@@ -50,7 +51,7 @@ export default function General(props) {
         <Card title="General properties of the bundle" style={{ marginBottom: 24 }}>
             <Content title="Webpack version" description={version} />
             { time
-              && <Content title="Build time" description={`${time}ms`} />
+                && <Content title="Build time" description={`${time}ms`} />
             }
             <Content title="Hash" description={hash} />
             <Content title="Mode" description={options.mode} />
@@ -69,7 +70,7 @@ export default function General(props) {
                 action={errors.length > 0 && (
                     <Link to="/errors">
                         <Button>
-                            Learn More
+                                Learn More
                         </Button>
                     </Link>
                 )}
@@ -81,7 +82,7 @@ export default function General(props) {
                 action={warnings.length > 0 && (
                     <Link to="/warnings">
                         <Button>
-                            Learn More
+                                Learn More
                         </Button>
                     </Link>
                 )}
@@ -93,7 +94,7 @@ export default function General(props) {
                 action={modules.length > 0 && (
                     <Link to="/modules">
                         <Button>
-                            Learn More
+                                Learn More
                         </Button>
                     </Link>
                 )}
@@ -118,7 +119,7 @@ export default function General(props) {
                 action={assets.length > 0 && (
                     <Link to="/assets">
                         <Button>
-                            Learn More
+                                Learn More
                         </Button>
                     </Link>
                 )}
@@ -130,7 +131,7 @@ export default function General(props) {
                 action={chunks.length > 0 && (
                     <Link to="/chunks">
                         <Button>
-                            Learn More
+                                Learn More
                         </Button>
                     </Link>
                 )}
@@ -142,7 +143,7 @@ export default function General(props) {
                 action={packages.length > 0 && (
                     <Link to="/packages">
                         <Button>
-                            Learn More
+                                Learn More
                         </Button>
                     </Link>
                 )}
@@ -154,12 +155,11 @@ export default function General(props) {
                 action={(
                     <Link to={`/packages/${rootPackage.id}`}>
                         <Button>
-                    Learn More
+                                Learn More
                         </Button>
                     </Link>
                 )}
             />
-
         </Card>
     );
 }

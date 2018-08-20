@@ -55,7 +55,7 @@ export default class Asset extends React.Component {
         const { asset, getAssetData } = this.props;
 
         getAssetData(asset.name)
-            .then(({ payload }) => {
+            .then((payload) => {
                 this.rawAsset = payload;
 
                 if (asset.mimeType === 'image/png') {
@@ -72,8 +72,7 @@ export default class Asset extends React.Component {
     calcSize(assetData, sizer) {
         const { calcSize } = this.props;
 
-        return calcSize(this.rawAsset, sizer)
-            .then(({ value }) => value);
+        return calcSize(this.rawAsset, sizer);
     }
 
     render() {

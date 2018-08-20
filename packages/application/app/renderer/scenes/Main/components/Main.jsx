@@ -50,9 +50,17 @@ class Main extends React.Component {
 
         this.state = {};
 
-        props.startListening(() => new Promise((resolve, reject) => {
+        props.statsListener(() => new Promise((resolve, reject) => {
             this.setState({ confirm: resolve, reject });
         }));
+    }
+
+    componentDidMount() {
+        const { gotoTab, stats } = this.props;
+
+        if (stats) {
+            gotoTab('/general', true);
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -60,6 +68,12 @@ class Main extends React.Component {
 
         if (confirm && !prevState.confirm) {
             this.showStatsUpdateConfirm();
+        }
+
+        const { gotoTab, stats } = this.props;
+
+        if (!prevProps.stats && stats) {
+            gotoTab('/general', true);
         }
     }
 
@@ -149,20 +163,20 @@ class Main extends React.Component {
                     </Menu>
                 </Header>
                 <Layout>
-                    {/*{*/}
-                        {/*<Sider width={200} style={{ background: '#f1f1f1', borderRight: '1px #cacaca solid' }}>*/}
-                            {/*<Search*/}
-                                {/*style={searchStyle}*/}
-                                {/*placeholder="search"*/}
-                                {/*onChange={value => console.log(value)}*/}
-                            {/*/>*/}
-                            {/*<Menu*/}
-                                {/*mode="inline"*/}
-                                {/*defaultSelectedKeys={['1']}*/}
-                                {/*style={{ borderRight: 0, background: 'transparent' }}*/}
-                            {/*/>*/}
-                        {/*</Sider>*/}
-                    {/*}*/}
+                    {/* { */}
+                    {/* <Sider width={200} style={{ background: '#f1f1f1', borderRight: '1px #cacaca solid' }}> */}
+                    {/* <Search */}
+                    {/* style={searchStyle} */}
+                    {/* placeholder="search" */}
+                    {/* onChange={value => console.log(value)} */}
+                    {/* /> */}
+                    {/* <Menu */}
+                    {/* mode="inline" */}
+                    {/* defaultSelectedKeys={['1']} */}
+                    {/* style={{ borderRight: 0, background: 'transparent' }} */}
+                    {/* /> */}
+                    {/* </Sider> */}
+                    {/* } */}
                     <Layout style={{ background: '#fff' }}>
                         <Content style={{
                             background: '#fff', padding: 24, margin: 0, minHeight: 280,
@@ -203,7 +217,7 @@ class Main extends React.Component {
 
 Main.propTypes = {
     stats: PropTypes.object, // eslint-disable-line
-    startListening: PropTypes.func.isRequired,
+    statsListener: PropTypes.func.isRequired,
     gotoTab: PropTypes.func.isRequired,
 };
 

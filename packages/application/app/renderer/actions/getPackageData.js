@@ -1,5 +1,3 @@
-export const ACTION_TYPE = 'GET_PACKAGE_DATA';
-
 const { remote } = window.require('electron');
 
 const fetch = remote.getGlobal('customModules').requester;
@@ -12,8 +10,5 @@ export default function (name) {
         fetch(`https://registry.npmjs.org/${name}`),
     ];
 
-    return {
-        type: ACTION_TYPE,
-        payload: Promise.all(promises),
-    };
+    return Promise.all(promises);
 }

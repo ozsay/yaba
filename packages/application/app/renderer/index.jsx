@@ -2,27 +2,22 @@ import 'antd/dist/antd.css';
 
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 
-import initApp from './actions/initApp';
-
-import store from './utils/store';
 import history from './utils/history';
 
 import Main from './scenes/Main';
 
+import StatsContext from './contexts/stats';
+
 function App() {
     return (
-        <Provider store={store}>
+        <StatsContext.Provider>
             <Router history={history}>
                 <Main />
             </Router>
-        </Provider>
+        </StatsContext.Provider>
     );
 }
 
-store.dispatch(initApp())
-    .then(() => {
-        render(<App />, document.querySelector('#app'));
-    });
+render(<App />, document.querySelector('#app'));

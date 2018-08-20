@@ -1,16 +1,11 @@
 import localforage from 'localforage';
 
-import updateStats from './updateStats';
+import parseStats from './parseStats';
 
-export const ACTION_TYPE = 'LOAD_STATS';
+export default async function (key) {
+    const finalKey = key || await localforage.getItem('default');
 
-export default function (key) {
-    return dispatch => dispatch({ type: ACTION_TYPE, payload: localforage.getItem(key) })
-        .then(({ value: { stats } }) => {
-            if (stats) {
-                return dispatch(updateStats(stats));
-            }
+    const { stats } = await localforage.getItem(finalKey);
 
-            return null;
-        });
+    return parseStats(stats);
 }
