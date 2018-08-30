@@ -11,9 +11,12 @@
   },
   "license": "MIT",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "packages/website/website"
   ],
   "devDependencies": {
+    "babel-eslint": "9.0.0",
+    "docusaurus-init": "1.0.2",
     "eslint": "5.4.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-plugin-import": "2.14.0",

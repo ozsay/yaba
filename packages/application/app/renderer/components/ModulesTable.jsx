@@ -35,7 +35,7 @@ export default class ModulesTable extends Component {
         const { excludeNodeModules, textSearch = '' } = this.state;
 
         if (!module.fullPath) {
-            return false;
+            return !textSearch;
         }
 
         if (excludeNodeModules && module.fullPath.includes('node_modules')) {
@@ -71,8 +71,8 @@ export default class ModulesTable extends Component {
         return (
             <Table data={currentModules} overlay={this.renderOverlay()} {...this.props}>
                 <Column
-                    label="Path"
-                    dataKey="fullPath"
+                    label="Name"
+                    dataKey="display"
                     dataLength={val => (val ? val.length : 0)}
                     width={5}
                     cellRenderer={({ rowData, cellData }) => (
@@ -80,6 +80,12 @@ export default class ModulesTable extends Component {
                             {cellData}
                         </Link>
                     )}
+                />
+                <Column
+                    label="Path"
+                    dataKey="fullPath"
+                    dataLength={val => (val ? val.length : 0)}
+                    width={5}
                 />
                 <Column
                     label="Issuer"

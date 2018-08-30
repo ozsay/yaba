@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "font-awesome": "^4.7.0",
+    "font-awesome": "4.7.0",
     "lodash": "4.0.0",
     "qs": "6.5.1"
   },
@@ -13,18 +13,17 @@
     "test": "webpack"
   },
   "devDependencies": {
+    "@babel/core": "7.0.0",
+    "@babel/preset-env": "7.0.0",
     "@yaba/plugin": "1.0.0",
-    "babel-core": "6.26.3",
-    "babel-eslint": "8.2.6",
-    "babel-loader": "7.1.5",
-    "babel-preset-env": "1.7.0",
+    "babel-loader": "8.0.0",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "1.0.0",
-    "file-loader": "1.1.11",
-    "mini-css-extract-plugin": "0.4.1",
-    "style-loader": "0.22.1",
+    "file-loader": "2.0.0",
+    "mini-css-extract-plugin": "0.4.2",
+    "style-loader": "0.23.0",
     "tmp": "0.0.33",
-    "webpack": "4.16.5",
+    "webpack": "4.17.1",
     "webpack-cli": "3.1.0"
   }
 }

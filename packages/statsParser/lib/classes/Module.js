@@ -54,9 +54,19 @@ export default class Module {
         });
     }
 
+    specialName() {
+        if (this.name.startsWith('css ')) {
+            const path = this.name.split('!');
+
+            return `css-loader ${path[1]}`;
+        }
+
+        return this.name;
+    }
+
     get display() {
         if (!this.fullPath) {
-            return this.name;
+            return this.specialName();
         }
 
         const splittedPath = this.fullPath.split('/');

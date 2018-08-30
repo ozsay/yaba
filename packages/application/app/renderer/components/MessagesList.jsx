@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 
 import { Divider } from 'antd';
 
-export default function MessagesList(props) {
+export default function MessagesList({ messages }) {
     return (
         <div>
             {
-                props.messages
+                messages
                     .map((message, i) => (
                         <div key={i}>
                             <p style={{ whiteSpace: 'pre' }}>{message}</p>
-                            <Divider />
+                            {
+                                i < messages.length - 1 && <Divider />
+                            }
                         </div>
                     ))
             }

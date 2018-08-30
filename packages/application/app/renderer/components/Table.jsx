@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Card, Button, Icon } from 'antd';
 
 import {
-    Table as VTable, AutoSizer, Column, defaultTableHeaderRowRenderer,
+    Table as VTable, AutoSizer, Column,
 } from 'react-virtualized';
 import 'react-virtualized/styles.css';
 
@@ -22,7 +22,7 @@ const rowStyle = {
     outline: 'none',
 };
 
-const lastRowStyle = Object.assign({}, rowStyle, { borderBottom: 'none' });
+const lastRowStyle = { ...rowStyle, borderBottom: 'none' };
 
 const headerStyle = {
     textTransform: 'none',
@@ -90,7 +90,6 @@ export default class Table extends React.Component {
                     headerStyle={headerStyle}
                     width={width - 16}
                     height={height}
-                    headerRowRenderer={defaultTableHeaderRowRenderer}
                     headerHeight={headerHeight}
                     rowHeight={rowHeight}
                     rowCount={data.length}

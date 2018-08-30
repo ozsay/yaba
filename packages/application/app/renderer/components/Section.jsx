@@ -11,7 +11,7 @@ export default class Section extends React.Component {
     }
 
     handleShowHide(value) {
-        this.setState(Object.assign({}, this.state, { showBody: value }));
+        this.setState({ showBody: value });
     }
 
     render() {
@@ -22,29 +22,33 @@ export default class Section extends React.Component {
         const { showBody } = this.state;
 
         const badger = () => (
-            badge !== null &&
-            <Badge overflowCount={9999} count={badge} style={{ backgroundColor: '#52c41a' }} offset={[5, 0]} />
+            badge !== null
+            && <Badge overflowCount={9999} count={badge} style={{ backgroundColor: '#52c41a' }} offset={[5, 0]} />
         );
 
         return (
             <div>
-                { collapse &&
-                    <div>
-                        <Switch
-                            checked={showBody}
-                            onChange={value => this.handleShowHide(value)}
-                        />
-                        <h3 style={{ display: 'inline-block', marginLeft: '5px' }}>
+                { collapse
+                    && (
+                        <div>
+                            <Switch
+                                checked={showBody}
+                                onChange={value => this.handleShowHide(value)}
+                            />
+                            <h3 style={{ display: 'inline-block', marginLeft: '5px' }}>
+                                {title}
+                                { badger() }
+                            </h3>
+                        </div>
+                    )
+                }
+                { !collapse
+                    && (
+                        <h3>
                             {title}
                             { badger() }
                         </h3>
-                    </div>
-                }
-                { !collapse &&
-                    <h3>
-                        {title}
-                        { badger() }
-                    </h3> }
+                    ) }
                 { showBody && body && <h4>{body}</h4> }
                 { showBody && children }
                 { newLine && <br /> }

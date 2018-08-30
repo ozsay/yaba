@@ -7,8 +7,7 @@ import {
 } from 'antd';
 
 import routes from '../../../utils/routes';
-
-import AppUpdater from '../../../components/AppUpdater';
+import MenuActions from '../../../components/MenuActions';
 
 const { confirm: openConfirm } = Modal;
 const { Header, Content, Sider } = Layout;
@@ -16,12 +15,19 @@ const { Search } = Input;
 
 const headerHeight = '42px';
 
-const navigationStyle = {
+const headerStyle = {
+    height: headerHeight,
     display: 'flex',
     alignItems: 'center',
+    width: '100%',
+    position: 'fixed',
+    zIndex: 9999999999,
+};
+
+const navigationStyle = {
+    display: 'flex',
     justifyContent: 'space-around',
     width: 150,
-    lineHeight: '42px',
     paddingRight: 50,
 };
 
@@ -122,8 +128,7 @@ class Main extends React.Component {
 
         return (
             <Layout style={{ height: '100vh' }}>
-                <AppUpdater />
-                <Header style={{ height: headerHeight, display: 'flex' }}>
+                <Header style={headerStyle}>
                     <div style={navigationStyle}>
                         <Button
                             shape="circle"
@@ -161,8 +166,9 @@ class Main extends React.Component {
                             </Menu.Item>
                         ))}
                     </Menu>
+                    <MenuActions />
                 </Header>
-                <Layout>
+                <Layout style={{ marginTop: headerHeight }}>
                     {/* { */}
                     {/* <Sider width={200} style={{ background: '#f1f1f1', borderRight: '1px #cacaca solid' }}> */}
                     {/* <Search */}

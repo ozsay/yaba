@@ -1,0 +1,22 @@
+/* your custom css */
+
+blockquote {
+    background-color: #8ed6fb;
+    border-left: 8px solid #1c78c0;
+    padding: 15px 30px 15px 15px;
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (max-width: 1023px) {
+}
+
+@media only screen and (min-width: 1400px) {
+}
+
+@media only screen and (min-width: 1500px) {
+}

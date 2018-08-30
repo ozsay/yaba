@@ -2,5 +2,8 @@
   "name": "@yaba/icon",
   "version": "1.0.0",
   "private": true,
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "update-website": "sh scripts/update-website.sh"
+  }
 }
