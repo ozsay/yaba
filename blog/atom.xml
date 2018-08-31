@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://yaba.io/blog</id>
+    <title>yaba Blog</title>
+    <updated>2018-09-01T06:00:00Z</updated>
+    <generator>Feed for Node.js</generator>
+    <link rel="alternate" href="https://yaba.io/blog"/>
+    <subtitle>The best place to stay up-to-date with the latest yaba news and events.</subtitle>
+    <logo>https://yaba.io/img/icon.svg</logo>
+    <rights>Copyright © 2018 Oz Sayag</rights>
+    <entry>
+        <title type="html"><![CDATA[Announcing yaba]]></title>
+        <id>https://yaba.io/blog/2018/09/01/Announcing-yaba.html</id>
+        <link href="https://yaba.io/blog/2018/09/01/Announcing-yaba.html">
+        </link>
+        <updated>2018-09-01T06:00:00Z</updated>
+        <summary type="html"><![CDATA[<p>Yaba stands for &quot;Yet Another Bundle Analyzer&quot; and it's a new bundle analyzer for webpack.</p>
+]]></summary>
+        <author>
+            <name>Oz Sayag</name>
+            <uri>https://github.com/ozsay</uri>
+        </author>
+    </entry>
+</feed>

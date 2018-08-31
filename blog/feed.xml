@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>yaba Blog</title>
+        <link>https://yaba.io/blog</link>
+        <description>The best place to stay up-to-date with the latest yaba news and events.</description>
+        <lastBuildDate>Sat, 01 Sep 2018 06:00:00 GMT</lastBuildDate>
+        <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+        <generator>Feed for Node.js</generator>
+        <image>
+            <title>yaba Blog</title>
+            <url>https://yaba.io/img/icon.svg</url>
+            <link>https://yaba.io/blog</link>
+        </image>
+        <copyright>Copyright © 2018 Oz Sayag</copyright>
+        <item>
+            <title><![CDATA[Announcing yaba]]></title>
+            <link>https://yaba.io/blog/2018/09/01/Announcing-yaba.html</link>
+            <guid>https://yaba.io/blog/2018/09/01/Announcing-yaba.html</guid>
+            <pubDate>Sat, 01 Sep 2018 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>Yaba stands for &quot;Yet Another Bundle Analyzer&quot; and it's a new bundle analyzer for webpack.</p>
+]]></description>
+        </item>
+    </channel>
+</rss>
