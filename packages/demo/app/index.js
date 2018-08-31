@@ -1,5 +1,6 @@
 import 'qs';
 import 'lodash';
+import 'history';
 
 import 'font-awesome/css/font-awesome.css';
 

@@ -1,4 +1,4 @@
-// import map from 'lodash/map';
+import 'warning';
 
 export const AAA = '';
 

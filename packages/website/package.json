@@ -1,5 +1,5 @@
 {
-  "name": "website",
+  "name": "@yaba/website",
   "version": "1.0.0",
   "author": {
     "name": "Oz Sayag",
@@ -10,7 +10,7 @@
   "scripts": {
     "examples": "docusaurus-examples",
     "start": "docusaurus-start",
-    "build": "docusaurus-build",
+    "build": "rm -rf build && docusaurus-build",
     "publish-gh-pages": "docusaurus-publish",
     "write-translations": "docusaurus-write-translations",
     "version": "docusaurus-version",

@@ -49,17 +49,19 @@ export default class ModulesTable extends Component {
         const { excludeNodeModules, textSearch } = this.state;
 
         return (
-            <React.Fragment>
-                <Checkbox defaultChecked={excludeNodeModules} value={excludeNodeModules} onChange={this.toggleNodeModules}>
-                    Exclude node modules
-                </Checkbox>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div>
+                    <Checkbox defaultChecked={excludeNodeModules} value={excludeNodeModules} onChange={this.toggleNodeModules}>
+                        Exclude node modules
+                    </Checkbox>
+                </div>
                 <Search
                     placeholder="search module"
                     onChange={this.updateSearchModule}
                     style={{ width: 200 }}
                     value={textSearch}
                 />
-            </React.Fragment>
+            </div>
         );
     }
 

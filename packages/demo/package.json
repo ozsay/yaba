@@ -5,8 +5,10 @@
   "license": "MIT",
   "dependencies": {
     "font-awesome": "4.7.0",
+    "history": "4.7.2",
     "lodash": "4.0.0",
-    "qs": "6.5.1"
+    "qs": "6.5.1",
+    "warning": "2.1.0"
   },
   "scripts": {
     "build": "webpack --progress --profile --json > /dev/null",
