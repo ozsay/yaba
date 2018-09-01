@@ -1,6 +1,7 @@
 {
   "name": "@yaba/website",
   "version": "1.0.0",
+  "license": "MIT",
   "author": {
     "name": "Oz Sayag",
     "email": "ozsayag@gmail.com",

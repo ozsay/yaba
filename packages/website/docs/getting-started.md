@@ -45,4 +45,4 @@ In order for the plugin to work, Yaba application must run first. Open it like a
 
 ## Build Your Project
 
-Run you build command. Usually `webpack` or a wrapper `npm` script.
+Run your build command. Usually a `webpack` command or an `npm` script.

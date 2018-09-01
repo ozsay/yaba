@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "author": {
+    "name": "Oz Sayag",
+    "email": "ozsayag@gmail.com",
+    "url": "https://github.com/ozsay"
+  },
   "dependencies": {
     "fs-extra": "7.0.0",
     "node-ipc": "9.1.1",

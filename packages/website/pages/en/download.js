@@ -18,6 +18,12 @@ function imgUrl(img) {
     return `${siteConfig.baseUrl}img/${img}`;
 }
 
+const titleStyle = {
+    fontSize: 24,
+    fontWeight: 700,
+    padding: 20,
+};
+
 const downloadButtonStyle = {
     display: 'inline-block',
     height: '40px',
@@ -38,15 +44,17 @@ class Download extends React.Component {
                 background="light"
             >
                 <div style={{ textAlign: 'center', paddingBottom: 100 }}>
-                    <MarkdownBlock>
-                        ## Download Yaba Application
-                    </MarkdownBlock>
-                    <MarkdownBlock>
-                        Current version: 1.0.0
-                    </MarkdownBlock>
+                    <div style={titleStyle}>
+                        Download Yaba Application
+                    </div>
+                    <div>
+                        Latest version:
+                        {' '}
+                        {siteConfig.currentVersion}
+                    </div>
                     <img style={{ padding: 20, height: 100 }} src={imgUrl('mac.png')} alt="Download for MacOS" />
                     <br />
-                    <a style={downloadButtonStyle} href="/">Download MacOS Installer</a>
+                    <a style={downloadButtonStyle} href={siteConfig.downloadLink}>Download MacOS Installer</a>
                 </div>
                 <MarkdownBlock>
                     > Currently there is an official build for MacOS only

@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "main": "lib/parse.js",
   "license": "MIT",
+  "author": {
+    "name": "Oz Sayag",
+    "email": "ozsayag@gmail.com",
+    "url": "https://github.com/ozsay"
+  },
   "dependencies": {
     "mime-types": "2.1.20"
   }

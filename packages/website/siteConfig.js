@@ -8,6 +8,8 @@
 // See https://docusaurus.io/docs/site-config for all the possible
 // site configuration options.
 
+const version = '1.0.0';
+
 const siteConfig = {
     title: 'yaba', // Title for your website.
     tagline: 'Yet Another Bundle Analyzer for Webpack',
@@ -15,6 +17,9 @@ const siteConfig = {
     customDocsPath: 'website/docs',
     baseUrl: '/', // Base URL for your project */
     cname: 'yaba.io',
+
+    currentVersion: version,
+    downloadLink: `https://github.com/ozsay/yaba/releases/download/v${version}/yaba-${version}.dmg`,
 
     // For github.io type URLs, you would set the url and baseUrl like:
     //   url: 'https://facebook.github.io',
@@ -32,6 +37,8 @@ const siteConfig = {
         { doc: 'getting-started', label: 'Getting Started' },
         { page: 'download', label: 'Download' },
         { doc: 'doc1', label: 'Docs' },
+        { page: 'support', label: 'Support' },
+        { href: 'https://github.com/ozsay/yaba', label: 'GitHub' },
         { blog: true, label: 'Blog' },
     ],
 

@@ -2,5 +2,10 @@
   "name": "@yaba/analyzer",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "author": {
+    "name": "Oz Sayag",
+    "email": "ozsayag@gmail.com",
+    "url": "https://github.com/ozsay"
+  }
 }
