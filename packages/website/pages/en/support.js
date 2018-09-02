@@ -7,56 +7,51 @@
 
 const React = require('react');
 
-const CompLibrary = require('../../core/CompLibrary.js');
-
-const Container = CompLibrary.Container;
-const GridBlock = CompLibrary.GridBlock;
-
 const siteConfig = require(`${process.cwd()}/siteConfig.js`);
+
+const titleStyle = {
+    fontSize: 24,
+    fontWeight: 700,
+    padding: 20,
+};
 
 function imgUrl(img) {
     return `${siteConfig.baseUrl}img/${img}`;
 }
 
-const Block = props => (
-    <Container
-        padding={['bottom', 'top']}
-        id={props.id}
-        background={props.background}
-    >
-        <GridBlock align="center" contents={props.children} layout={props.layout} />
-    </Container>
-);
-
-const Features = () => (
-    <Block layout="fourColumn">
-        {[
-            {
-                title: 'Telegram',
-                content: 'Join our Telegram channel for news and updates',
-                image: imgUrl('telegram.png'),
-                imageAlign: 'top',
-                imageLink: 'https://t.me/yabaio',
-            },
-            {
-                content: 'Check our github repo or create a new issue',
-                image: imgUrl('github.png'),
-                imageAlign: 'top',
-            },
-        ]}
-    </Block>
-);
-
-class Index extends React.Component {
+class Support extends React.Component {
     render() {
         return (
-            <div>
-                <div>
-                    <Features />
+            <div style={{ display: 'flex', justifyContent: 'center', padding: 100 }}>
+                <div style={{ textAlign: 'center', padding: '0 100px' }}>
+                    <a href="https://t.me/yabaio" rel="noopener noreferrer" target="_blank">
+                        <img
+                            className="support-img"
+                            src={imgUrl('telegram.png')}
+                            alt="Open Telegram Channel"
+                        />
+                    </a>
+                    <div style={titleStyle}>
+                        Telegram
+                    </div>
+                    <div>Join our Telegram channel for news and updates</div>
+                </div>
+                <div style={{ textAlign: 'center', padding: '0 100px' }}>
+                    <a href="https://github.com/ozsay/yaba" rel="noopener noreferrer" target="_blank">
+                        <img
+                            className="support-img"
+                            src={imgUrl('github.jpg')}
+                            alt="Open Telegram Channel"
+                        />
+                    </a>
+                    <div style={titleStyle}>
+                        Github
+                    </div>
+                    <div>Check our Github repo or create a new issue</div>
                 </div>
             </div>
         );
     }
 }
 
-module.exports = Index;
+module.exports = Support;

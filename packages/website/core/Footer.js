@@ -40,9 +40,9 @@ class Footer extends React.Component {
                         <a href={this.pageUrl('download', this.props.language)}>
                             Download
                         </a>
-                        <a href={this.docUrl('doc2.html', this.props.language)}>
-                            Docs
-                        </a>
+                        {/*<a href={this.docUrl('doc2.html', this.props.language)}>*/}
+                            {/*Docs*/}
+                        {/*</a>*/}
                     </div>
                     <div>
                         <h5>Community</h5>

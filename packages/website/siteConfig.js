@@ -36,7 +36,7 @@ const siteConfig = {
     headerLinks: [
         { doc: 'getting-started', label: 'Getting Started' },
         { page: 'download', label: 'Download' },
-        { doc: 'doc1', label: 'Docs' },
+        // { doc: 'doc1', label: 'Docs' },
         { page: 'support', label: 'Support' },
         { href: 'https://github.com/ozsay/yaba', label: 'GitHub' },
         { blog: true, label: 'Blog' },

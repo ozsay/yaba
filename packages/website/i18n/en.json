@@ -4,16 +4,12 @@
     "next": "Next",
     "previous": "Previous",
     "tagline": "Yet Another Bundle Analyzer for Webpack",
-    "doc1": "Latin-ish",
-    "Example Page": "Example Page",
     "getting-started": "Getting Started",
     "Getting Started": "Getting Started",
     "Download": "Download",
-    "Docs": "Docs",
     "Support": "Support",
     "GitHub": "GitHub",
-    "Blog": "Blog",
-    "Docusaurus": "Docusaurus"
+    "Blog": "Blog"
   },
   "pages-strings": {
     "Help Translate|recruit community translators for your project": "Help Translate",

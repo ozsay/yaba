@@ -24,25 +24,10 @@ const titleStyle = {
     padding: 20,
 };
 
-const downloadButtonStyle = {
-    display: 'inline-block',
-    height: '40px',
-    background: '#4E9CAF',
-    padding: '0 10px',
-    lineHeight: '40px',
-    textAlign: 'center',
-    borderRadius: '5px',
-    color: 'white',
-    fontWeight: 'bold',
-};
-
 class Download extends React.Component {
     render() {
         return (
-            <Container
-                padding={['all']}
-                background="light"
-            >
+            <Container padding={['all']} background="light">
                 <div style={{ textAlign: 'center', paddingBottom: 100 }}>
                     <div style={titleStyle}>
                         Download Yaba Application
@@ -54,7 +39,7 @@ class Download extends React.Component {
                     </div>
                     <img style={{ padding: 20, height: 100 }} src={imgUrl('mac.png')} alt="Download for MacOS" />
                     <br />
-                    <a style={downloadButtonStyle} href={siteConfig.downloadLink}>Download MacOS Installer</a>
+                    <a className="download-button" href={siteConfig.downloadLink}>Download MacOS Installer</a>
                 </div>
                 <MarkdownBlock>
                     > Currently there is an official build for MacOS only
