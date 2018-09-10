@@ -10,29 +10,50 @@
 
 const version = '1.0.0';
 
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function viewerjsRenderer(md) {
+    md.renderer.rules.image = ([{ src, alt }]) => {
+        const randomId = getRndInteger(0, Number.MAX_SAFE_INTEGER);
+
+        return `<div>
+                  <img style="cursor:pointer;" id="${randomId}" src="${src}" alt="${alt}" />
+                  <script>
+                    new Viewer(document.getElementById(${randomId}), {
+                      toolbar: false,
+                      navbar: false,
+                      title: false,
+                      movable: false,
+                      zoomable: false,
+                      rotatable: false,
+                      zIndex: 9999999999,
+                    });
+                  </script>
+                </div>`;
+    };
+}
+
 const siteConfig = {
-    title: 'yaba', // Title for your website.
+    title: 'yaba',
     tagline: 'Yet Another Bundle Analyzer for Webpack',
-    url: 'https://yaba.io', // Your website URL
+    url: 'https://yaba.io',
     customDocsPath: 'website/docs',
-    baseUrl: '/', // Base URL for your project */
+    baseUrl: '/',
     cname: 'yaba.io',
 
     currentVersion: version,
     downloadLink: `https://github.com/ozsay/yaba/releases/download/v${version}/yaba-${version}.dmg`,
 
-    // For github.io type URLs, you would set the url and baseUrl like:
-    //   url: 'https://facebook.github.io',
-    //   baseUrl: '/test-site/',
+    algolia: {
+        apiKey: '479a1f7c112934f04b93a96f7be26366',
+        indexName: 'yaba',
+    },
 
-    // Used for publishing and more
     projectName: 'yaba',
     organizationName: 'ozsay',
-    // For top-level user or org sites, the organization is still the same.
-    // e.g., for the https://JoelMarcey.github.io site, it would be set like...
-    //   organizationName: 'JoelMarcey'
 
-    // For no header links in the top nav bar -> headerLinks: [],
     headerLinks: [
         { doc: 'getting-started', label: 'Getting Started' },
         { page: 'download', label: 'Download' },
@@ -42,59 +63,40 @@ const siteConfig = {
         { blog: true, label: 'Blog' },
     ],
 
-    // If you have users set above, you add it here:
-
-    /* path to images for header/footer */
     headerIcon: 'img/icon.svg',
     footerIcon: 'img/icon.svg',
     favicon: 'img/favicon.png',
 
-    /* Colors for website */
     colors: {
         primaryColor: '#1c78c0',
         secondaryColor: '#8ed6fb',
     },
 
-    /* Custom fonts for website */
-    /*
-  fonts: {
-    myFont: [
-      "Times New Roman",
-      "Serif"
-    ],
-    myOtherFont: [
-      "-apple-system",
-      "system-ui"
-    ]
-  },
-  */
-
-    // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
     copyright: `Copyright © ${new Date().getFullYear()} Oz Sayag`,
 
     highlight: {
-    // Highlight.js theme to use for syntax highlighting in code blocks.
         theme: 'default',
     },
 
-    // Add custom scripts here that would be placed in <script> tags.
-    scripts: ['https://buttons.github.io/buttons.js', 'https://platform.twitter.com/widgets.js'],
+    scripts: [
+        'https://buttons.github.io/buttons.js',
+        'https://platform.twitter.com/widgets.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.2.0/viewer.min.js',
+    ],
+    stylesheets: [
+        'https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.2.0/viewer.min.css',
+    ],
+    markdownPlugins: [
+        viewerjsRenderer,
+    ],
 
-    // On page navigation for the current documentation page.
     onPageNav: 'separate',
-    // No .html extensions for paths.
     cleanUrl: true,
+    // gaTrackingId: 'UA-58342187-3',
 
     twitter: 'true',
     twitterUsername: 'yaba_io',
     twitterImage: 'img/yaba.png',
-    // Open Graph and Twitter card images.
-    // ogImage: 'img/docusaurus.png',
-    // twitterImage: 'img/docusaurus.png',
-
-    // You may provide arbitrary config keys to be used as needed by your
-    // template. For example, if you need your repo's URL...
-    //   repoUrl: 'https://github.com/facebook/test-site',
 };
 
 module.exports = siteConfig;

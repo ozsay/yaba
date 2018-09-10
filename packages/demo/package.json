@@ -23,14 +23,14 @@
     "@babel/core": "7.0.0",
     "@babel/preset-env": "7.0.0",
     "@yaba/plugin": "1.0.0",
-    "babel-loader": "8.0.1",
+    "babel-loader": "8.0.2",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "1.0.0",
     "file-loader": "2.0.0",
     "mini-css-extract-plugin": "0.4.2",
     "style-loader": "0.23.0",
     "tmp": "0.0.33",
-    "webpack": "4.17.1",
+    "webpack": "4.17.2",
     "webpack-cli": "3.1.0"
   }
 }

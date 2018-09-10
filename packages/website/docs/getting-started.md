@@ -46,3 +46,11 @@ In order for the plugin to work, Yaba application must run first. Open it like a
 ## Build Your Project
 
 Run your build command. Usually a `webpack` command or an `npm` script.
+
+After the build you should see this screen in the application:
+
+![statsUpdate]
+
+Click 'Ok' and check the application for the bundle details.
+
+[statsUpdate]: /img/app/statsUpdate.png
