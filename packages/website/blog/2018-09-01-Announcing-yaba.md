@@ -89,19 +89,19 @@ This is the results screen:
 
 ![analyze2]
 
-[analyze1]: /img/app/analyze1.png
-[analyze2]: /img/app/analyze2.png
-[asset]: /img/app/asset.png
-[assets]: /img/app/assets.png
-[chunk]: /img/app/chunk.png
-[chunks]: /img/app/chunks.png
-[general]: /img/app/general.png
-[module1]: /img/app/module1.png
-[module2]: /img/app/module2.png
-[modules]: /img/app/modules.png
-[modulesSearch]: /img/app/modulesSearch.png
-[package1]: /img/app/package1.png
-[package2]: /img/app/package2.png
-[packages]: /img/app/packages.png
-[warnings]: /img/app/warnings.png
+[analyze1]: /blog/assets/2018-09-01-Announcing-yaba//analyze1.png
+[analyze2]: /blog/assets/2018-09-01-Announcing-yaba//analyze2.png
+[asset]: /blog/assets/2018-09-01-Announcing-yaba//asset.png
+[assets]: /blog/assets/2018-09-01-Announcing-yaba//assets.png
+[chunk]: /blog/assets/2018-09-01-Announcing-yaba//chunk.png
+[chunks]: /blog/assets/2018-09-01-Announcing-yaba//chunks.png
+[general]: /blog/assets/2018-09-01-Announcing-yaba//general.png
+[module1]: /blog/assets/2018-09-01-Announcing-yaba//module1.png
+[module2]: /blog/assets/2018-09-01-Announcing-yaba//module2.png
+[modules]: /blog/assets/2018-09-01-Announcing-yaba//modules.png
+[modulesSearch]: /blog/assets/2018-09-01-Announcing-yaba//modulesSearch.png
+[package1]: /blog/assets/2018-09-01-Announcing-yaba//package1.png
+[package2]: /blog/assets/2018-09-01-Announcing-yaba//package2.png
+[packages]: /blog/assets/2018-09-01-Announcing-yaba//packages.png
+[warnings]: /blog/assets/2018-09-01-Announcing-yaba//warnings.png
 
