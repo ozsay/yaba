@@ -1,6 +1,6 @@
 {
   "name": "@yaba/plugin",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "index.js",
   "license": "MIT",
   "author": {
@@ -8,6 +8,17 @@
     "email": "ozsayag@gmail.com",
     "url": "https://github.com/ozsay"
   },
+  "keywords": [
+    "javascript",
+    "bundle",
+    "analyzer",
+    "web",
+    "webpack-analyzer",
+    "web-performance",
+    "performance",
+    "optimization",
+    "developer-tools"
+  ],
   "dependencies": {
     "fs-extra": "7.0.0",
     "node-ipc": "9.1.1",

@@ -3,11 +3,11 @@ id: getting-started
 title: Getting Started
 ---
 
-## Download and Install Yaba Application
+## Download and Install the Yaba Application
 
-Download the application from the [download page](/download) and install it via the downloaded `dmg` file.
+Download the application from the <a href="/download" target="_blank">download page</a> and install it via the downloaded `dmg` file.
 
-## Install Yaba Plugin
+## Install the Yaba Plugin
 
 Install Yaba Plugin via `npm` or `yarn`.
 
@@ -19,7 +19,7 @@ Install Yaba Plugin via `npm` or `yarn`.
   yarn add --dev @yaba/plugin
 ```
 
-## Configure Yaba Plugin
+## Configure the Yaba Plugin
 
 webpack.config.js
 ```js
@@ -35,9 +35,9 @@ module.exports = {
     new YabaPlugin()
   ]
 }
-
 ```
-## Run Yaba Application
+
+## Run the Yaba Application
 
 In order for the plugin to work, Yaba application must run first. Open it like a regular MacOS application.
 

@@ -6,14 +6,14 @@
     "clean": "lerna clean",
     "build:demo": "lerna run --scope @yaba/demo build",
     "build:application": "lerna run --scope @yaba/application build",
+    "publish:website": "lerna run --stream --scope @yaba/website publish",
     "start:main": "lerna run --stream --scope @yaba/application start:main",
     "start:website": "lerna run --stream --scope @yaba/website start",
     "start:renderer": "lerna run --stream --scope @yaba/application start:renderer"
   },
   "license": "MIT",
   "workspaces": [
-    "packages/*",
-    "packages/website/website"
+    "packages/*"
   ],
   "devDependencies": {
     "babel-eslint": "9.0.0",
