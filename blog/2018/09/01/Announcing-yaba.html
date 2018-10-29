@@ -1,4 +1,18 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Announcing yaba · yaba</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Yaba stands for &quot;Yet Another Bundle Analyzer&quot; and it&#x27;s a new bundle analyzer for webpack."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Announcing yaba · yaba"/><meta property="og:type" content="website"/><meta property="og:url" content="https://yaba.io/blog/2018/09/01/Announcing-yaba"/><meta property="og:description" content="Yaba stands for &quot;Yet Another Bundle Analyzer&quot; and it&#x27;s a new bundle analyzer for webpack."/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://yaba.io/img/yaba.png"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://yaba.io/blog/atom.xml" title="yaba Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://yaba.io/blog/feed.xml" title="yaba Blog RSS Feed"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.2.0/viewer.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.2.0/viewer.min.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/icon.svg" alt="yaba"/><h2 class="headerTitleWithLogo">yaba</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/getting-started" target="_self">Getting Started</a></li><li class=""><a href="/en/download" target="_self">Download</a></li><li class=""><a href="/en/support" target="_self">Support</a></li><li class=""><a href="https://github.com/ozsay/yaba" target="_self">GitHub</a></li><li class="siteNavGroupActive"><a href="/blog" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Recent Posts</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Recent Posts</h3><ul><li class="navListItem navListItemActive"><a class="navItem" href="/blog/2018/09/01/Announcing-yaba">Announcing yaba</a></li></ul></div></div></section></div><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Announcing yaba · yaba</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Yaba stands for &quot;Yet Another Bundle Analyzer&quot; and it&#x27;s a new bundle analyzer for webpack."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Announcing yaba · yaba"/><meta property="og:type" content="website"/><meta property="og:url" content="https://yaba.io/blog/2018/09/01/Announcing-yaba"/><meta property="og:description" content="Yaba stands for &quot;Yet Another Bundle Analyzer&quot; and it&#x27;s a new bundle analyzer for webpack."/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://yaba.io/img/yaba.png"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://yaba.io/blog/atom.xml" title="yaba Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://yaba.io/blog/feed.xml" title="yaba Blog RSS Feed"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-58342187-3', 'auto');
+              ga('send', 'pageview');
+            </script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.3.0/viewer.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.3.0/viewer.min.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/icon.svg" alt="yaba"/><h2 class="headerTitleWithLogo">yaba</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/getting-started" target="_self">Getting Started</a></li><li class=""><a href="/en/download" target="_self">Download</a></li><li class=""><a href="/en/support" target="_self">Support</a></li><li class=""><a href="https://github.com/ozsay/yaba" target="_self">GitHub</a></li><li class="siteNavGroupActive"><a href="/blog" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Recent Posts</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Recent Posts</h3><ul><li class="navListItem navListItemActive"><a class="navItem" href="/blog/2018/09/01/Announcing-yaba">Announcing yaba</a></li></ul></div></div></section></div><script>
             document.addEventListener('DOMContentLoaded', function() {
               createToggler('#navToggler', '#docsNav', 'docsSliderActive');
               createToggler('#tocToggler', 'body', 'tocActive');
@@ -25,7 +39,7 @@
                 };
               }
             });
-        </script></nav></div><div class="container mainContainer postContainer blogContainer"><div class="wrapper"><div class="lonePost"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2018/09/01/Announcing-yaba">Announcing yaba</a></h1><p class="post-meta">September 1, 2018</p><div class="authorBlock"><p class="post-authorName"><a href="https://github.com/ozsay" target="_blank" rel="noreferrer noopener">Oz Sayag</a></p><div class="authorPhoto"><a href="https://github.com/ozsay" target="_blank" rel="noreferrer noopener"><img src="/img/oz.png" alt="Oz Sayag"/></a></div></div></header><div><span><p>Yaba stands for &quot;Yet Another Bundle Analyzer&quot; and it's a new bundle analyzer for webpack.</p>
+        </script></nav></div><div class="container mainContainer postContainer blogContainer"><div class="wrapper"><div class="lonePost"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2018/09/01/Announcing-yaba">Announcing yaba</a></h1><p class="post-meta">September 1, 2018</p><div class="authorBlock"><p class="post-authorName"><a href="https:/github.com/ozsay" target="_blank" rel="noreferrer noopener">Oz Sayag</a></p><div class="authorPhoto"><a href="https:/github.com/ozsay" target="_blank" rel="noreferrer noopener"><img src="/img/oz.png" alt="Oz Sayag"/></a></div></div></header><div><span><p>Yaba stands for &quot;Yet Another Bundle Analyzer&quot; and it's a new bundle analyzer for webpack.</p>
 <!--truncate-->
 <p><code>yaba</code> is inspired by other bundle analyzers and tries to bring a whole solution to analyze the bundle created by <code>webpack</code>.
 While other tools attempt to solve some difficulties understanding your bundle, <code>yaba</code> will display everything it about the output of your app.</p>
@@ -35,9 +49,9 @@ While other tools attempt to solve some difficulties understanding your bundle, 
 <h2><a class="anchor" aria-hidden="true" id="general"></a><a href="#general" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>General</h2>
 <p>In this screen you can see general information about the bundle:</p>
 <p><div>
-                  <img style="cursor:pointer;" id="8197466304326747" src="/blog/assets/2018-09-01-Announcing-yaba//general.png" alt="general" />
+                  <img style="cursor:pointer;" id="1313973060668947" src="/blog/assets/2018-09-01-Announcing-yaba/general.png" alt="general" />
                   <script>
-                    new Viewer(document.getElementById(8197466304326747), {
+                    new Viewer(document.getElementById(1313973060668947), {
                       toolbar: false,
                       navbar: false,
                       title: false,
@@ -50,9 +64,9 @@ While other tools attempt to solve some difficulties understanding your bundle, 
                 </div></p>
 <h2><a class="anchor" aria-hidden="true" id="modules"></a><a href="#modules" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Modules</h2>
 <p><div>
-                  <img style="cursor:pointer;" id="6535199447675579" src="/blog/assets/2018-09-01-Announcing-yaba//modules.png" alt="modules" />
+                  <img style="cursor:pointer;" id="5087271013320555" src="/blog/assets/2018-09-01-Announcing-yaba/modules.png" alt="modules" />
                   <script>
-                    new Viewer(document.getElementById(6535199447675579), {
+                    new Viewer(document.getElementById(5087271013320555), {
                       toolbar: false,
                       navbar: false,
                       title: false,
@@ -64,9 +78,9 @@ While other tools attempt to solve some difficulties understanding your bundle, 
                   </script>
                 </div></p>
 <p><div>
-                  <img style="cursor:pointer;" id="321509933118917" src="/blog/assets/2018-09-01-Announcing-yaba//modulesSearch.png" alt="modulesSearch" />
+                  <img style="cursor:pointer;" id="358688144687507" src="/blog/assets/2018-09-01-Announcing-yaba/modulesSearch.png" alt="modulesSearch" />
                   <script>
-                    new Viewer(document.getElementById(321509933118917), {
+                    new Viewer(document.getElementById(358688144687507), {
                       toolbar: false,
                       navbar: false,
                       title: false,
@@ -78,9 +92,9 @@ While other tools attempt to solve some difficulties understanding your bundle, 
                   </script>
                 </div></p>
 <p><div>
-                  <img style="cursor:pointer;" id="5184794044682753" src="/blog/assets/2018-09-01-Announcing-yaba//module1.png" alt="module1" />
+                  <img style="cursor:pointer;" id="6416089243578883" src="/blog/assets/2018-09-01-Announcing-yaba/module1.png" alt="module1" />
                   <script>
-                    new Viewer(document.getElementById(5184794044682753), {
+                    new Viewer(document.getElementById(6416089243578883), {
                       toolbar: false,
                       navbar: false,
                       title: false,
@@ -92,9 +106,9 @@ While other tools attempt to solve some difficulties understanding your bundle, 
                   </script>
                 </div></p>
 <p><div>
-                  <img style="cursor:pointer;" id="7568642444652715" src="/blog/assets/2018-09-01-Announcing-yaba//module2.png" alt="module2" />
+                  <img style="cursor:pointer;" id="7225032521830277" src="/blog/assets/2018-09-01-Announcing-yaba/module2.png" alt="module2" />
                   <script>
-                    new Viewer(document.getElementById(7568642444652715), {
+                    new Viewer(document.getElementById(7225032521830277), {
                       toolbar: false,
                       navbar: false,
                       title: false,
@@ -108,9 +122,9 @@ While other tools attempt to solve some difficulties understanding your bundle, 
 <h2><a class="anchor" aria-hidden="true" id="assets"></a><a href="#assets" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Assets</h2>
 <p>This screen shows a list of your assets (everything that <code>webpack</code> outputs):</p>
 <p><div>
-                  <img style="cursor:pointer;" id="5949480379053891" src="/blog/assets/2018-09-01-Announcing-yaba//assets.png" alt="assets" />
+                  <img style="cursor:pointer;" id="7805476907836703" src="/blog/assets/2018-09-01-Announcing-yaba/assets.png" alt="assets" />
                   <script>
-                    new Viewer(document.getElementById(5949480379053891), {
+                    new Viewer(document.getElementById(7805476907836703), {
                       toolbar: false,
                       navbar: false,
                       title: false,
@@ -128,9 +142,9 @@ While other tools attempt to solve some difficulties understanding your bundle, 
 <li>some asset types have preview.</li>
 </ol>
 <p><div>
-                  <img style="cursor:pointer;" id="3672621538091967" src="/blog/assets/2018-09-01-Announcing-yaba//asset.png" alt="asset" />
+                  <img style="cursor:pointer;" id="2963905898918971" src="/blog/assets/2018-09-01-Announcing-yaba/asset.png" alt="asset" />
                   <script>
-                    new Viewer(document.getElementById(3672621538091967), {
+                    new Viewer(document.getElementById(2963905898918971), {
                       toolbar: false,
                       navbar: false,
                       title: false,
@@ -143,9 +157,9 @@ While other tools attempt to solve some difficulties understanding your bundle, 
                 </div></p>
 <h2><a class="anchor" aria-hidden="true" id="chunks"></a><a href="#chunks" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Chunks</h2>
 <p><div>
-                  <img style="cursor:pointer;" id="7391727687274045" src="/blog/assets/2018-09-01-Announcing-yaba//chunks.png" alt="chunks" />
+                  <img style="cursor:pointer;" id="5193848241502679" src="/blog/assets/2018-09-01-Announcing-yaba/chunks.png" alt="chunks" />
                   <script>
-                    new Viewer(document.getElementById(7391727687274045), {
+                    new Viewer(document.getElementById(5193848241502679), {
                       toolbar: false,
                       navbar: false,
                       title: false,
@@ -157,9 +171,9 @@ While other tools attempt to solve some difficulties understanding your bundle, 
                   </script>
                 </div></p>
 <p><div>
-                  <img style="cursor:pointer;" id="1991510737357263" src="/blog/assets/2018-09-01-Announcing-yaba//chunk.png" alt="chunk" />
+                  <img style="cursor:pointer;" id="7527788740775411" src="/blog/assets/2018-09-01-Announcing-yaba/chunk.png" alt="chunk" />
                   <script>
-                    new Viewer(document.getElementById(1991510737357263), {
+                    new Viewer(document.getElementById(7527788740775411), {
                       toolbar: false,
                       navbar: false,
                       title: false,
@@ -176,9 +190,9 @@ While other tools attempt to solve some difficulties understanding your bundle, 
 <p>you can search packages by clicking at the + sign in the top-left of the table.</p>
 </blockquote>
 <p><div>
-                  <img style="cursor:pointer;" id="340255666365643" src="/blog/assets/2018-09-01-Announcing-yaba//packages.png" alt="packages" />
+                  <img style="cursor:pointer;" id="4168481835349015" src="/blog/assets/2018-09-01-Announcing-yaba/packages.png" alt="packages" />
                   <script>
-                    new Viewer(document.getElementById(340255666365643), {
+                    new Viewer(document.getElementById(4168481835349015), {
                       toolbar: false,
                       navbar: false,
                       title: false,
@@ -204,9 +218,9 @@ While other tools attempt to solve some difficulties understanding your bundle, 
 <li>raw <code>package.json</code> of the package.</li>
 </ol>
 <p><div>
-                  <img style="cursor:pointer;" id="4569344520982887" src="/blog/assets/2018-09-01-Announcing-yaba//package1.png" alt="package1" />
+                  <img style="cursor:pointer;" id="7463876560175485" src="/blog/assets/2018-09-01-Announcing-yaba/package1.png" alt="package1" />
                   <script>
-                    new Viewer(document.getElementById(4569344520982887), {
+                    new Viewer(document.getElementById(7463876560175485), {
                       toolbar: false,
                       navbar: false,
                       title: false,
@@ -218,9 +232,9 @@ While other tools attempt to solve some difficulties understanding your bundle, 
                   </script>
                 </div></p>
 <p><div>
-                  <img style="cursor:pointer;" id="6788702332334515" src="/blog/assets/2018-09-01-Announcing-yaba//package2.png" alt="package2" />
+                  <img style="cursor:pointer;" id="5202571981584685" src="/blog/assets/2018-09-01-Announcing-yaba/package2.png" alt="package2" />
                   <script>
-                    new Viewer(document.getElementById(6788702332334515), {
+                    new Viewer(document.getElementById(5202571981584685), {
                       toolbar: false,
                       navbar: false,
                       title: false,
@@ -232,13 +246,13 @@ While other tools attempt to solve some difficulties understanding your bundle, 
                   </script>
                 </div></p>
 <h2><a class="anchor" aria-hidden="true" id="analysis"></a><a href="#analysis" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Analysis</h2>
-<p>Most of the information provided in <code>yaba</code> is raw collection from <code>webpack</code> and <code>yaba</code> plugin.
+<p>Most of the information provided in <code>yaba</code> is raw collection from <code>webpack</code> and the <code>yaba</code> plugin.
 You can run a deeper analysis on the bundle to detect issues.</p>
 <p>Currently the analyzer only detects duplicated packages.</p>
 <p><div>
-                  <img style="cursor:pointer;" id="8387070217707297" src="/blog/assets/2018-09-01-Announcing-yaba//analyze1.png" alt="analyze1" />
+                  <img style="cursor:pointer;" id="2565819279936873" src="/blog/assets/2018-09-01-Announcing-yaba/analyze1.png" alt="analyze1" />
                   <script>
-                    new Viewer(document.getElementById(8387070217707297), {
+                    new Viewer(document.getElementById(2565819279936873), {
                       toolbar: false,
                       navbar: false,
                       title: false,
@@ -251,9 +265,9 @@ You can run a deeper analysis on the bundle to detect issues.</p>
                 </div></p>
 <p>This is the results screen:</p>
 <p><div>
-                  <img style="cursor:pointer;" id="1724545353834763" src="/blog/assets/2018-09-01-Announcing-yaba//analyze2.png" alt="analyze2" />
+                  <img style="cursor:pointer;" id="5825994266413629" src="/blog/assets/2018-09-01-Announcing-yaba/analyze2.png" alt="analyze2" />
                   <script>
-                    new Viewer(document.getElementById(1724545353834763), {
+                    new Viewer(document.getElementById(5825994266413629), {
                       toolbar: false,
                       navbar: false,
                       title: false,
@@ -264,7 +278,8 @@ You can run a deeper analysis on the bundle to detect issues.</p>
                     });
                   </script>
                 </div></p>
-</span></div></div><div class="blogSocialSection"><div class="blogSocialSectionItem"><a href="https://twitter.com/share" class="twitter-share-button" data-text="Announcing yaba" data-url="https://yaba.io/blog/2018/09/01/Announcing-yaba" data-related="true" data-show-count="false">Tweet</a></div></div></div><div class="blog-recent"><a class="button" href="/blog">Recent Posts</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#general">General</a></li><li><a href="#modules">Modules</a></li><li><a href="#assets">Assets</a></li><li><a href="#chunks">Chunks</a></li><li><a href="#packages">Packages</a></li><li><a href="#analysis">Analysis</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/icon.svg" alt="yaba" width="66" height="58"/></a><div><h5>Links</h5><a href="/docs/en/getting-started">Getting Started</a><a href="/en/download">Download</a></div><div><h5>Community</h5></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://twitter.com/yaba_io?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @yaba_io</a><br/><a class="github-button" href="https://github.com/ozsay/yaba" data-icon="octicon-star" data-count-href="/ozsay/yaba/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 Oz Sayag</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>
+<p><strong>Hope you'll have a fun and productive analyzing!</strong></p>
+</span></div></div><div class="blogSocialSection"><div class="blogSocialSectionItem"><a href="https://twitter.com/share" class="twitter-share-button" data-text="Announcing yaba" data-url="https://yaba.io/blog/2018/09/01/Announcing-yaba" data-related="true" data-show-count="false">Tweet</a></div></div></div><div class="blog-recent"><a class="button" href="/blog">Recent Posts</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#general">General</a></li><li><a href="#modules">Modules</a></li><li><a href="#assets">Assets</a></li><li><a href="#chunks">Chunks</a></li><li><a href="#packages">Packages</a></li><li><a href="#analysis">Analysis</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/icon.svg" alt="yaba" width="66" height="58"/></a><div><h5>Links</h5><a href="/docs/getting-started">Getting Started</a><a href="/en/download">Download</a></div><div><h5>Community</h5></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://twitter.com/yaba_io?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @yaba_io</a><br/><a class="github-button" href="https://github.com/ozsay/yaba" data-icon="octicon-star" data-count-href="/ozsay/yaba/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 Oz Sayag</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>
               var search = docsearch({
                 
                 apiKey: '479a1f7c112934f04b93a96f7be26366',
