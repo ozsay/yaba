@@ -1,7 +1,7 @@
 ---
 title: Announcing yaba
 author: Oz Sayag
-authorURL: https://github.com/ozsay
+authorURL: https:/github.com/ozsay
 authorImageURL: /img/oz.png
 ---
 
@@ -78,7 +78,7 @@ In the next screens you can see detailed information about a package:
 
 ## Analysis
 
-Most of the information provided in `yaba` is raw collection from `webpack` and `yaba` plugin. 
+Most of the information provided in `yaba` is raw collection from `webpack` and the `yaba` plugin. 
 You can run a deeper analysis on the bundle to detect issues.
 
 Currently the analyzer only detects duplicated packages. 
@@ -89,19 +89,21 @@ This is the results screen:
 
 ![analyze2]
 
-[analyze1]: /blog/assets/2018-09-01-Announcing-yaba//analyze1.png
-[analyze2]: /blog/assets/2018-09-01-Announcing-yaba//analyze2.png
-[asset]: /blog/assets/2018-09-01-Announcing-yaba//asset.png
-[assets]: /blog/assets/2018-09-01-Announcing-yaba//assets.png
-[chunk]: /blog/assets/2018-09-01-Announcing-yaba//chunk.png
-[chunks]: /blog/assets/2018-09-01-Announcing-yaba//chunks.png
-[general]: /blog/assets/2018-09-01-Announcing-yaba//general.png
-[module1]: /blog/assets/2018-09-01-Announcing-yaba//module1.png
-[module2]: /blog/assets/2018-09-01-Announcing-yaba//module2.png
-[modules]: /blog/assets/2018-09-01-Announcing-yaba//modules.png
-[modulesSearch]: /blog/assets/2018-09-01-Announcing-yaba//modulesSearch.png
-[package1]: /blog/assets/2018-09-01-Announcing-yaba//package1.png
-[package2]: /blog/assets/2018-09-01-Announcing-yaba//package2.png
-[packages]: /blog/assets/2018-09-01-Announcing-yaba//packages.png
-[warnings]: /blog/assets/2018-09-01-Announcing-yaba//warnings.png
+**Hope you'll have a fun and productive analyzing!**
+
+[analyze1]: /blog/assets/2018-09-01-Announcing-yaba/analyze1.png
+[analyze2]: /blog/assets/2018-09-01-Announcing-yaba/analyze2.png
+[asset]: /blog/assets/2018-09-01-Announcing-yaba/asset.png
+[assets]: /blog/assets/2018-09-01-Announcing-yaba/assets.png
+[chunk]: /blog/assets/2018-09-01-Announcing-yaba/chunk.png
+[chunks]: /blog/assets/2018-09-01-Announcing-yaba/chunks.png
+[general]: /blog/assets/2018-09-01-Announcing-yaba/general.png
+[module1]: /blog/assets/2018-09-01-Announcing-yaba/module1.png
+[module2]: /blog/assets/2018-09-01-Announcing-yaba/module2.png
+[modules]: /blog/assets/2018-09-01-Announcing-yaba/modules.png
+[modulesSearch]: /blog/assets/2018-09-01-Announcing-yaba/modulesSearch.png
+[package1]: /blog/assets/2018-09-01-Announcing-yaba/package1.png
+[package2]: /blog/assets/2018-09-01-Announcing-yaba/package2.png
+[packages]: /blog/assets/2018-09-01-Announcing-yaba/packages.png
+[warnings]: /blog/assets/2018-09-01-Announcing-yaba/warnings.png
 

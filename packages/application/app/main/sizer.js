@@ -13,7 +13,7 @@ module.exports = {
         });
     },
     brotli(data, cb) {
-        brotli(data, (err, val) => {
+        brotli(Buffer.from(data), (err, val) => {
             cb(err, val && val.length);
         });
     },

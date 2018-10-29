@@ -1,14 +1,7 @@
-/**
- * Copyright (c) 2017-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-// See https://docusaurus.io/docs/site-config for all the possible
-// site configuration options.
-
 const version = '1.0.0';
+
+const COMMAND = process.env.npm_lifecycle_event;
+const IS_BUILDING = COMMAND === 'build' || COMMAND === 'publish';
 
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -44,6 +37,7 @@ const siteConfig = {
     cname: 'yaba.io',
 
     currentVersion: version,
+    defaultVersionShown: version,
     downloadLink: `https://github.com/ozsay/yaba/releases/download/v${version}/yaba-${version}.dmg`,
 
     algolia: {
@@ -81,10 +75,10 @@ const siteConfig = {
     scripts: [
         'https://buttons.github.io/buttons.js',
         'https://platform.twitter.com/widgets.js',
-        'https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.2.0/viewer.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.3.0/viewer.min.js',
     ],
     stylesheets: [
-        'https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.2.0/viewer.min.css',
+        'https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.3.0/viewer.min.css',
     ],
     markdownPlugins: [
         viewerjsRenderer,
@@ -92,7 +86,12 @@ const siteConfig = {
 
     onPageNav: 'separate',
     cleanUrl: true,
-    // gaTrackingId: 'UA-58342187-3',
+    scrollToTop: true,
+    scrollToTopOptions: {
+        zIndex: 100,
+    },
+
+    gaTrackingId: IS_BUILDING && 'UA-58342187-3',
 
     twitter: 'true',
     twitterUsername: 'yaba_io',

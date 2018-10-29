@@ -66,20 +66,15 @@ class HomeSplash extends React.Component {
                         <Button href={docUrl('getting-started')}>Try It Out</Button>
                     </PromoSection>
                 </div>
+                <div style={{ marginTop: 40 }}>
+                    <MarkdownBlock>
+                            Read the [blog post](/blog/2018/09/01/Announcing-yaba)
+                    </MarkdownBlock>
+                </div>
             </SplashContainer>
         );
     }
 }
-
-const FeatureCallout = () => (
-    <div
-        className="productShowcaseSection paddingBottom"
-        style={{ textAlign: 'center' }}
-    >
-        <h2>Feature Callout</h2>
-        <MarkdownBlock>These are features of this project</MarkdownBlock>
-    </div>
-);
 
 class Index extends React.Component {
     render() {
@@ -88,9 +83,6 @@ class Index extends React.Component {
         return (
             <div>
                 <HomeSplash language={language} />
-                <div className="mainContainer">
-                    <FeatureCallout />
-                </div>
             </div>
         );
     }
