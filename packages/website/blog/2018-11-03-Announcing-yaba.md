@@ -91,19 +91,19 @@ This is the results screen:
 
 **Hope you'll have a fun and productive analyzing!**
 
-[analyze1]: /blog/assets/2018-09-01-Announcing-yaba/analyze1.png
-[analyze2]: /blog/assets/2018-09-01-Announcing-yaba/analyze2.png
-[asset]: /blog/assets/2018-09-01-Announcing-yaba/asset.png
-[assets]: /blog/assets/2018-09-01-Announcing-yaba/assets.png
-[chunk]: /blog/assets/2018-09-01-Announcing-yaba/chunk.png
-[chunks]: /blog/assets/2018-09-01-Announcing-yaba/chunks.png
-[general]: /blog/assets/2018-09-01-Announcing-yaba/general.png
-[module1]: /blog/assets/2018-09-01-Announcing-yaba/module1.png
-[module2]: /blog/assets/2018-09-01-Announcing-yaba/module2.png
-[modules]: /blog/assets/2018-09-01-Announcing-yaba/modules.png
-[modulesSearch]: /blog/assets/2018-09-01-Announcing-yaba/modulesSearch.png
-[package1]: /blog/assets/2018-09-01-Announcing-yaba/package1.png
-[package2]: /blog/assets/2018-09-01-Announcing-yaba/package2.png
-[packages]: /blog/assets/2018-09-01-Announcing-yaba/packages.png
-[warnings]: /blog/assets/2018-09-01-Announcing-yaba/warnings.png
+[analyze1]: /blog/assets/2018-11-03-Announcing-yaba/analyze1.png
+[analyze2]: /blog/assets/2018-11-03-Announcing-yaba/analyze2.png
+[asset]: /blog/assets/2018-11-03-Announcing-yaba/asset.png
+[assets]: /blog/assets/2018-11-03-Announcing-yaba/assets.png
+[chunk]: /blog/assets/2018-11-03-Announcing-yaba/chunk.png
+[chunks]: /blog/assets/2018-11-03-Announcing-yaba/chunks.png
+[general]: /blog/assets/2018-11-03-Announcing-yaba/general.png
+[module1]: /blog/assets/2018-11-03-Announcing-yaba/module1.png
+[module2]: /blog/assets/2018-11-03-Announcing-yaba/module2.png
+[modules]: /blog/assets/2018-11-03-Announcing-yaba/modules.png
+[modulesSearch]: /blog/assets/2018-11-03-Announcing-yaba/modulesSearch.png
+[package1]: /blog/assets/2018-11-03-Announcing-yaba/package1.png
+[package2]: /blog/assets/2018-11-03-Announcing-yaba/package2.png
+[packages]: /blog/assets/2018-11-03-Announcing-yaba/packages.png
+[warnings]: /blog/assets/2018-11-03-Announcing-yaba/warnings.png
 

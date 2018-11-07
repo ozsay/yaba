@@ -5,11 +5,11 @@ title: Getting Started
 
 ## Download and Install the Yaba Application
 
-Download the application from the <a href="/download" target="_blank">download page</a> and install it via the downloaded `dmg` file.
+Download the application from the <a href="/download" target="_blank">download page</a> and install it via the downloaded **dmg** file.
 
 ## Install the Yaba Plugin
 
-Install Yaba Plugin via `npm` or `yarn`.
+Install the Yaba Plugin via **npm** or **yarn**.
 
 ```bash
   npm i --save-dev @yaba/plugin
@@ -21,7 +21,7 @@ Install Yaba Plugin via `npm` or `yarn`.
 
 ## Configure the Yaba Plugin
 
-webpack.config.js
+**webpack.config.js**
 ```js
 const YabaPlugin = require('@yaba/plugin');
 
@@ -45,7 +45,7 @@ In order for the plugin to work, Yaba application must run first. Open it like a
 
 ## Build Your Project
 
-Run your build command. Usually a `webpack` command or an `npm` script.
+Run your build command. Usually a **webpack** command or an **npm** script.
 
 After the build you should see this screen in the application:
 

@@ -9,9 +9,10 @@
   },
   "repository": "https://github.com/ozsay/yaba",
   "scripts": {
+    "clean": "rm -rf build",
     "start": "docusaurus-start",
-    "build": "rm -rf build && docusaurus-build",
-    "publish": "rm -rf build && docusaurus-publish"
+    "build": "yarn run clean && docusaurus-build",
+    "publish": "yarn run clean && docusaurus-publish"
   },
   "devDependencies": {
     "docusaurus": "1.3.3"
