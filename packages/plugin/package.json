@@ -20,7 +20,7 @@
     "developer-tools"
   ],
   "dependencies": {
-    "fs-extra": "7.0.0",
+    "fs-extra": "7.0.1",
     "node-ipc": "9.1.1",
     "safe-json-stringify": "^1.2.0",
     "tmp": "^0.0.33"

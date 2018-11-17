@@ -68,7 +68,7 @@ class HomeSplash extends React.Component {
                 </div>
                 <div style={{ marginTop: 40 }}>
                     <MarkdownBlock>
-                            Read the [blog post](/blog/2018/09/01/Announcing-yaba)
+                            Read the [blog post](/blog/2018/11/11/Announcing-yaba)
                     </MarkdownBlock>
                 </div>
             </SplashContainer>
