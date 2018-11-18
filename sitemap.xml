@@ -3,6 +3,7 @@
 <url> <loc>https://yaba.io/download</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://yaba.io/en/download" /> </url>
 <url> <loc>https://yaba.io/index</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://yaba.io/en/index" /> </url>
 <url> <loc>https://yaba.io/support</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://yaba.io/en/support" /> </url>
-<url> <loc>https://yaba.io/blog/2018/09/01/Announcing-yaba</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://yaba.io/blog/2018/11/18/Walkthrough-of-Yaba</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://yaba.io/blog/2018/11/11/Announcing-yaba</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
 <url> <loc>https://yaba.io/docs/getting-started</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://yaba.io/docs/getting-started" /> </url>
 </urlset>

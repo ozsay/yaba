@@ -4,7 +4,7 @@
         <title>yaba Blog</title>
         <link>https://yaba.io/blog</link>
         <description>The best place to stay up-to-date with the latest yaba news and events.</description>
-        <lastBuildDate>Sat, 01 Sep 2018 06:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 18 Nov 2018 06:00:00 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>Feed for Node.js</generator>
         <image>
@@ -14,10 +14,18 @@
         </image>
         <copyright>Copyright © 2018 Oz Sayag</copyright>
         <item>
+            <title><![CDATA[Walkthrough of Yaba]]></title>
+            <link>https://yaba.io/blog/2018/11/18/Walkthrough-of-Yaba.html</link>
+            <guid>https://yaba.io/blog/2018/11/18/Walkthrough-of-Yaba.html</guid>
+            <pubDate>Sun, 18 Nov 2018 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>In this blog post I will walk you through all currently available features in <strong>yaba</strong>.</p>
+]]></description>
+        </item>
+        <item>
             <title><![CDATA[Announcing yaba]]></title>
-            <link>https://yaba.io/blog/2018/09/01/Announcing-yaba.html</link>
-            <guid>https://yaba.io/blog/2018/09/01/Announcing-yaba.html</guid>
-            <pubDate>Sat, 01 Sep 2018 06:00:00 GMT</pubDate>
+            <link>https://yaba.io/blog/2018/11/11/Announcing-yaba.html</link>
+            <guid>https://yaba.io/blog/2018/11/11/Announcing-yaba.html</guid>
+            <pubDate>Sun, 11 Nov 2018 06:00:00 GMT</pubDate>
             <description><![CDATA[<p>Yaba stands for &quot;Yet Another Bundle Analyzer&quot; and it's a new bundle analyzer for webpack.</p>
 ]]></description>
         </item>

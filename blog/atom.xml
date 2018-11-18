@@ -2,18 +2,31 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yaba.io/blog</id>
     <title>yaba Blog</title>
-    <updated>2018-09-01T06:00:00Z</updated>
+    <updated>2018-11-18T06:00:00Z</updated>
     <generator>Feed for Node.js</generator>
     <link rel="alternate" href="https://yaba.io/blog"/>
     <subtitle>The best place to stay up-to-date with the latest yaba news and events.</subtitle>
     <logo>https://yaba.io/img/icon.svg</logo>
     <rights>Copyright © 2018 Oz Sayag</rights>
     <entry>
-        <title type="html"><![CDATA[Announcing yaba]]></title>
-        <id>https://yaba.io/blog/2018/09/01/Announcing-yaba.html</id>
-        <link href="https://yaba.io/blog/2018/09/01/Announcing-yaba.html">
+        <title type="html"><![CDATA[Walkthrough of Yaba]]></title>
+        <id>https://yaba.io/blog/2018/11/18/Walkthrough-of-Yaba.html</id>
+        <link href="https://yaba.io/blog/2018/11/18/Walkthrough-of-Yaba.html">
         </link>
-        <updated>2018-09-01T06:00:00Z</updated>
+        <updated>2018-11-18T06:00:00Z</updated>
+        <summary type="html"><![CDATA[<p>In this blog post I will walk you through all currently available features in <strong>yaba</strong>.</p>
+]]></summary>
+        <author>
+            <name>Oz Sayag</name>
+            <uri>https:/github.com/ozsay</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Announcing yaba]]></title>
+        <id>https://yaba.io/blog/2018/11/11/Announcing-yaba.html</id>
+        <link href="https://yaba.io/blog/2018/11/11/Announcing-yaba.html">
+        </link>
+        <updated>2018-11-11T06:00:00Z</updated>
         <summary type="html"><![CDATA[<p>Yaba stands for &quot;Yet Another Bundle Analyzer&quot; and it's a new bundle analyzer for webpack.</p>
 ]]></summary>
         <author>
