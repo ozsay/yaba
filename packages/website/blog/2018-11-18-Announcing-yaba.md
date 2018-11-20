@@ -8,3 +8,9 @@ authorImageURL: /img/oz.png
 Yaba stands for "Yet Another Bundle Analyzer" and it's a new bundle analyzer for webpack.
 
 <!--truncate-->
+
+### Introduction
+
+### Why I created Yaba
+
+### 

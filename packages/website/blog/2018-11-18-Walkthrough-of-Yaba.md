@@ -26,9 +26,25 @@ In this screen you can see general information about the bundle:
 
 ## Modules
 
+Here you can see al the modules that exist in your bundle (all the source files):
+
 ![modules]
 
+You can search for modules and exclude node modules:
+
 ![modulesSearch]
+
+The next screens present detailed information about a module:
+
+1. which module issued it (imported it first).
+2. full path to the file.
+3. in which package the module exists.
+4. size of the module (exclusive - self size, inclusive - including children).
+5. list of children modules (imported modules).
+6. reasons - where this module is being imported.
+7. associated chunks.
+8. associated assets.
+8. source code preview.
 
 ![module1]
 
@@ -48,7 +64,7 @@ Here you can see detailed information about an asset:
 
 ![asset]
 
-> Some files produced by plugins (such as webpack-copy-plugin) may not be displayed.
+> \* Some files produced by plugins (such as webpack-copy-plugin) may not be displayed.
 Integration with those plugins is planned for the future.
 
 ## Chunks
@@ -100,8 +116,6 @@ Currently the analyzer only detects duplicated packages.
 This is the results screen:
 
 ![analyze2]
-
-**Hope you'll have a fun and productive analyzing!**
 
 [analyze1]: /blog/assets/2018-11-11-Walkthrough-of-Yaba/analyze1.png
 [analyze2]: /blog/assets/2018-11-11-Walkthrough-of-Yaba/analyze2.png
