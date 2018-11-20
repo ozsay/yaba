@@ -21,7 +21,7 @@ const headerStyle = {
     alignItems: 'center',
     width: '100%',
     position: 'fixed',
-    zIndex: 9999999999,
+    zIndex: 999,
 };
 
 const navigationStyle = {
@@ -168,7 +168,7 @@ class Main extends React.Component {
                     </Menu>
                     <MenuActions />
                 </Header>
-                <Layout style={{ marginTop: headerHeight }}>
+                <Layout style={{ marginTop: headerHeight, zIndex: 500 }}>
                     {/* { */}
                     {/* <Sider width={200} style={{ background: '#f1f1f1', borderRight: '1px #cacaca solid' }}> */}
                     {/* <Search */}

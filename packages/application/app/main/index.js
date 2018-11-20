@@ -28,7 +28,7 @@ function createMainWindow() {
 
     if (isDevelopment) {
         window.webContents.openDevTools();
-        require('./devtools');
+        // require('./devtools');
     }
 
     window.loadURL(url);
