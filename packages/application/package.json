@@ -18,8 +18,8 @@
     "build:prod": "yarn run build:renderer:prod && yarn run build:main:prod && node scripts/createPackageJson.js",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "publish": "electron-builder -p onTagOrDraft",
-    "publish:dev": "AWS_ACCESS_KEY_ID=LOCALCLOUD AWS_SECRET_ACCESS_KEY=LOCALCLOUDSECRET node scripts/publishDev.js"
+    "publish:dev": "AWS_ACCESS_KEY_ID=LOCALCLOUD AWS_SECRET_ACCESS_KEY=LOCALCLOUDSECRET electron-builder -p always --config electron-builder-development.yml",
+    "publish:github": "electron-builder -p onTagOrDraft"
   },
   "repository": "https://github.com/ozsay/yaba",
   "license": "MIT",
@@ -71,16 +71,5 @@
     "webpack": "4.26.0",
     "webpack-cli": "3.1.2",
     "webpack-dev-server": "3.1.10"
-  },
-  "build": {
-    "appId": "com.yaba.io",
-    "mac": {
-      "category": "public.app-category.developer-tools",
-      "icon": "../icon/mac/icon.icns"
-    },
-    "directories": {
-      "output": "release",
-      "app": "dist"
-    }
   }
 }

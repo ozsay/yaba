@@ -1,0 +1,15 @@
+productName: "yaba"
+appId: "com.yaba.io"
+
+mac:
+  category: "public.app-category.developer-tools"
+  icon: "../icon/mac/icon.icns"
+
+directories:
+  output: "release/${version}"  
+  app: "dist"
+
+publish: 
+  provider: "s3"
+  endpoint: "http://localhost:9000"
+  bucket: "test"
