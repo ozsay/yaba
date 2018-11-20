@@ -117,19 +117,19 @@ This is the results screen:
 
 ![analyze2]
 
-[analyze1]: /blog/assets/2018-11-11-Walkthrough-of-Yaba/analyze1.png
-[analyze2]: /blog/assets/2018-11-11-Walkthrough-of-Yaba/analyze2.png
-[asset]: /blog/assets/2018-11-11-Walkthrough-of-Yaba/asset.png
-[assets]: /blog/assets/2018-11-11-Walkthrough-of-Yaba/assets.png
-[chunk]: /blog/assets/2018-11-11-Walkthrough-of-Yaba/chunk.png
-[chunks]: /blog/assets/2018-11-11-Walkthrough-of-Yaba/chunks.png
-[general]: /blog/assets/2018-11-11-Walkthrough-of-Yaba/general.png
-[module1]: /blog/assets/2018-11-11-Walkthrough-of-Yaba/module1.png
-[module2]: /blog/assets/2018-11-11-Walkthrough-of-Yaba/module2.png
-[modules]: /blog/assets/2018-11-11-Walkthrough-of-Yaba/modules.png
-[modulesSearch]: /blog/assets/2018-11-11-Walkthrough-of-Yaba/modulesSearch.png
-[package1]: /blog/assets/2018-11-11-Walkthrough-of-Yaba/package1.png
-[package2]: /blog/assets/2018-11-11-Walkthrough-of-Yaba/package2.png
-[packages]: /blog/assets/2018-11-11-Walkthrough-of-Yaba/packages.png
-[warnings]: /blog/assets/2018-11-11-Walkthrough-of-Yaba/warnings.png
+[analyze1]: /blog/assets/2018-11-18-Walkthrough-of-Yaba/analyze1.png
+[analyze2]: /blog/assets/2018-11-18-Walkthrough-of-Yaba/analyze2.png
+[asset]: /blog/assets/2018-11-18-Walkthrough-of-Yaba/asset.png
+[assets]: /blog/assets/2018-11-18-Walkthrough-of-Yaba/assets.png
+[chunk]: /blog/assets/2018-11-18-Walkthrough-of-Yaba/chunk.png
+[chunks]: /blog/assets/2018-11-18-Walkthrough-of-Yaba/chunks.png
+[general]: /blog/assets/2018-11-18-Walkthrough-of-Yaba/general.png
+[module1]: /blog/assets/2018-11-18-Walkthrough-of-Yaba/module1.png
+[module2]: /blog/assets/2018-11-18-Walkthrough-of-Yaba/module2.png
+[modules]: /blog/assets/2018-11-18-Walkthrough-of-Yaba/modules.png
+[modulesSearch]: /blog/assets/2018-11-18-Walkthrough-of-Yaba/modulesSearch.png
+[package1]: /blog/assets/2018-11-18-Walkthrough-of-Yaba/package1.png
+[package2]: /blog/assets/2018-11-18-Walkthrough-of-Yaba/package2.png
+[packages]: /blog/assets/2018-11-18-Walkthrough-of-Yaba/packages.png
+[warnings]: /blog/assets/2018-11-18-Walkthrough-of-Yaba/warnings.png
 

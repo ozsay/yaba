@@ -19,7 +19,7 @@
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "publish": "electron-builder -p onTagOrDraft",
-    "publish:dev": "AWS_ACCESS_KEY_ID=2XXK0AEBB8XWG56E1RBV AWS_SECRET_ACCESS_KEY=f1jVnodvC1cQCqe3yUTFgmMioZVM6faXqQ2qD9Jf node scripts/publishDev.js"
+    "publish:dev": "AWS_ACCESS_KEY_ID=LOCALCLOUD AWS_SECRET_ACCESS_KEY=LOCALCLOUDSECRET node scripts/publishDev.js"
   },
   "repository": "https://github.com/ozsay/yaba",
   "license": "MIT",

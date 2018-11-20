@@ -13,4 +13,6 @@ Yaba stands for "Yet Another Bundle Analyzer" and it's a new bundle analyzer for
 
 ### Why I created Yaba
 
-### 
+### Who am I
+
+### Future of Yaba

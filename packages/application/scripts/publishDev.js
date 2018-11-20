@@ -20,7 +20,7 @@ builder
             publish: {
                 provider: 's3',
                 endpoint: 'http://localhost:9000',
-                bucket: 'test-bucket',
+                bucket: 'test',
             },
         },
     })
