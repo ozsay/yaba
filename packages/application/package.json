@@ -59,7 +59,7 @@
     "babel-loader": "8.0.4",
     "css-loader": "1.0.1",
     "devtron": "1.4.0",
-    "electron": "3.0.10",
+    "electron": "7.3.3",
     "electron-builder": "20.36.2",
     "electron-devtools-installer": "2.2.4",
     "electron-rebuild": "1.8.2",

@@ -17,7 +17,7 @@ let mainWindow;
 
 function createMainWindow() {
     // Construct new BrowserWindow
-    const window = new BrowserWindow({ title: `yaba v${app.getVersion()}` });
+    const window = new BrowserWindow({ title: `yaba v${app.getVersion()}`, webPreferences: { nodeIntegration: true } });
 
     // Set url for `win`
     // points to `webpack-dev-server` in development
